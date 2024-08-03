@@ -1,15 +1,14 @@
 import Navbar from '~/components/Navbar';
-import Main from '~/components/Main/Main';
 import Footer from '~/components/Footer';
 
-function Home() {
+function Shop() {
   return (
     <>
       <Navbar />
-      <Main />
+      <h1> Shop page</h1>
       <Footer />
     </>
   );
 }
 
-export default Home;
+export default Shop;

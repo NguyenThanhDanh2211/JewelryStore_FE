@@ -1,0 +1,15 @@
+:root {
+  --font-family: 'Cormorant Garamond', serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family);
+  /* background-color: rgb(250, 247, 245); Avoid this affecting icons */
+}
+
+body {
+  background-color: rgb(250, 247, 245);
+}
