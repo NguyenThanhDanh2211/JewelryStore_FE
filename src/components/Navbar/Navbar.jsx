@@ -46,7 +46,6 @@ function Navbar() {
     <Box
       sx={{
         height: '80px',
-        position: 'static',
         marginTop: '10px',
         marginBottom: '5px',
       }}
@@ -119,32 +118,6 @@ function Navbar() {
                     </IconButton>
                   </Grid>
 
-                  {showSearch && (
-                    // <Box
-                    //   sx={{
-                    //     position: 'fixed',
-                    //     top: '50%',
-                    //     left: '50%',
-                    //     transform: 'translate(-50%, -50%)',
-                    //     width: '80%',
-                    //     bgcolor: 'background.paper',
-                    //     p: 4,
-                    //     boxShadow: 24,
-                    //     borderRadius: 1,
-                    //   }}
-                    // >
-                    //   <Typography variant="h6" component="div">
-                    //     Search
-                    //   </Typography>
-                    //   {/* <Input
-                    //     placeholder="Search..."
-                    //     inputProps={ariaLabel}
-                    //     fullWidth
-                    //     sx={{ marginTop: 2 }}
-                    //   /> */}
-                    // </Box>
-                    <Search />
-                  )}
                   <Grid item>
                     <Link href="/cart" color="inherit">
                       <IconButton color="inherit">
@@ -159,6 +132,7 @@ function Navbar() {
                       </IconButton>
                     </Link>
                   </Grid>
+                  {showSearch && <Search />}
                 </Grid>
               </Grid>
             </Grid>
