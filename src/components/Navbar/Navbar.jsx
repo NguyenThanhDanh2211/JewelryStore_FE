@@ -1,145 +1,160 @@
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
 import {
-  AppBar,
-  Toolbar,
-  IconButton,
+  Card,
+  Stack,
   Typography,
   Box,
   Link,
   Grid,
+  IconButton,
 } from '@mui/material';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import logo from '~/assets/images/logo-regular.png';
-import Search from '../Search';
 
-const theme = createTheme({
-  typography: {
-    customTitle: {
-      textTransform: 'none',
-      fontSize: '1.2rem',
-      '&:hover': {
-        color: '#9A9A9A',
-      },
-    },
-  },
-  palette: {
-    mode: 'light',
-    primary: {
-      main: '#FAF7F5',
-    },
-  },
-});
+import { me } from '~/services/meService';
+
+const NavbarContainer = styled(Stack)(({ theme }) => ({
+  height: '100%',
+  padding: 4,
+  backgroundColor: '#000000',
+}));
+
+const MuiCard = styled(Card)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  padding: theme.spacing(8),
+  gap: theme.spacing(2),
+  margin: 'auto',
+}));
 
 function Navbar() {
-  const [showSearch, setShowSearch] = useState(false);
+  const navigate = useNavigate();
+  const [userName, setUserName] = useState(null);
 
-  const handleSearchClick = () => {
-    setShowSearch((prevShowSearch) => !prevShowSearch);
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+
+    if (token) {
+      fetchUserDetails(token);
+    }
+  }, []);
+
+  const fetchUserDetails = async () => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      try {
+        const response = await me(token);
+
+        setUserName(response.name);
+      } catch (error) {
+        console.error('Failed to fetch user details:', error);
+      }
+    }
+  };
+
+  const handleLogout = () => {
+    // Remove token from local storage
+    navigate('/login');
+    localStorage.removeItem('authToken');
+    setUserName(null);
   };
 
   return (
-    <Box
-      sx={{
-        height: '80px',
-        marginTop: '10px',
-        marginBottom: '5px',
-      }}
-    >
-      <ThemeProvider theme={theme}>
-        <AppBar>
-          <Toolbar
-            sx={{
-              height: '80px',
-              position: 'static',
-            }}
-          >
-            <Grid container alignItems="center" justifyContent="space-between">
-              <Grid item>
-                <Grid container spacing={2}>
-                  <Grid item>
-                    <Typography variant="customTitle">
-                      <Link href="/" color="inherit" underline="none">
-                        HOME
+    <>
+      <NavbarContainer direction="column" justifyContent="space-between">
+        <MuiCard variant="outlined">
+          <Grid container sx={{ gap: 2 }}>
+            <Grid item>
+              <Link href="/">
+                <Box
+                  component="img"
+                  alt="Jewelry Store"
+                  src={logo}
+                  sx={{
+                    position: 'absolute',
+                    height: '70px',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                />
+              </Link>
+            </Grid>
+            <Grid
+              item
+              sx={{
+                // position: 'absolute',
+                // right: '-50px',
+                // transform: 'translate(-50%, -50%)',
+                position: 'absolute',
+                right: '20px', // Align to the right edge
+                transform: 'translateY(-50%)', // Only translate vertically
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                gap: 2, // Spacing between elements
+              }}
+            >
+              <Grid container spacing={2}>
+                {userName ? (
+                  <>
+                    <Grid item>
+                      <Typography>Hello, {userName}</Typography>
+                    </Grid>
+                    <Grid item>
+                      <Typography> / </Typography>
+                    </Grid>
+                    <Grid item>
+                      <Link
+                        onClick={handleLogout}
+                        color="inherit"
+                        style={{ cursor: 'pointer' }}
+                      >
+                        <Typography>Log out</Typography>
                       </Link>
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography variant="customTitle">
-                      <Link href="/about" color="inherit" underline="none">
-                        ABOUT
+                    </Grid>
+                  </>
+                ) : (
+                  <>
+                    <Grid item>
+                      <Link href="/login" color="inherit">
+                        <Typography>Login</Typography>
                       </Link>
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography variant="customTitle">
-                      <Link href="/shop" color="inherit" underline="none">
-                        SHOP
+                    </Grid>
+                    <Grid item>
+                      <Typography> / </Typography>
+                    </Grid>
+                    <Grid item>
+                      <Link href="/register" color="inherit">
+                        <Typography>Register</Typography>
                       </Link>
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography variant="customTitle">
-                      <Link href="/contact" color="inherit" underline="none">
-                        CONTACT
-                      </Link>
-                    </Typography>
-                  </Grid>
+                    </Grid>
+                  </>
+                )}
+
+                <Grid item>
+                  <IconButton color="inherit">
+                    <SearchIcon />
+                  </IconButton>
                 </Grid>
-              </Grid>
 
-              <Grid item>
-                <Link href="/">
-                  <Box
-                    component="img"
-                    alt="Jewelry Store"
-                    src={logo}
-                    sx={{
-                      position: 'absolute',
-                      height: '70px',
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      top: '0px',
-                      marginTop: '5px',
-                    }}
-                  />
-                </Link>
-              </Grid>
-
-              <Grid item>
-                <Grid container spacing={2}>
-                  <Grid item>
-                    <IconButton color="inherit" onClick={handleSearchClick}>
-                      <SearchIcon />
+                <Grid item>
+                  <Link href="/cart" color="inherit">
+                    <IconButton color="inherit">
+                      <ShoppingCartIcon />
                     </IconButton>
-                  </Grid>
-
-                  <Grid item>
-                    <Link href="/cart" color="inherit">
-                      <IconButton color="inherit">
-                        <ShoppingCartIcon />
-                      </IconButton>
-                    </Link>
-                  </Grid>
-                  <Grid item>
-                    <Link href="/login" color="inherit">
-                      <IconButton color="inherit">
-                        <AccountCircleOutlinedIcon />
-                      </IconButton>
-                    </Link>
-                  </Grid>
-                  {showSearch && <Search />}
+                  </Link>
                 </Grid>
               </Grid>
             </Grid>
-          </Toolbar>
-        </AppBar>
-      </ThemeProvider>
-    </Box>
+          </Grid>
+        </MuiCard>
+      </NavbarContainer>
+    </>
   );
 }
 

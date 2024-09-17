@@ -1,10 +1,10 @@
 import * as httpRequest from '~/utils/httpRequest';
 
-export const register = async (userData) => {
+export const me = async (token) => {
   try {
-    const response = await httpRequest.post('user/signup', userData, {
+    const response = await httpRequest.get('user/me', {
       headers: {
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
     });
     return response;
