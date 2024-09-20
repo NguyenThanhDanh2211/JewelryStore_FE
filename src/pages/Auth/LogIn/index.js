@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
 import {
@@ -15,6 +15,8 @@ import {
   FormControlLabel,
   Button,
   Divider,
+  Alert,
+  LinearProgress,
 } from '@mui/material';
 import { Facebook, Google } from '@mui/icons-material';
 import { login } from '~/services/loginService';
@@ -52,6 +54,7 @@ function Login() {
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -71,22 +74,43 @@ function Login() {
 
     setLoading(true);
     setErrorMessage('');
-    setSuccessMessage('');
+    setSuccessMessage('Log in successful!');
 
     try {
       const response = await login(userData);
 
       if (response && response.token) {
         localStorage.setItem('authToken', response.token);
-        navigate('/');
+        setTimeout(() => {
+          navigate('/');
+        }, 2000);
       }
     } catch (error) {
       setErrorMessage(error.response?.data?.message || 'Something went wrong.');
-      setSuccessMessage(''); // Clear any success message
+      setSuccessMessage('');
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (errorMessage || successMessage) {
+      setProgress(0);
+      const timer = setInterval(() => {
+        setProgress((oldProgress) => {
+          if (oldProgress === 100) {
+            clearInterval(timer);
+            setErrorMessage('');
+            setSuccessMessage('');
+            return 0;
+          }
+          return Math.min(oldProgress + 10, 200);
+        });
+      }, 370);
+
+      return () => clearInterval(timer);
+    }
+  }, [errorMessage, successMessage]);
 
   return (
     <>
@@ -94,6 +118,23 @@ function Login() {
       <ThemeProvider theme={defaultTheme}></ThemeProvider>
       <CssBaseline enableColorScheme />
       <LogInContainer direction="column" justifyContent="space-between">
+        {(successMessage || errorMessage) && (
+          <Box
+            sx={{
+              position: 'fixed',
+              right: 35,
+            }}
+          >
+            <Alert severity={successMessage ? 'success' : 'error'}>
+              {successMessage || errorMessage}
+            </Alert>
+            <LinearProgress
+              variant="determinate"
+              value={progress}
+              color={successMessage ? 'success' : 'error'}
+            />
+          </Box>
+        )}
         <MuiCard variant="outlined">
           <Typography
             component="h1"
@@ -116,18 +157,14 @@ function Login() {
             <FormControl>
               <FormLabel htmlFor="email">Email</FormLabel>
               <TextField
-                // error={emailError}
-                // helperText={emailErrorMessage}
                 id="email"
                 type="email"
                 name="email"
                 placeholder="your@email.com"
                 autoComplete="email"
-                // autoFocus
                 required
                 fullWidth
                 variant="outlined"
-                // color={emailError ? 'error' : 'primary'}
                 sx={{ ariaLabel: 'email' }}
               />
             </FormControl>
@@ -136,7 +173,10 @@ function Login() {
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <Link
                   component="button"
-                  onClick={handleClickOpen}
+                  onClick={(e) => {
+                    e.preventDefault(); // Prevents form submission
+                    handleClickOpen();
+                  }}
                   variant="body2"
                   sx={{ alignSelf: 'baseline' }}
                 >
@@ -145,17 +185,13 @@ function Login() {
               </Box>
               <TextField
                 placeholder="••••••"
-                // error={passwordError}
-                // helperText={passwordErrorMessage}
                 name="password"
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                // autoFocus
                 required
                 fullWidth
                 variant="outlined"
-                // color={passwordError ? 'error' : 'primary'}
               />
             </FormControl>
             <FormControlLabel
@@ -165,9 +201,9 @@ function Login() {
             <ForgotPassword open={open} handleClose={handleClose} />
             <Button
               type="submit"
+              disabled={loading}
               fullWidth
               variant="contained"
-              // onClick={validateInputs}
             >
               Log in
             </Button>
