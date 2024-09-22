@@ -15,7 +15,9 @@ import {
 import logo from '~/assets/images/logo-regular.png';
 import { CartIcon, SearchIcon, UserIcon } from '~/components/Icons';
 import { me } from '~/services/meService';
+import { getAllCart } from '~/services/getAllCartService';
 import MenuUser from '../MenuUser';
+import CartDrawer from '../CartDrawer';
 
 const NavbarContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
@@ -35,12 +37,15 @@ const MuiCard = styled(Card)(({ theme }) => ({
 function Navbar() {
   const [userName, setUserName] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [totalQuantity, setTotalQuantity] = useState(0);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
 
     if (token) {
       fetchUserDetails(token);
+      fetchCart(token);
     }
   }, []);
 
@@ -57,12 +62,36 @@ function Navbar() {
     }
   };
 
+  const fetchCart = async (token) => {
+    try {
+      const response = await getAllCart(token);
+      // console.log('Response:', response);
+
+      if (response) {
+        setTotalQuantity(response.totalQuantity);
+      } else {
+        console.warn('Cart not found in the response.');
+        setTotalQuantity(0); // Set to 0 if no cart found
+      }
+    } catch (error) {
+      console.error('Failed to fetch cart details:', error);
+    }
+  };
+
   const handleOpenMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
+  };
+
+  const toggleDrawer = (open) => () => {
+    setDrawerOpen(open);
+  };
+
+  const handleCartUpdate = (newQuantity) => {
+    setTotalQuantity(newQuantity);
   };
 
   return (
@@ -158,13 +187,19 @@ function Navbar() {
                 </Grid>
 
                 <Grid item>
-                  <Link href="/cart" color="inherit">
-                    <IconButton color="inherit">
-                      <Badge badgeContent={4} color="primary">
-                        <CartIcon />
-                      </Badge>
-                    </IconButton>
-                  </Link>
+                  {/* <Link href="/cart" color="inherit"> */}
+                  <IconButton color="inherit" onClick={toggleDrawer(true)}>
+                    <Badge badgeContent={totalQuantity} color="primary">
+                      <CartIcon />
+                    </Badge>
+                  </IconButton>
+                  {/* Cart Drawer */}
+                  <CartDrawer
+                    open={drawerOpen}
+                    toggleDrawer={toggleDrawer}
+                    onCartUpdate={handleCartUpdate}
+                  />
+                  {/* </Link> */}
                 </Grid>
                 <Grid item>
                   {userName ? (
