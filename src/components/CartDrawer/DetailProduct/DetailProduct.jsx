@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { updateCart } from '~/services/updateCartService';
+import { delProductInCart } from '~/services/deleteProductInCartService';
 
 function DetailProduct({ product, updateCartItems }) {
   const { productId, productImg, productName, productPrice } = product;
@@ -19,17 +20,28 @@ function DetailProduct({ product, updateCartItems }) {
   const [quantity, setQuantity] = useState(initialQuantity);
 
   const handleUpdateQuantity = async (newQuantity) => {
+    const token = localStorage.getItem('authToken');
+
     if (newQuantity < 0) return;
 
     setQuantity(newQuantity);
-
-    const token = localStorage.getItem('authToken');
 
     try {
       await updateCart(productId, newQuantity, token);
       updateCartItems(productId, newQuantity);
     } catch (error) {
       console.error('Failed to update cart:', error);
+    }
+  };
+
+  const handleRemove = async () => {
+    const token = localStorage.getItem('authToken');
+
+    try {
+      await delProductInCart(productId, token);
+      updateCartItems(productId, 0);
+    } catch (error) {
+      console.log('Failed to remove product:', error);
     }
   };
 
@@ -74,7 +86,7 @@ function DetailProduct({ product, updateCartItems }) {
           >
             <Grid item>{productName}</Grid>
             <Grid item>
-              <IconButton>
+              <IconButton onClick={handleRemove}>
                 <HighlightOffIcon />
               </IconButton>
             </Grid>

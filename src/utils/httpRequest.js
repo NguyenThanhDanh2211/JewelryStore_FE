@@ -19,8 +19,13 @@ export const put = async (path, data, options = {}) => {
   return response.data;
 };
 
-export const del = async (path, options = {}) => {
-  const response = await httpRequest.delete(path, options);
+export const del = async (path, data, options = {}) => {
+  const response = await httpRequest({
+    method: 'delete',
+    url: path,
+    data,
+    ...options,
+  });
   return response.data;
 };
 
