@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import {
   Card,
@@ -39,6 +40,8 @@ function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const location = useLocation(); // Get the current location
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
@@ -88,6 +91,12 @@ function Navbar() {
 
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
+  };
+
+  const handleCartIconClick = () => {
+    if (location.pathname !== '/cart') {
+      toggleDrawer(true)(); // Open CartDrawer if not on the cart page
+    }
   };
 
   const handleCartUpdate = (newQuantity) => {
@@ -187,8 +196,7 @@ function Navbar() {
                 </Grid>
 
                 <Grid item>
-                  {/* <Link href="/cart" color="inherit"> */}
-                  <IconButton color="inherit" onClick={toggleDrawer(true)}>
+                  <IconButton color="inherit" onClick={handleCartIconClick}>
                     <Badge badgeContent={totalQuantity} color="primary">
                       <CartIcon />
                     </Badge>
@@ -199,7 +207,6 @@ function Navbar() {
                     toggleDrawer={toggleDrawer}
                     onCartUpdate={handleCartUpdate}
                   />
-                  {/* </Link> */}
                 </Grid>
                 <Grid item>
                   {userName ? (
