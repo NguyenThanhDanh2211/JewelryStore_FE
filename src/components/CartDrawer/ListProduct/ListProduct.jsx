@@ -1,21 +1,23 @@
 import { useState, useEffect } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import {
   Grid,
   Box,
   IconButton,
-  Link,
   Divider,
   ButtonGroup,
   Button,
+  Link,
   Typography,
 } from '@mui/material';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import { updateCart } from '~/services/updateCartService';
-import { delProductInCart } from '~/services/deleteProductInCartService';
+import { updateCart, delProductInCart } from '~/services/cartService';
 
-function DetailProduct({ product, updateCartItems }) {
-  const { productId, productImg, productName, productPrice } = product;
+function ListProduct({ product, updateCartItems }) {
+  const { productId, slug, productImg, productName, productPrice } = product;
   const initialQuantity = product.quantity;
+
+  console.log(productId, slug);
 
   const [quantity, setQuantity] = useState(initialQuantity);
 
@@ -63,7 +65,7 @@ function DetailProduct({ product, updateCartItems }) {
         <Grid item xs={3}>
           <Box>
             {productImg ? (
-              <Link href="/">
+              <Link to={`/product/${slug}`}>
                 <img
                   src={productImg}
                   alt={productName}
@@ -84,7 +86,15 @@ function DetailProduct({ product, updateCartItems }) {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Grid item>{productName}</Grid>
+            <Grid item>
+              <Link
+                component={RouterLink}
+                to={`/product/${slug}`}
+                sx={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <Typography variant="h6">{productName}</Typography>
+              </Link>
+            </Grid>
             <Grid item>
               <IconButton onClick={handleRemove}>
                 <HighlightOffIcon />
@@ -124,4 +134,4 @@ function DetailProduct({ product, updateCartItems }) {
   );
 }
 
-export default DetailProduct;
+export default ListProduct;

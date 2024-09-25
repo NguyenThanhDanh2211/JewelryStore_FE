@@ -7,6 +7,7 @@ import Cart from '~/pages/Cart';
 import About from '~/pages/About';
 import Shop from '~/pages/Shop';
 import Contact from '~/pages/Contact';
+import ProductDetail from '~/pages/ProductDetail';
 
 const publicRoutes = [
   {
@@ -36,6 +37,10 @@ const publicRoutes = [
   {
     path: config.routes.contact,
     component: Contact,
+  },
+  {
+    path: config.routes.detailProduct,
+    component: ProductDetail,
   },
 ];
 

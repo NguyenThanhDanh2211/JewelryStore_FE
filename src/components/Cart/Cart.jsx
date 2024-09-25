@@ -9,7 +9,7 @@ import {
   TextField,
 } from '@mui/material';
 import Product from './Product';
-import { getAllCart } from '~/services/getAllCartService';
+import { getAllCart } from '~/services/cartService';
 
 function Cart() {
   const [showCouponInput, setShowCouponInput] = useState(false);

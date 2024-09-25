@@ -1,20 +1,22 @@
+import { useEffect, useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+
 import {
   Box,
   Button,
   ButtonGroup,
   Divider,
   Grid,
-  IconButton,
   Link,
+  Typography,
+  IconButton,
 } from '@mui/material';
 
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import { useEffect, useState } from 'react';
-import { updateCart } from '~/services/updateCartService';
-import { delProductInCart } from '~/services/deleteProductInCartService';
+import { updateCart, delProductInCart } from '~/services/cartService';
 
 function Product({ product, updateCartItems }) {
-  const { productId, productImg, productName, productPrice } = product;
+  const { productId, slug, productImg, productName, productPrice } = product;
   const initialQuantity = product.quantity;
 
   const [quantity, setQuantity] = useState(initialQuantity);
@@ -67,7 +69,7 @@ function Product({ product, updateCartItems }) {
         <Grid item xs={2}>
           <Box>
             {productImg ? (
-              <Link href="/">
+              <Link to={`/product/${slug}`}>
                 <img
                   src={productImg}
                   alt={productName}
@@ -80,8 +82,12 @@ function Product({ product, updateCartItems }) {
           </Box>
         </Grid>
         <Grid item xs={3}>
-          <Link href="/" sx={{ textDecoration: 'none' }} color="inherit">
-            {productName}
+          <Link
+            component={RouterLink}
+            to={`/product/${slug}`}
+            sx={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            <Typography variant="h6">{productName}</Typography>
           </Link>
         </Grid>
         <Grid item xs={2}>

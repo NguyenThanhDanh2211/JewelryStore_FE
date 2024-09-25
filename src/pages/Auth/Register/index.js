@@ -19,7 +19,7 @@ import {
   LinearProgress,
 } from '@mui/material';
 import { Facebook, Google } from '@mui/icons-material';
-import { register } from '~/services/registerService';
+import { register } from '~/services/userService';
 import Navbar from '~/components/Navbar';
 
 const RegisterContainer = styled(Stack)(({ theme }) => ({

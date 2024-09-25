@@ -11,12 +11,13 @@ import {
   Avatar,
   Badge,
   Divider,
+  // Slide,
 } from '@mui/material';
 
 import logo from '~/assets/images/logo-regular.png';
 import { CartIcon, SearchIcon, UserIcon } from '~/components/Icons';
-import { me } from '~/services/meService';
-import { getAllCart } from '~/services/getAllCartService';
+import { me } from '~/services/userService';
+import { getAllCart } from '~/services/cartService';
 import MenuUser from '../MenuUser';
 import CartDrawer from '../CartDrawer';
 
@@ -40,6 +41,7 @@ function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  // const [showNavbar, setShowNavbar] = useState(false);
 
   const location = useLocation(); // Get the current location
 
@@ -50,6 +52,21 @@ function Navbar() {
       fetchUserDetails(token);
       fetchCart(token);
     }
+
+    // const handleScroll = () => {
+    //   if (window.scrollY > 10) {
+    //     setShowNavbar(true); // Hiện navbar khi cuộn xuống quá 200px
+    //   } else {
+    //     setShowNavbar(false); // Ẩn navbar khi ở trên vị trí 200px
+    //   }
+    // };
+
+    // window.addEventListener('scroll', handleScroll);
+
+    // // Cleanup event listener khi component unmount
+    // return () => {
+    //   window.removeEventListener('scroll', handleScroll);
+    // };
   }, []);
 
   const fetchUserDetails = async () => {
@@ -105,6 +122,7 @@ function Navbar() {
 
   return (
     <>
+      {/* <Slide direction="down" in={showNavbar}> */}
       <NavbarContainer direction="column" justifyContent="space-between">
         <MuiCard variant="outlined" sx={{ border: 'none' }}>
           <Grid container sx={{ gap: 2 }}>
@@ -235,6 +253,7 @@ function Navbar() {
         </MuiCard>
         <Divider></Divider>
       </NavbarContainer>
+      {/* </Slide> */}
     </>
   );
 }

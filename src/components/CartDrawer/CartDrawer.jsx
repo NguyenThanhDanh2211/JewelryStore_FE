@@ -8,8 +8,8 @@ import {
   Link,
   Grid,
 } from '@mui/material';
-import { getAllCart } from '~/services/getAllCartService';
-import DetailProduct from './DetailProduct';
+import { getAllCart } from '~/services/cartService';
+import DetailProduct from './ListProduct';
 
 function CartDrawer({ open, toggleDrawer, onCartUpdate }) {
   const [cartItems, setCartItems] = useState([]);

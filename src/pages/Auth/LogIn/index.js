@@ -19,7 +19,7 @@ import {
   LinearProgress,
 } from '@mui/material';
 import { Facebook, Google } from '@mui/icons-material';
-import { login } from '~/services/loginService';
+import { login } from '~/services/userService';
 import Navbar from '~/components/Navbar';
 import ForgotPassword from '~/components/ForgotPassword';
 
