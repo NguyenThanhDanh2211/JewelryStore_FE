@@ -11,6 +11,7 @@ import {
   Avatar,
   Badge,
   Divider,
+  Typography,
   // Slide,
 } from '@mui/material';
 
@@ -143,7 +144,7 @@ function Navbar() {
                     sx={{ textDecoration: 'none' }}
                     href="/"
                   >
-                    HOME
+                    <Typography variant="nav">HOME</Typography>
                   </Link>
                 </Grid>
                 <Grid item>
@@ -152,7 +153,7 @@ function Navbar() {
                     sx={{ textDecoration: 'none' }}
                     href="/shop"
                   >
-                    SHOP
+                    <Typography variant="nav">SHOP</Typography>
                   </Link>
                 </Grid>
                 <Grid item>
@@ -161,7 +162,7 @@ function Navbar() {
                     sx={{ textDecoration: 'none' }}
                     href="/about"
                   >
-                    ABOUT
+                    <Typography variant="nav">ABOUT</Typography>
                   </Link>
                 </Grid>
                 <Grid item>
@@ -170,7 +171,7 @@ function Navbar() {
                     sx={{ textDecoration: 'none' }}
                     href="/contact"
                   >
-                    CONTACT
+                    <Typography variant="nav">CONTACT</Typography>
                   </Link>
                 </Grid>
               </Grid>
@@ -215,7 +216,15 @@ function Navbar() {
 
                 <Grid item>
                   <IconButton color="inherit" onClick={handleCartIconClick}>
-                    <Badge badgeContent={totalQuantity} color="primary">
+                    <Badge
+                      badgeContent={totalQuantity}
+                      sx={{
+                        '& .MuiBadge-badge': {
+                          backgroundColor: '#db9662',
+                          color: 'white',
+                        },
+                      }}
+                    >
                       <CartIcon />
                     </Badge>
                   </IconButton>

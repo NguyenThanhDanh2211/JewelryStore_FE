@@ -1,147 +1,127 @@
-import { Typography, IconButton, Input, Link } from '@mui/material';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
+import {
+  Box,
+  Card,
+  Divider,
+  Grid,
+  Stack,
+  styled,
+  Typography,
+  IconButton,
+  Link,
+} from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import YouTubeIcon from '@mui/icons-material/YouTube';
-import CopyrightIcon from '@mui/icons-material/Copyright';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 import logo from '~/assets/images/logo-regular.png';
 
-const ariaLabel = { 'aria-label': 'description' };
-const theme = createTheme({
-  typography: {
-    customTitle: {
-      textTransform: 'none',
-      fontSize: '1.6rem',
-      margin: '5px',
-    },
-    mainTitle: {
-      textTransform: 'none',
-      fontSize: '3rem',
-      fontWeight: '300',
-      fontStyle: 'italic',
-    },
-  },
-  components: {
-    MuiInput: {
-      styleOverrides: {
-        root: {
-          fontSize: '1.4rem',
-          padding: '10px',
-          fontFamily: 'Cormorant Garamond, serif',
-          width: '75%',
-        },
-      },
-    },
-  },
-});
+const FooterContainer = styled(Stack)(({ theme }) => ({
+  height: '100%',
+  padding: theme.spacing(1),
+  backgroundColor: '#f5f5f5',
+}));
+
+const MuiCard = styled(Card)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  padding: theme.spacing(2),
+  margin: 'auto',
+  backgroundColor: '#f5f5f5',
+  justifyContent: 'center',
+  alignItems: 'center',
+}));
 
 function Footer() {
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <hr style={{ margin: '20px' }}></hr>
+      <FooterContainer direction="column" justifyContent="space-between">
+        <MuiCard variant="outlined" sx={{ border: 'none' }}>
+          <Divider sx={{ width: '100%', my: 2 }} />
+          <Box
+            component="img"
+            alt="Jewelry Store"
+            src={logo}
+            sx={{
+              height: '70px',
+              marginBottom: '30px',
+              my: 2,
+            }}
+          />
 
-        <ThemeProvider theme={theme}>
-          <Grid container spacing={2} columns={16}>
-            <Grid
-              item
-              xs={8}
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-              }}
-            >
-              <Box
-                component="img"
-                alt="Jewelry Store"
-                src={logo}
-                sx={{ height: '70px', marginBottom: 2 }}
-              />
-              <Typography variant="customTitle">
-                nguyenthanhdanh221102@gmail.com
-              </Typography>
-              <Typography variant="customTitle">+84 789 604 xxx</Typography>
-              <Typography variant="customTitle">
-                Vinh Long City - Can Tho City, Viet Nam
-              </Typography>
-
-              <Box sx={{ flexGrow: 1, marginTop: 2 }}>
-                <Grid container spacing={2} justifyContent="center">
-                  <Grid item>
-                    <IconButton
-                      color="inherit"
-                      href="https://facebook.com/ng.thzanh"
-                      component={Link}
-                    >
-                      <FacebookIcon />
-                    </IconButton>
-                  </Grid>
-                  <Grid item>
-                    <IconButton
-                      color="inherit"
-                      href="https://instagram.com/ng.thdanh"
-                      component={Link}
-                    >
-                      <InstagramIcon />
-                    </IconButton>
-                  </Grid>
-                  <Grid item>
-                    <IconButton
-                      color="inherit"
-                      href="https://github.com/NguyenThanhDanh2211"
-                      component={Link}
-                    >
-                      <GitHubIcon />
-                    </IconButton>
-                  </Grid>
-                  <Grid item>
-                    <IconButton
-                      color="inherit"
-                      href="https://youtube.com"
-                      component={Link}
-                    >
-                      <YouTubeIcon />
-                    </IconButton>
-                  </Grid>
-                </Grid>
-              </Box>
+          <Box sx={{ display: 'flex', flexDirection: 'row', m: 2 }}>
+            <Grid container spacing={10} justifyContent="center">
+              {/* Mỗi item cần có thuộc tính item để phân bố đúng */}
+              <Grid item xs={2}>
+                <Typography variant="body2">FAQ</Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography variant="body2">Virtual Shopping</Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography variant="body2">Shipping & Returns</Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography variant="body2">Create Your Jewelry</Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography variant="body2">Ring Sizer</Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography variant="body2">Stores</Typography>
+              </Grid>
             </Grid>
+          </Box>
 
-            <Grid
-              item
-              xs={8}
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Typography variant="mainTitle">
-                Subscribe to get our daily updates
-              </Typography>
-              <Input
-                placeholder="Write your email address here..."
-                inputProps={ariaLabel}
-                sx={{ marginTop: 2 }}
-              />
+          <Grid item xs={12} sx={{ m: 2 }}>
+            <Grid container spacing={2}>
+              <Grid item>
+                <IconButton
+                  color="inherit"
+                  href="https://facebook.com/ng.thzanh"
+                  component={Link}
+                >
+                  <FacebookIcon />
+                </IconButton>
+              </Grid>
+              <Grid item>
+                <IconButton
+                  color="inherit"
+                  href="https://instagram.com/ng.thdanh"
+                  component={Link}
+                >
+                  <InstagramIcon />
+                </IconButton>
+              </Grid>
+              <Grid item>
+                <IconButton
+                  color="inherit"
+                  href="https://github.com/NguyenThanhDanh2211"
+                  component={Link}
+                >
+                  <GitHubIcon />
+                </IconButton>
+              </Grid>
+              <Grid item>
+                <IconButton
+                  color="inherit"
+                  href="https://youtube.com"
+                  component={Link}
+                >
+                  <YouTubeIcon />
+                </IconButton>
+              </Grid>
             </Grid>
           </Grid>
-        </ThemeProvider>
-      </Box>
-      <hr style={{ margin: '20px' }}></hr>
-      <Box sx={{ flexGrow: 1, marginBottom: '5px', textAlign: 'center' }}>
-        <Typography variant="customTitle">
-          <CopyrightIcon sx={{ fontSize: '1rem' }} />
-          2024 Copyright Accessories. HTML Template by TemplatesJungle
-        </Typography>
-      </Box>
+
+          <Divider sx={{ width: '100%', my: 2 }} />
+
+          <Typography variant="body2" sx={{ my: 2 }}>
+            Copyright © 2024 Jewellery Store.
+          </Typography>
+        </MuiCard>
+      </FooterContainer>
     </>
   );
 }

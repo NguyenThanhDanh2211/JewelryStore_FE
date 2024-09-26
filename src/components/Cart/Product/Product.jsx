@@ -69,7 +69,7 @@ function Product({ product, updateCartItems }) {
         <Grid item xs={2}>
           <Box>
             {productImg ? (
-              <Link to={`/product/${slug}`}>
+              <Link to={`/product/${slug}`} component={RouterLink}>
                 <img
                   src={productImg}
                   alt={productName}

@@ -25,8 +25,6 @@ export const updateCart = async (productId, quantity, token) => {
       },
     });
 
-    console.log(response);
-
     return response;
   } catch (error) {
     console.error('Error updating cart:', error);

@@ -18,16 +18,13 @@ import {
   Alert,
   LinearProgress,
 } from '@mui/material';
-import { Facebook, Google } from '@mui/icons-material';
+import { GoogleIcon, FacebookIcon } from '~/components/Icons';
 import { register } from '~/services/userService';
 import Navbar from '~/components/Navbar';
 
 const RegisterContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
   padding: 20,
-  backgroundImage:
-    'radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))',
-  backgroundRepeat: 'no-repeat',
 }));
 
 const MuiCard = styled(Card)(({ theme }) => ({
@@ -110,128 +107,112 @@ function Register() {
   return (
     <>
       <Navbar />
-      <ThemeProvider theme={defaultTheme}>
-        <CssBaseline enableColorScheme />
-        <RegisterContainer direction="column" justifyContent="space-between">
-          {(successMessage || errorMessage) && (
-            <Box
-              sx={{
-                position: 'fixed',
-                right: 35,
-              }}
-            >
-              <Alert severity={successMessage ? 'success' : 'error'}>
-                {successMessage || errorMessage}
-              </Alert>
-              <LinearProgress
-                variant="determinate"
-                value={progress}
-                color={successMessage ? 'success' : 'error'}
-              />
-            </Box>
-          )}
+      <ThemeProvider theme={defaultTheme}> </ThemeProvider>
+      <CssBaseline enableColorScheme />
+      <RegisterContainer direction="column" justifyContent="space-between">
+        {(successMessage || errorMessage) && (
+          <Box
+            sx={{
+              position: 'fixed',
+              right: 35,
+            }}
+          >
+            <Alert severity={successMessage ? 'success' : 'error'}>
+              {successMessage || errorMessage}
+            </Alert>
+            <LinearProgress
+              variant="determinate"
+              value={progress}
+              color={successMessage ? 'success' : 'error'}
+            />
+          </Box>
+        )}
 
-          <MuiCard variant="outlined">
-            <Typography
-              component="h1"
-              variant="h4"
-              sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
-            >
+        <MuiCard>
+          <Typography variant="body1">Register</Typography>
+
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+          >
+            <FormControl>
+              <FormLabel htmlFor="name">Full name</FormLabel>
+              <TextField
+                autoComplete="name"
+                name="name"
+                required
+                fullWidth
+                id="name"
+                placeholder="Thanh Danh"
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel htmlFor="email">Email</FormLabel>
+              <TextField
+                required
+                fullWidth
+                id="email"
+                placeholder="your@gmail.com"
+                name="email"
+                autoComplete="email"
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel htmlFor="password">Password</FormLabel>
+              <TextField
+                required
+                fullWidth
+                type="password"
+                name="password"
+                placeholder="••••••"
+                id="password"
+                autoComplete="new-password"
+              />
+            </FormControl>
+            <FormControlLabel
+              control={<Checkbox value="allowExtraEmails" color="primary" />}
+              label="I want to receive updates via email."
+            />
+            <Button type="submit" fullWidth variant="single" disabled={loading}>
               Register
+            </Button>
+            <Typography variant="body2" sx={{ textAlign: 'center' }}>
+              Already have an account?{' '}
+              <span>
+                <Link
+                  href="/login"
+                  variant="body2"
+                  sx={{ alignSelf: 'center' }}
+                >
+                  Log in
+                </Link>
+              </span>
             </Typography>
-
-            <Box
-              component="form"
-              onSubmit={handleSubmit}
-              sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+          </Box>
+          <Divider>or</Divider>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Button
+              type="submit"
+              fullWidth
+              variant="single"
+              onClick={() => alert('Register with Google')}
+              startIcon={<GoogleIcon />}
             >
-              <FormControl>
-                <FormLabel htmlFor="name">Full name</FormLabel>
-                <TextField
-                  autoComplete="name"
-                  name="name"
-                  required
-                  fullWidth
-                  id="name"
-                  placeholder="Thanh Danh"
-                />
-              </FormControl>
-              <FormControl>
-                <FormLabel htmlFor="email">Email</FormLabel>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  placeholder="your@gmail.com"
-                  name="email"
-                  autoComplete="email"
-                  variant="outlined"
-                />
-              </FormControl>
-              <FormControl>
-                <FormLabel htmlFor="password">Password</FormLabel>
-                <TextField
-                  required
-                  fullWidth
-                  type="password"
-                  name="password"
-                  placeholder="••••••"
-                  id="password"
-                  autoComplete="new-password"
-                  variant="outlined"
-                />
-              </FormControl>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive updates via email."
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                disabled={loading}
-              >
-                Register
-              </Button>
-              <Typography sx={{ textAlign: 'center' }}>
-                Already have an account?{' '}
-                <span>
-                  <Link
-                    href="/login"
-                    variant="body2"
-                    sx={{ alignSelf: 'center' }}
-                  >
-                    Log in
-                  </Link>
-                </span>
-              </Typography>
-            </Box>
-            <Divider>
-              <Typography sx={{ color: 'text.secondary' }}>or</Typography>
-            </Divider>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-              <Button
-                type="submit"
-                fullWidth
-                variant="outlined"
-                onClick={() => alert('Register with Google')}
-                startIcon={<Google />}
-              >
-                Register with Google
-              </Button>
-              <Button
-                type="submit"
-                fullWidth
-                variant="outlined"
-                onClick={() => alert('Register with Facebook')}
-                startIcon={<Facebook />}
-              >
-                Register with Facebook
-              </Button>
-            </Box>
-          </MuiCard>
-        </RegisterContainer>
-      </ThemeProvider>
+              Register with Google
+            </Button>
+            <Button
+              type="submit"
+              fullWidth
+              variant="single"
+              onClick={() => alert('Register with Facebook')}
+              startIcon={<FacebookIcon />}
+            >
+              Register with Facebook
+            </Button>
+          </Box>
+        </MuiCard>
+      </RegisterContainer>
     </>
   );
 }

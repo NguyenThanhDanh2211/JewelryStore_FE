@@ -18,7 +18,7 @@ import {
   Alert,
   LinearProgress,
 } from '@mui/material';
-import { Facebook, Google } from '@mui/icons-material';
+import { FacebookIcon, GoogleIcon } from '~/components/Icons';
 import { login } from '~/services/userService';
 import Navbar from '~/components/Navbar';
 import ForgotPassword from '~/components/ForgotPassword';
@@ -26,9 +26,6 @@ import ForgotPassword from '~/components/ForgotPassword';
 const LogInContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
   padding: 20,
-  backgroundImage:
-    'radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))',
-  backgroundRepeat: 'no-repeat',
 }));
 
 const MuiCard = styled(Card)(({ theme }) => ({
@@ -135,14 +132,8 @@ function Login() {
             />
           </Box>
         )}
-        <MuiCard variant="outlined">
-          <Typography
-            component="h1"
-            variant="h4"
-            sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
-          >
-            Log In
-          </Typography>
+        <MuiCard>
+          <Typography variant="body1">Log In</Typography>
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -164,7 +155,6 @@ function Login() {
                 autoComplete="email"
                 required
                 fullWidth
-                variant="outlined"
                 sx={{ ariaLabel: 'email' }}
               />
             </FormControl>
@@ -191,23 +181,18 @@ function Login() {
                 autoComplete="current-password"
                 required
                 fullWidth
-                variant="outlined"
               />
             </FormControl>
             <FormControlLabel
+              variant="body2"
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
             <ForgotPassword open={open} handleClose={handleClose} />
-            <Button
-              type="submit"
-              disabled={loading}
-              fullWidth
-              variant="contained"
-            >
+            <Button type="submit" disabled={loading} fullWidth variant="single">
               Log in
             </Button>
-            <Typography sx={{ textAlign: 'center' }}>
+            <Typography variant="body2" sx={{ textAlign: 'center' }}>
               Don&apos;t have an account?{' '}
               <span>
                 <Link
@@ -220,25 +205,23 @@ function Login() {
               </span>
             </Typography>
           </Box>
-          <Divider>
-            <Typography sx={{ color: 'text.secondary' }}>or</Typography>
-          </Divider>
+          <Divider>or</Divider>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             <Button
               type="submit"
               fullWidth
-              variant="outlined"
+              variant="single"
               onClick={() => alert('Log in with Google')}
-              startIcon={<Google />}
+              startIcon={<GoogleIcon />}
             >
               Log in with Google
             </Button>
             <Button
               type="submit"
               fullWidth
-              variant="outlined"
+              variant="single"
               onClick={() => alert('Log in with Facebook')}
-              startIcon={<Facebook />}
+              startIcon={<FacebookIcon />}
             >
               Log in with Facebook
             </Button>

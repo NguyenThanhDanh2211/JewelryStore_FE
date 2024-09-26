@@ -82,10 +82,10 @@ function CartDrawer({ open, toggleDrawer, onCartUpdate }) {
         height="100vh"
       >
         <Box sx={{ flexShrink: 0 }}>
-          <Typography variant="h6" sx={{ mb: 2 }}>
+          <Typography variant="body1" sx={{ mb: 2 }}>
             Shopping Cart
           </Typography>
-          <Divider />
+          <Divider sx={{ mt: 2 }} />
         </Box>
 
         <Box
@@ -105,7 +105,7 @@ function CartDrawer({ open, toggleDrawer, onCartUpdate }) {
               />
             ))
           ) : (
-            <Typography>No items in the cart.</Typography>
+            <Typography variant="nav">No items in the cart.</Typography>
           )}
         </Box>
 
@@ -120,25 +120,25 @@ function CartDrawer({ open, toggleDrawer, onCartUpdate }) {
             alignItems="center"
           >
             <Grid item xs={6}>
-              <Typography variant="h6" sx={{ my: 2 }}>
+              <Typography variant="nav" sx={{ my: 2 }}>
                 Subtotal:
               </Typography>
             </Grid>
             <Grid item xs={6} container justifyContent="flex-end">
-              <Typography variant="h6" sx={{ my: 2 }}>
+              <Typography variant="nav" sx={{ my: 2 }}>
                 {totalPrice} VND
               </Typography>
             </Grid>
           </Grid>
           <Divider />
           <Link href="/cart">
-            <Button variant="contained" fullWidth sx={{ my: 2 }}>
-              View Cart
+            <Button variant="single" fullWidth sx={{ my: 2 }}>
+              VIEW CART
             </Button>
           </Link>
           <Link href="">
-            <Button variant="contained" fullWidth sx={{ mb: 1 }}>
-              Checkout
+            <Button variant="single" fullWidth sx={{ mb: 1 }}>
+              CHECKOUT
             </Button>
           </Link>
         </Box>

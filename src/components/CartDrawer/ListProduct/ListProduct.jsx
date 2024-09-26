@@ -9,6 +9,7 @@ import {
   Button,
   Link,
   Typography,
+  TextField,
 } from '@mui/material';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { updateCart, delProductInCart } from '~/services/cartService';
@@ -16,8 +17,6 @@ import { updateCart, delProductInCart } from '~/services/cartService';
 function ListProduct({ product, updateCartItems }) {
   const { productId, slug, productImg, productName, productPrice } = product;
   const initialQuantity = product.quantity;
-
-  console.log(productId, slug);
 
   const [quantity, setQuantity] = useState(initialQuantity);
 
@@ -60,14 +59,14 @@ function ListProduct({ product, updateCartItems }) {
         xs={12}
         justifyContent="space-between"
         alignItems="center"
-        sx={{ my: 1 }}
+        sx={{ mb: 1 }}
       >
         <Grid item xs={3}>
           <Box>
             {productImg ? (
-              <Link to={`/product/${slug}`}>
+              <Link to={`/product/${slug}`} component={RouterLink}>
                 <img
-                  src={productImg}
+                  src={productImg[0]}
                   alt={productName}
                   style={{ width: '100%' }}
                 />
@@ -92,7 +91,7 @@ function ListProduct({ product, updateCartItems }) {
                 to={`/product/${slug}`}
                 sx={{ textDecoration: 'none', color: 'inherit' }}
               >
-                <Typography variant="h6">{productName}</Typography>
+                <Typography variant="h2">{productName}</Typography>
               </Link>
             </Grid>
             <Grid item>
@@ -115,17 +114,31 @@ function ListProduct({ product, updateCartItems }) {
                   onClick={() => handleUpdateQuantity(quantity - 1)}
                   disabled={quantity <= 0}
                 >
-                  -
+                  <Typography variant="body2">-</Typography>
                 </Button>
                 <Button>
-                  <Typography>{quantity}</Typography>
+                  <Typography variant="body2">{quantity}</Typography>
                 </Button>
+                {/* <TextField
+                  value={quantity}
+                  // onChange={handleInputChange}
+                  type="text"
+                  variant="outlined"
+                  inputProps={{
+                    min: 0,
+                    style: { textAlign: 'center', width: 40, height: 10 },
+                  }}
+                  sx={{ borderRadius: 0, width: 42, height: 40 }}
+                /> */}
+
                 <Button onClick={() => handleUpdateQuantity(quantity + 1)}>
-                  +
+                  <Typography variant="body2">+</Typography>
                 </Button>
               </ButtonGroup>
             </Grid>
-            <Grid item>{productPrice} VND</Grid>
+            <Grid item>
+              <Typography variant="body2">{productPrice} VND</Typography>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
