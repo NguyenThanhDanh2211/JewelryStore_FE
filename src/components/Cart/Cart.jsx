@@ -90,16 +90,16 @@ function Cart() {
         <Grid item xs={8} container pr={5}>
           <Grid item container spacing={2} xs={12} sx={{ fontWeight: 'bold' }}>
             <Grid item xs={5}>
-              Product
+              <Typography variant="nav">Product</Typography>
             </Grid>
             <Grid item xs={2}>
-              Price
+              <Typography variant="nav">Price</Typography>
             </Grid>
             <Grid item xs={2}>
-              Quantity
+              <Typography variant="nav">Quantity</Typography>
             </Grid>
             <Grid item xs={2}>
-              Subtotal
+              <Typography variant="nav">Subtotal</Typography>
             </Grid>
             <Grid item xs={1}></Grid>
           </Grid>
@@ -137,20 +137,21 @@ function Cart() {
           <Divider sx={{ mb: 2, mr: 2 }} />
 
           <Grid container justifyContent="space-between" sx={{ mb: 1, pr: 2 }}>
-            <Typography variant="body1">Subtotal</Typography>
-            <Typography variant="body1">{totalPrice} VND</Typography>
+            <Typography variant="body3">Subtotal</Typography>
+            <Typography variant="body3">$ {totalPrice}</Typography>
           </Grid>
 
           <Divider sx={{ my: 2, mr: 2 }} />
 
           <Grid container justifyContent="space-between" sx={{ mb: 2, pr: 2 }}>
-            <Typography variant="body1">Total</Typography>
-            <Typography variant="body1">{totalPrice} VND</Typography>
+            <Typography variant="body3">Total</Typography>
+            <Typography variant="body3">$ {totalPrice}</Typography>
           </Grid>
           <Divider sx={{ mb: 2, mr: 2 }} />
 
           {!showCouponInput ? (
             <Typography
+              variant="text1"
               onClick={handleCouponClick}
               sx={{ cursor: 'pointer', color: 'primary.main', mb: 2, pr: 2 }}
             >
@@ -160,6 +161,11 @@ function Cart() {
             <Grid container spacing={1} sx={{ mb: 2, pr: 2 }}>
               <Grid item xs={8}>
                 <TextField
+                  sx={{
+                    '& .MuiInputBase-root': {
+                      minHeight: '40px', // Điều chỉnh chiều cao của input
+                    },
+                  }}
                   fullWidth
                   size="small"
                   label="Coupon Code"
@@ -169,7 +175,7 @@ function Cart() {
               </Grid>
               <Grid item xs={4}>
                 <Button
-                  variant="contained"
+                  variant="single"
                   fullWidth
                   size="small"
                   onClick={handleCouponApply}
@@ -181,7 +187,7 @@ function Cart() {
           )}
 
           <Box sx={{ mt: 2, pr: 2 }}>
-            <Button variant="contained" type="submit" fullWidth>
+            <Button variant="single" type="submit" fullWidth>
               Checkout
             </Button>
           </Box>

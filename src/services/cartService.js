@@ -4,7 +4,7 @@ export const getAllCart = async (token) => {
   try {
     const response = await httpRequest.get('cart/get-all', {
       headers: {
-        Authorization: `Bearer ${token}`, // Pass the token in the headers
+        Authorization: `Bearer ${token}`,
       },
     });
     return response;
@@ -32,15 +32,20 @@ export const updateCart = async (productId, quantity, token) => {
   }
 };
 
-export const addToCart = async (productId, quantity) => {
+export const addToCart = async (productId, quantity, token) => {
   try {
-    const response = await httpRequest.post('cart/add-to-cart', {
-      productId,
-      quantity,
-    });
+    const response = await httpRequest.post(
+      'cart/add',
+      { productId, quantity },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response;
   } catch (error) {
-    console.log(error);
+    console.log('Error in addToCart:', error.response?.data || error);
     throw error;
   }
 };

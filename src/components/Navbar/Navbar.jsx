@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import {
@@ -18,9 +18,9 @@ import {
 import logo from '~/assets/images/logo-regular.png';
 import { CartIcon, SearchIcon, UserIcon } from '~/components/Icons';
 import { me } from '~/services/userService';
-import { getAllCart } from '~/services/cartService';
 import MenuUser from '../MenuUser';
 import CartDrawer from '../CartDrawer';
+import { CartContext } from '~/contexts/CartContext';
 
 const NavbarContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
@@ -40,34 +40,20 @@ const MuiCard = styled(Card)(({ theme }) => ({
 function Navbar() {
   const [userName, setUserName] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [totalQuantity, setTotalQuantity] = useState(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  // const [showNavbar, setShowNavbar] = useState(false);
 
-  const location = useLocation(); // Get the current location
+  const { cart, fetchCart } = useContext(CartContext);
+
+  const location = useLocation();
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
 
     if (token) {
       fetchUserDetails(token);
-      fetchCart(token);
+
+      fetchCart();
     }
-
-    // const handleScroll = () => {
-    //   if (window.scrollY > 10) {
-    //     setShowNavbar(true); // Hiện navbar khi cuộn xuống quá 200px
-    //   } else {
-    //     setShowNavbar(false); // Ẩn navbar khi ở trên vị trí 200px
-    //   }
-    // };
-
-    // window.addEventListener('scroll', handleScroll);
-
-    // // Cleanup event listener khi component unmount
-    // return () => {
-    //   window.removeEventListener('scroll', handleScroll);
-    // };
   }, []);
 
   const fetchUserDetails = async () => {
@@ -80,22 +66,6 @@ function Navbar() {
       } catch (error) {
         console.error('Failed to fetch user details:', error);
       }
-    }
-  };
-
-  const fetchCart = async (token) => {
-    try {
-      const response = await getAllCart(token);
-      // console.log('Response:', response);
-
-      if (response) {
-        setTotalQuantity(response.totalQuantity);
-      } else {
-        console.warn('Cart not found in the response.');
-        setTotalQuantity(0); // Set to 0 if no cart found
-      }
-    } catch (error) {
-      console.error('Failed to fetch cart details:', error);
     }
   };
 
@@ -115,10 +85,6 @@ function Navbar() {
     if (location.pathname !== '/cart') {
       toggleDrawer(true)(); // Open CartDrawer if not on the cart page
     }
-  };
-
-  const handleCartUpdate = (newQuantity) => {
-    setTotalQuantity(newQuantity);
   };
 
   return (
@@ -217,7 +183,7 @@ function Navbar() {
                 <Grid item>
                   <IconButton color="inherit" onClick={handleCartIconClick}>
                     <Badge
-                      badgeContent={totalQuantity}
+                      badgeContent={cart.totalQuantity}
                       sx={{
                         '& .MuiBadge-badge': {
                           backgroundColor: '#db9662',
@@ -229,11 +195,7 @@ function Navbar() {
                     </Badge>
                   </IconButton>
                   {/* Cart Drawer */}
-                  <CartDrawer
-                    open={drawerOpen}
-                    toggleDrawer={toggleDrawer}
-                    onCartUpdate={handleCartUpdate}
-                  />
+                  <CartDrawer open={drawerOpen} toggleDrawer={toggleDrawer} />
                 </Grid>
                 <Grid item>
                   {userName ? (

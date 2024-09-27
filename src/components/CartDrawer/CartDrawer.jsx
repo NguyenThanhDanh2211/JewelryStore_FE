@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useContext } from 'react';
 import {
   Box,
   Divider,
@@ -11,30 +11,25 @@ import {
 import { getAllCart } from '~/services/cartService';
 import DetailProduct from './ListProduct';
 
-function CartDrawer({ open, toggleDrawer, onCartUpdate }) {
+function CartDrawer({ open, toggleDrawer }) {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const fetchCart = useCallback(
-    async (token) => {
-      try {
-        const response = await getAllCart(token);
-        if (response) {
-          setCartItems(response.items);
-          setTotalPrice(response.totalPrice);
-          onCartUpdate(response.totalQuantity);
-        } else {
-          console.warn('Cart not found in the response.');
-          setCartItems([]);
-          setTotalPrice(0);
-          onCartUpdate(0);
-        }
-      } catch (error) {
-        console.log('Failed to fetch cart details:', error);
+  const fetchCart = useCallback(async (token) => {
+    try {
+      const response = await getAllCart(token);
+      if (response) {
+        setCartItems(response.items);
+        setTotalPrice(response.totalPrice);
+      } else {
+        console.warn('Cart not found in the response.');
+        setCartItems([]);
+        setTotalPrice(0);
       }
-    },
-    [onCartUpdate]
-  );
+    } catch (error) {
+      console.log('Failed to fetch cart details:', error);
+    }
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
@@ -100,7 +95,6 @@ function CartDrawer({ open, toggleDrawer, onCartUpdate }) {
               <DetailProduct
                 key={`${item.productId}-${index}`}
                 product={item}
-                // updateTotalPrice={updateTotalPrice}
                 updateCartItems={updateCartItems}
               />
             ))

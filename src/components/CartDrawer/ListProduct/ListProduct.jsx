@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import {
   Grid,
@@ -9,41 +9,29 @@ import {
   Button,
   Link,
   Typography,
-  TextField,
 } from '@mui/material';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import { updateCart, delProductInCart } from '~/services/cartService';
+import { CartContext } from '~/contexts/CartContext';
 
 function ListProduct({ product, updateCartItems }) {
   const { productId, slug, productImg, productName, productPrice } = product;
   const initialQuantity = product.quantity;
 
   const [quantity, setQuantity] = useState(initialQuantity);
+  const { updateProductInCart, deleteProductFromCart } =
+    useContext(CartContext);
 
-  const handleUpdateQuantity = async (newQuantity) => {
-    const token = localStorage.getItem('authToken');
-
+  const handleUpdateQuantity = (newQuantity) => {
     if (newQuantity < 0) return;
-
     setQuantity(newQuantity);
 
-    try {
-      await updateCart(productId, newQuantity, token);
-      updateCartItems(productId, newQuantity);
-    } catch (error) {
-      console.error('Failed to update cart:', error);
-    }
+    updateProductInCart(productId, newQuantity);
+    updateCartItems(productId, newQuantity);
   };
 
-  const handleRemove = async () => {
-    const token = localStorage.getItem('authToken');
-
-    try {
-      await delProductInCart(productId, token);
-      updateCartItems(productId, 0);
-    } catch (error) {
-      console.log('Failed to remove product:', error);
-    }
+  const handleRemove = () => {
+    deleteProductFromCart(productId);
+    updateCartItems(productId, 0);
   };
 
   useEffect(() => {
@@ -119,18 +107,6 @@ function ListProduct({ product, updateCartItems }) {
                 <Button>
                   <Typography variant="body2">{quantity}</Typography>
                 </Button>
-                {/* <TextField
-                  value={quantity}
-                  // onChange={handleInputChange}
-                  type="text"
-                  variant="outlined"
-                  inputProps={{
-                    min: 0,
-                    style: { textAlign: 'center', width: 40, height: 10 },
-                  }}
-                  sx={{ borderRadius: 0, width: 42, height: 40 }}
-                /> */}
-
                 <Button onClick={() => handleUpdateQuantity(quantity + 1)}>
                   <Typography variant="body2">+</Typography>
                 </Button>

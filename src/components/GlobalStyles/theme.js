@@ -17,6 +17,12 @@ const theme = createTheme({
       fontSize: 16,
       color: '#555555',
     },
+    text1: {
+      fontFamily: 'Poppins, sans-serif', // Font mặc định cho nội dung
+      fontWeight: 500,
+      fontSize: 16,
+      color: '#555555',
+    },
     h1: {
       fontFamily: 'Italiana, sans-serif',
       fontWeight: 300,
@@ -29,6 +35,12 @@ const theme = createTheme({
       fontSize: 25,
       color: 'rgb(29, 21, 10)',
     },
+    h3: {
+      fontFamily: 'Italiana, sans-serif',
+      fontWeight: 300,
+      fontSize: 50,
+      color: 'rgb(29, 21, 10)',
+    },
     body1: {
       fontFamily: 'Poppins, sans-serif',
       fontWeight: 600,
@@ -38,6 +50,11 @@ const theme = createTheme({
     body2: {
       fontFamily: 'Poppins, sans-serif',
       fontSize: 15,
+      color: 'rgb(154, 154, 154)',
+    },
+    body3: {
+      fontFamily: 'Poppins, sans-serif',
+      fontSize: 20,
       color: 'rgb(154, 154, 154)',
     },
 

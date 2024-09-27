@@ -6,6 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import { Typography } from '@mui/material';
 
 function ForgotPassword({ open, handleClose }) {
   return (
@@ -20,13 +21,17 @@ function ForgotPassword({ open, handleClose }) {
         },
       }}
     >
-      <DialogTitle>Reset password</DialogTitle>
+      <DialogTitle>
+        <Typography variant="body1">Reset password</Typography>
+      </DialogTitle>
       <DialogContent
         sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
       >
         <DialogContentText>
-          Enter your account&apos;s email address, and we&apos;ll send you a
-          link to reset your password.
+          <Typography variant="text">
+            Enter your account&apos;s email address, and we&apos;ll send you a
+            link to reset your password.
+          </Typography>
         </DialogContentText>
         <OutlinedInput
           autoFocus
