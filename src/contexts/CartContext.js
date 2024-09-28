@@ -44,7 +44,6 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // Reset cart khi người dùng đăng xuất
   const resetCart = () => {
     setCart({ items: [], totalQuantity: 0 });
   };

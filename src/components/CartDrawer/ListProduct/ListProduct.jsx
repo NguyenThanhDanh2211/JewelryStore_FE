@@ -18,25 +18,31 @@ function ListProduct({ product, updateCartItems }) {
   const initialQuantity = product.quantity;
 
   const [quantity, setQuantity] = useState(initialQuantity);
+  const [itemTotalPrice, setItemTotalPrice] = useState(
+    initialQuantity * productPrice
+  );
+
   const { updateProductInCart, deleteProductFromCart } =
     useContext(CartContext);
 
-  const handleUpdateQuantity = (newQuantity) => {
+  const handleUpdateQuantity = async (newQuantity) => {
+    // const token = localStorage.getItem('authToken');
     if (newQuantity < 0) return;
-    setQuantity(newQuantity);
 
+    setQuantity(newQuantity);
     updateProductInCart(productId, newQuantity);
     updateCartItems(productId, newQuantity);
   };
 
-  const handleRemove = () => {
+  const handleRemove = async () => {
     deleteProductFromCart(productId);
     updateCartItems(productId, 0);
   };
 
   useEffect(() => {
     setQuantity(product.quantity);
-  }, [product.quantity]);
+    setItemTotalPrice(product.quantity * productPrice);
+  }, [product.quantity, productPrice]);
 
   return (
     <>
@@ -113,7 +119,7 @@ function ListProduct({ product, updateCartItems }) {
               </ButtonGroup>
             </Grid>
             <Grid item>
-              <Typography variant="body2">{productPrice} VND</Typography>
+              <Typography variant="body2">$ {itemTotalPrice}</Typography>
             </Grid>
           </Grid>
         </Grid>

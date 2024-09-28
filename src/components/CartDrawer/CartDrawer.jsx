@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useContext } from 'react';
+import { useContext } from 'react';
 import {
   Box,
   Divider,
@@ -8,63 +8,20 @@ import {
   Link,
   Grid,
 } from '@mui/material';
-import { getAllCart } from '~/services/cartService';
-import DetailProduct from './ListProduct';
+import { CartContext } from '~/contexts/CartContext';
+import ListProduct from './ListProduct';
 
 function CartDrawer({ open, toggleDrawer }) {
-  const [cartItems, setCartItems] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
-
-  const fetchCart = useCallback(async (token) => {
-    try {
-      const response = await getAllCart(token);
-      if (response) {
-        setCartItems(response.items);
-        setTotalPrice(response.totalPrice);
-      } else {
-        console.warn('Cart not found in the response.');
-        setCartItems([]);
-        setTotalPrice(0);
-      }
-    } catch (error) {
-      console.log('Failed to fetch cart details:', error);
-    }
-  }, []);
-
-  useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      fetchCart(token);
-    }
-  }, [fetchCart, open]);
+  const { cart, updateProductInCart, fetchCart } = useContext(CartContext);
 
   const updateCartItems = (productId, newQuantity) => {
-    setCartItems((prevItems) => {
-      const updatedItems = prevItems.reduce((acc, item) => {
-        if (item.productId === productId) {
-          if (newQuantity > 0) {
-            acc.push({ ...item, quantity: newQuantity });
-          }
-        } else {
-          acc.push({ ...item });
-        }
-        return acc;
-      }, []);
-
-      return updatedItems;
-    });
-  };
-
-  useEffect(() => {
-    updateTotalPrice(cartItems);
-  }, [cartItems]);
-
-  const updateTotalPrice = (items) => {
-    if (!items) return;
-    const newTotalPrice = items.reduce((total, item) => {
-      return total + item.quantity * item.productPrice;
-    }, 0);
-    setTotalPrice(newTotalPrice); // Cập nhật tổng giá trị mới
+    if (newQuantity === 0) return null;
+    if (newQuantity > 0) {
+      updateProductInCart(productId, newQuantity);
+    } else {
+      updateProductInCart(productId, 0);
+      fetchCart();
+    }
   };
 
   return (
@@ -90,12 +47,12 @@ function CartDrawer({ open, toggleDrawer }) {
             my: 1,
           }}
         >
-          {cartItems.length > 0 ? (
-            cartItems.map((item, index) => (
-              <DetailProduct
+          {cart.items.length > 0 ? (
+            cart.items.map((item, index) => (
+              <ListProduct
                 key={`${item.productId}-${index}`}
                 product={item}
-                updateCartItems={updateCartItems}
+                updateCartItems={updateCartItems} // Pass the update function to ListProduct
               />
             ))
           ) : (
@@ -120,7 +77,7 @@ function CartDrawer({ open, toggleDrawer }) {
             </Grid>
             <Grid item xs={6} container justifyContent="flex-end">
               <Typography variant="nav" sx={{ my: 2 }}>
-                {totalPrice} VND
+                $ {cart.totalPrice}
               </Typography>
             </Grid>
           </Grid>

@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import { updateCart, delProductInCart } from '~/services/cartService';
 import { CartContext } from '~/contexts/CartContext';
 
 function Product({ product, updateCartItems }) {

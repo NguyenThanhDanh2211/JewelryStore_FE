@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
-
+import { useContext, useState } from 'react';
 import {
   Box,
   Divider,
@@ -9,79 +8,32 @@ import {
   TextField,
 } from '@mui/material';
 import Product from './Product';
-import { getAllCart } from '~/services/cartService';
+import { CartContext } from '~/contexts/CartContext'; // Import the CartContext
 
 function Cart() {
+  const { cart, updateProductInCart, fetchCart } = useContext(CartContext);
   const [showCouponInput, setShowCouponInput] = useState(false);
   const [couponCode, setCouponCode] = useState('');
-  const [cartItems, setCartItems] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
 
-  const fetchCart = useCallback(
-    async (token) => {
-      try {
-        const response = await getAllCart(token);
-        if (response) {
-          setCartItems(response.items);
-          setTotalPrice(response.totalPrice);
-          // onCartUpdate(response.totalQuantity);
-        } else {
-          console.warn('Cart not found in the response.');
-          setCartItems([]);
-          setTotalPrice(0);
-          // onCartUpdate(0);
-        }
-      } catch (error) {
-        console.log('Failed to fetch cart details: ', error);
-      }
-    },
-    // [onCartUpdate]
-    []
-  );
-
-  useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      fetchCart(token);
-    }
-  }, [fetchCart]);
-
-  const updateCartItems = (productId, newQuantity) => {
-    setCartItems((prevItems) => {
-      const updatedItems = prevItems.reduce((acc, item) => {
-        if (item.productId === productId) {
-          if (newQuantity > 0) {
-            acc.push({ ...item, quantity: newQuantity });
-          }
-        } else {
-          acc.push({ ...item });
-        }
-        return acc;
-      }, []);
-
-      return updatedItems;
-    });
-  };
-
-  useEffect(() => {
-    updateTotalPrice(cartItems);
-  }, [cartItems]);
-
-  const updateTotalPrice = (items) => {
-    if (!items) return;
-    const newTotalPrice = items.reduce((total, item) => {
-      return total + item.quantity * item.productPrice;
-    }, 0);
-    setTotalPrice(newTotalPrice); // Cập nhật tổng giá trị mới
-  };
-
+  // Handle when coupon input is clicked
   const handleCouponClick = () => {
     setShowCouponInput(true);
   };
 
+  // Handle when coupon is applied
   const handleCouponApply = () => {
-    // Apply coupon logic here
     console.log('Coupon Applied:', couponCode);
+    // Apply coupon logic here if needed
+  };
+
+  const updateCartItems = (productId, newQuantity) => {
+    if (newQuantity === 0) return null;
+    if (newQuantity > 0) {
+      updateProductInCart(productId, newQuantity);
+    } else {
+      updateProductInCart(productId, 0);
+      fetchCart();
+    }
   };
 
   return (
@@ -108,8 +60,8 @@ function Cart() {
             <Divider />
           </Grid>
 
-          {cartItems.length > 0 ? (
-            cartItems.map((item, index) => (
+          {cart.items.length > 0 ? (
+            cart.items.map((item, index) => (
               <Product
                 key={`${item.productId}-${index}`}
                 product={item}
@@ -127,8 +79,8 @@ function Cart() {
           pl={5}
           sx={{
             position: 'sticky',
-            top: '10px', // Adjust as per your header height
-            alignSelf: 'flex-start', // Ensures sticky works with dynamic height
+            top: '10px',
+            alignSelf: 'flex-start',
           }}
         >
           <Typography variant="h3" gutterBottom>
@@ -138,14 +90,14 @@ function Cart() {
 
           <Grid container justifyContent="space-between" sx={{ mb: 1, pr: 2 }}>
             <Typography variant="body3">Subtotal</Typography>
-            <Typography variant="body3">$ {totalPrice}</Typography>
+            <Typography variant="body3">$ {cart.totalPrice}</Typography>
           </Grid>
 
           <Divider sx={{ my: 2, mr: 2 }} />
 
           <Grid container justifyContent="space-between" sx={{ mb: 2, pr: 2 }}>
             <Typography variant="body3">Total</Typography>
-            <Typography variant="body3">$ {totalPrice}</Typography>
+            <Typography variant="body3">$ {cart.totalPrice}</Typography>
           </Grid>
           <Divider sx={{ mb: 2, mr: 2 }} />
 
@@ -163,7 +115,7 @@ function Cart() {
                 <TextField
                   sx={{
                     '& .MuiInputBase-root': {
-                      minHeight: '40px', // Điều chỉnh chiều cao của input
+                      minHeight: '40px',
                     },
                   }}
                   fullWidth
