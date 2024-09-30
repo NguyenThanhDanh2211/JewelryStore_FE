@@ -5,7 +5,7 @@ const routes = {
   register: '/register',
   cart: '/cart',
   about: '/about',
-  shop: '/shop',
+  shop: '/product',
   contact: '/contact',
   detailProduct: '/product/:slug',
 };

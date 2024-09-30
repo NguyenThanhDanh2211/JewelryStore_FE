@@ -1,11 +1,12 @@
 import Navbar from '~/components/Navbar';
 import Footer from '~/components/Footer';
+import HomePage from '~/components/Home';
 
 function Home() {
   return (
     <>
       <Navbar />
-      <h1>Trang chu</h1>
+      <HomePage />
       <Footer />
     </>
   );

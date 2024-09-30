@@ -87,11 +87,13 @@ function Product({ product, updateCartItems }) {
         <Grid item xs={2}>
           <ButtonGroup>
             <Button onClick={() => handleUpdateQuantity(quantity - 1)}>
-              -
+              <Typography variant="body2">-</Typography>
             </Button>
-            <Button>{quantity}</Button>
+            <Button>
+              <Typography variant="body2">{quantity}</Typography>
+            </Button>
             <Button onClick={() => handleUpdateQuantity(quantity + 1)}>
-              +
+              <Typography variant="body2">+</Typography>
             </Button>
           </ButtonGroup>
         </Grid>

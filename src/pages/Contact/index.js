@@ -9,9 +9,8 @@ import {
   IconButton,
   styled,
   Button,
-  DialogContentText,
   OutlinedInput,
-  DialogActions,
+  Typography,
 } from '@mui/material';
 
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -49,19 +48,33 @@ function Contact() {
                 src={contact}
                 sx={{ width: '100%', height: '150px', objectFit: 'cover' }}
               />
-              <Box component="h1">Contact Information</Box>
+              <Typography variant="h3" sx={{ my: '10px' }}>
+                Contact Information
+              </Typography>
+              <Typography variant="text">
+                Feel free to reach out to us for any inquiries or support. We're
+                here to assist you with all your needs.
+              </Typography>
               <Grid container spacing={8}>
-                <Grid item xs={6}>
-                  <Box component="h2">Office</Box>
-                  <Box component="p">
+                <Grid item xs={6} display="flex" flexDirection="column">
+                  <Typography variant="h3" my={2}>
+                    Office
+                  </Typography>
+                  <Typography variant="text" mb={1}>
                     Campus 2, 3/2 Street, Xuan Khanh Ward, Ninh Kieu District,
                     Can Tho City.
-                  </Box>
-                  <Box component="p">+84 789 604 722</Box>
-                  <Box component="p">nguyenthanhdanh221102@gmail.com</Box>
+                  </Typography>
+                  <Typography variant="text" my={1}>
+                    +84 789 604 722
+                  </Typography>
+                  <Typography variant="text" my={1}>
+                    nguyenthanhdanh221102@gmail.com
+                  </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Box component="h2">Social Info</Box>
+                  <Typography variant="h3" my={2}>
+                    Social Info
+                  </Typography>
                   <Grid container spacing={2}>
                     <Grid item>
                       <IconButton
@@ -103,19 +116,16 @@ function Contact() {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={6}>
-              <Box component="h1">Got Any Questions?</Box>
-              <Box component="p">
+            <Grid item xs={6} mt={3} display="flex" flexDirection="column">
+              <Typography variant="h3">Got Any Questions?</Typography>
+              <Typography variant="text" my={2}>
                 Use the form below to get in touch with us.
-              </Box>
+              </Typography>
               <Box>
                 <Grid item xs={12}>
                   <Grid container spacing={2}>
                     <Grid item xs={6}>
-                      <DialogContentText sx={{ my: 1 }}>
-                        {' '}
-                        Your Name*
-                      </DialogContentText>
+                      <Typography variant="text1">Your Name*</Typography>
                       <OutlinedInput
                         // autoFocus
                         required
@@ -128,9 +138,7 @@ function Contact() {
                       />
                     </Grid>
                     <Grid item xs={6}>
-                      <DialogContentText sx={{ my: 1 }}>
-                        Your E-mail*
-                      </DialogContentText>
+                      <Typography variant="text1">Your E-mail*</Typography>
                       <OutlinedInput
                         // autoFocus
                         required
@@ -144,10 +152,10 @@ function Contact() {
                     </Grid>
                   </Grid>
                 </Grid>
-                <Box>
-                  <DialogContentText sx={{ my: 1 }}>
+                <Box display="flex" flexDirection="column">
+                  <Typography variant="text1" mt={2}>
                     Phone Number
-                  </DialogContentText>
+                  </Typography>
                   <OutlinedInput
                     // autoFocus
                     required
@@ -158,9 +166,10 @@ function Contact() {
                     type="text"
                     fullWidth
                   />
-                </Box>
-                <Box>
-                  <DialogContentText sx={{ my: 1 }}>Subject</DialogContentText>
+
+                  <Typography variant="text1" mt={2}>
+                    Subject
+                  </Typography>
                   <OutlinedInput
                     // autoFocus
                     required
@@ -171,11 +180,10 @@ function Contact() {
                     type="text"
                     fullWidth
                   />
-                </Box>
-                <Box>
-                  <DialogContentText sx={{ my: 1 }}>
+
+                  <Typography variant="text1" mt={2}>
                     Your Message*
-                  </DialogContentText>
+                  </Typography>
                   <OutlinedInput
                     // autoFocus
                     required
@@ -188,18 +196,18 @@ function Contact() {
                     multiline
                     rows={4}
                   />
-                </Box>
-                <Box>
-                  <DialogActions>
-                    <Button
-                      fullWidth
-                      // onClick={handleClose}
-                      variant="contained"
-                      type="submit"
-                    >
-                      SUBMIT
-                    </Button>
-                  </DialogActions>
+
+                  <Button
+                    // onClick={handleClose}
+                    variant="single"
+                    fullWidth
+                    type="submit"
+                    sx={{
+                      my: '10px',
+                    }}
+                  >
+                    SUBMIT
+                  </Button>
                 </Box>
               </Box>
             </Grid>

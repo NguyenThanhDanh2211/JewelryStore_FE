@@ -20,10 +20,11 @@ import { CartIcon, SearchIcon, UserIcon } from '~/components/Icons';
 import { me } from '~/services/userService';
 import MenuUser from '../MenuUser';
 import CartDrawer from '../CartDrawer';
+import SearchDrawer from '../SearchDrawer';
 import { CartContext } from '~/contexts/CartContext';
 
 const NavbarContainer = styled(Stack)(({ theme }) => ({
-  height: '100%',
+  height: '130px',
   padding: theme.spacing(1),
   backgroundColor: '#f5f5f5',
 }));
@@ -32,7 +33,7 @@ const MuiCard = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  padding: theme.spacing(6),
+  padding: theme.spacing(2),
   margin: 'auto',
   backgroundColor: '#f5f5f5',
 }));
@@ -41,6 +42,7 @@ function Navbar() {
   const [userName, setUserName] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerSearchOpen, setDrawerSearchOpen] = useState(false);
 
   const { cart, fetchCart } = useContext(CartContext);
 
@@ -54,7 +56,7 @@ function Navbar() {
 
       fetchCart();
     }
-  }, []);
+  }, [fetchCart]);
 
   const fetchUserDetails = async () => {
     const token = localStorage.getItem('authToken');
@@ -81,6 +83,10 @@ function Navbar() {
     setDrawerOpen(open);
   };
 
+  const toggleSearchDrawer = (open) => () => {
+    setDrawerSearchOpen(open);
+  };
+
   const handleCartIconClick = () => {
     if (location.pathname !== '/cart') {
       toggleDrawer(true)(); // Open CartDrawer if not on the cart page
@@ -89,7 +95,6 @@ function Navbar() {
 
   return (
     <>
-      {/* <Slide direction="down" in={showNavbar}> */}
       <NavbarContainer direction="column" justifyContent="space-between">
         <MuiCard variant="outlined" sx={{ border: 'none' }}>
           <Grid container sx={{ gap: 2 }}>
@@ -117,7 +122,7 @@ function Navbar() {
                   <Link
                     color="inherit"
                     sx={{ textDecoration: 'none' }}
-                    href="/shop"
+                    href="/product"
                   >
                     <Typography variant="nav">SHOP</Typography>
                   </Link>
@@ -175,9 +180,16 @@ function Navbar() {
             >
               <Grid container spacing={2}>
                 <Grid item>
-                  <IconButton color="inherit">
+                  <IconButton
+                    color="inherit"
+                    onClick={toggleSearchDrawer(true)}
+                  >
                     <SearchIcon />
                   </IconButton>
+                  <SearchDrawer
+                    open={drawerSearchOpen}
+                    toggleSearchDrawer={toggleSearchDrawer}
+                  />
                 </Grid>
 
                 <Grid item>
@@ -222,9 +234,8 @@ function Navbar() {
             </Grid>
           </Grid>
         </MuiCard>
-        <Divider></Divider>
+        <Divider sx={{ m: 2 }} />
       </NavbarContainer>
-      {/* </Slide> */}
     </>
   );
 }

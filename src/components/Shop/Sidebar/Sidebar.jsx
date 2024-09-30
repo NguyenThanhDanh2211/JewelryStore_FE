@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import Typography from '@mui/material/Typography';
+import {
+  Box,
+  List,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from '@mui/material';
 
-export default function Sidebar() {
+export default function Sidebar({ onCategorySelect }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const handleListItemClick = (index) => {
+  const handleListItemClick = (index, category) => {
     setSelectedIndex(index);
-    // Add filter logic here if needed
+    onCategorySelect(category); // Gọi hàm truyền từ ProductPage
   };
 
   return (
@@ -18,12 +20,12 @@ export default function Sidebar() {
       {/* Categories Section */}
       <Typography variant="nav">Categories</Typography>
       <List aria-label="categories">
-        {['All', 'Rings', 'Necklaces', 'Earrings', 'Bracelets'].map(
+        {['All', 'Ring', 'Necklace', 'Earring', 'Bracelet'].map(
           (item, index) => (
             <ListItemButton
               key={item}
               selected={selectedIndex === index}
-              onClick={() => handleListItemClick(index)}
+              onClick={() => handleListItemClick(index, item)}
             >
               <ListItemText
                 primary={item}
@@ -37,36 +39,13 @@ export default function Sidebar() {
       </List>
 
       {/* Tags Section */}
-      <Typography variant="nav" sx={{}}>
-        Tags
-      </Typography>
+      <Typography variant="nav">Tags</Typography>
       <List component="nav" aria-label="tags">
-        {['Golden', 'Silver', 'Earrings', 'Luxury'].map((item, index) => (
+        {['Diamond', 'Golden', 'Silver'].map((item, index) => (
           <ListItemButton
             key={item}
             selected={selectedIndex === index + 5}
-            onClick={() => handleListItemClick(index + 5)}
-          >
-            <ListItemText
-              primary={item}
-              primaryTypographyProps={{
-                variant: 'body2',
-              }}
-            />
-          </ListItemButton>
-        ))}
-      </List>
-
-      {/* Brands Section */}
-      <Typography variant="nav" sx={{}}>
-        Brands
-      </Typography>
-      <List component="nav" aria-label="brands">
-        {['LuxeGem', 'GemAura', 'SparkleShine'].map((item, index) => (
-          <ListItemButton
-            key={item}
-            selected={selectedIndex === index + 10}
-            onClick={() => handleListItemClick(index + 10)}
+            onClick={() => handleListItemClick(index + 5, item)}
           >
             <ListItemText
               primary={item}
@@ -79,16 +58,14 @@ export default function Sidebar() {
       </List>
 
       {/* Filter By Price Section */}
-      <Typography variant="nav" sx={{}}>
-        Filter By Price
-      </Typography>
+      <Typography variant="nav">Filter By Price</Typography>
       <List component="nav" aria-label="price-filters">
         {['Less than $10', '$10- $20', '$20- $30', '$30- $40', '$40- $50'].map(
           (item, index) => (
             <ListItemButton
               key={item}
-              selected={selectedIndex === index + 15}
-              onClick={() => handleListItemClick(index + 15)}
+              selected={selectedIndex === index + 10}
+              onClick={() => handleListItemClick(index + 10, item)}
             >
               <ListItemText
                 primary={item}

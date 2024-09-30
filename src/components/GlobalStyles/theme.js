@@ -23,6 +23,7 @@ const theme = createTheme({
       fontSize: 16,
       color: '#555555',
     },
+
     h1: {
       fontFamily: 'Italiana, sans-serif',
       fontWeight: 300,
@@ -39,6 +40,12 @@ const theme = createTheme({
       fontFamily: 'Italiana, sans-serif',
       fontWeight: 300,
       fontSize: 50,
+      color: 'rgb(29, 21, 10)',
+    },
+    h4: {
+      fontFamily: 'Italiana, sans-serif',
+      fontWeight: 300,
+      fontSize: 60,
       color: 'rgb(29, 21, 10)',
     },
     body1: {
