@@ -6,10 +6,11 @@ import {
   Stack,
   Snackbar,
   Alert,
+  Pagination,
   styled,
 } from '@mui/material';
 import Sidebar from './Sidebar';
-import { getAllProduct } from '~/services/productService';
+import { getFilteredProducts } from '~/services/productService';
 import { CartContext } from '~/contexts/CartContext';
 import ProductCardComponent from '~/components/ProductCard';
 
@@ -27,37 +28,45 @@ const ShopContainer = styled(Stack)(({ theme }) => ({
 
 function ProductPage() {
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
+
+  // Filter states
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedTag, setSelectedTag] = useState(null);
+  const [selectedPriceRange, setSelectedPriceRange] = useState(null);
 
   const { addProductToCart } = useContext(CartContext);
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchProducts = async () => {
       try {
-        const response = await getAllProduct();
-        setProducts(response);
-        setFilteredProducts(response); // Set initial filtered products
+        const filters = {
+          page: currentPage,
+          limit: 3, // Adjust limit based on your pagination settings
+          category: selectedCategory !== 'All' ? selectedCategory : undefined,
+          tag: selectedTag,
+          minPrice: selectedPriceRange ? selectedPriceRange[0] : undefined,
+          maxPrice: selectedPriceRange ? selectedPriceRange[1] : undefined,
+        };
+
+        const response = await getFilteredProducts(filters);
+        setProducts(response.products);
+        setTotalPages(response.totalPages);
       } catch (error) {
-        console.log('Error fetching product', error);
+        console.log('Error fetching products', error);
+        setProducts([]);
       }
     };
 
-    fetchProduct();
-  }, []);
+    fetchProducts();
+  }, [currentPage, selectedCategory, selectedTag, selectedPriceRange]);
 
-  useEffect(() => {
-    if (selectedCategory === 'All') {
-      setFilteredProducts(products);
-    } else {
-      const filtered = products.filter((product) =>
-        product.category.includes(selectedCategory)
-      );
-      setFilteredProducts(filtered);
-    }
-  }, [selectedCategory, products]);
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value); // 'value' represents the page number
+  };
 
   const handleAddToCart = (product) => {
     addProductToCart(product, 1);
@@ -85,7 +94,11 @@ function ProductPage() {
 
       <Box display="flex">
         {/* Left Drawer Section */}
-        <Sidebar onCategorySelect={setSelectedCategory} />
+        <Sidebar
+          onCategorySelect={setSelectedCategory}
+          onTagSelect={setSelectedTag}
+          onPriceRangeSelect={setSelectedPriceRange}
+        />
 
         {/* Right Grid Section for Products */}
         <Box
@@ -95,10 +108,10 @@ function ProductPage() {
           flexDirection="column"
         >
           <Typography variant="nav" gutterBottom mb={1}>
-            {selectedCategory}
+            {selectedCategory} {selectedTag} {selectedPriceRange}
           </Typography>
           <Grid container spacing={3}>
-            {filteredProducts.map((product) => (
+            {products.map((product) => (
               <Grid item xs={12} sm={6} md={4} key={product._id}>
                 <ProductCardComponent
                   product={product}
@@ -107,6 +120,17 @@ function ProductPage() {
               </Grid>
             ))}
           </Grid>
+
+          <Box display="flex" justifyContent="center" mt={2}>
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              onChange={handlePageChange}
+              shape="rounded"
+              siblingCount={1}
+              boundaryCount={1}
+            />
+          </Box>
         </Box>
       </Box>
     </ShopContainer>

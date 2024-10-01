@@ -7,12 +7,27 @@ import {
   Typography,
 } from '@mui/material';
 
-export default function Sidebar({ onCategorySelect }) {
+function Sidebar({ onCategorySelect, onTagSelect, onPriceRangeSelect }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
 
   const handleListItemClick = (index, category) => {
     setSelectedIndex(index);
-    onCategorySelect(category); // Gọi hàm truyền từ ProductPage
+    onCategorySelect(category);
+
+    if (index < 5) {
+      onTagSelect(null);
+      onPriceRangeSelect(null);
+    }
+  };
+
+  const handleTagClick = (index, tag) => {
+    setSelectedIndex(index);
+    onTagSelect(tag);
+  };
+
+  const handlePriceClick = (index, range) => {
+    setSelectedIndex(index);
+    onPriceRangeSelect(range);
   };
 
   return (
@@ -45,7 +60,7 @@ export default function Sidebar({ onCategorySelect }) {
           <ListItemButton
             key={item}
             selected={selectedIndex === index + 5}
-            onClick={() => handleListItemClick(index + 5, item)}
+            onClick={() => handleTagClick(index + 5, item)}
           >
             <ListItemText
               primary={item}
@@ -60,23 +75,29 @@ export default function Sidebar({ onCategorySelect }) {
       {/* Filter By Price Section */}
       <Typography variant="nav">Filter By Price</Typography>
       <List component="nav" aria-label="price-filters">
-        {['Less than $10', '$10- $20', '$20- $30', '$30- $40', '$40- $50'].map(
-          (item, index) => (
-            <ListItemButton
-              key={item}
-              selected={selectedIndex === index + 10}
-              onClick={() => handleListItemClick(index + 10, item)}
-            >
-              <ListItemText
-                primary={item}
-                primaryTypographyProps={{
-                  variant: 'body2',
-                }}
-              />
-            </ListItemButton>
-          )
-        )}
+        {[
+          { label: 'Less than $10', range: [0, 10] },
+          { label: '$10 - $20', range: [10, 20] },
+          { label: '$20 - $30', range: [20, 30] },
+          { label: '$30 - $40', range: [30, 40] },
+          { label: '$40 - $50', range: [40, 50] },
+        ].map((item, index) => (
+          <ListItemButton
+            key={item.label}
+            selected={selectedIndex === index + 10}
+            onClick={() => handlePriceClick(index + 10, item.range)}
+          >
+            <ListItemText
+              primary={item.label}
+              primaryTypographyProps={{
+                variant: 'body2',
+              }}
+            />
+          </ListItemButton>
+        ))}
       </List>
     </Box>
   );
 }
+
+export default Sidebar;

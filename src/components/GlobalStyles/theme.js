@@ -168,6 +168,24 @@ const theme = createTheme({
         },
       },
     },
+
+    MuiPagination: {
+      styleOverrides: {
+        root: {
+          '& .MuiPaginationItem-root': {
+            color: '#db9662',
+          },
+          '& .Mui-selected': {
+            backgroundColor: '#db9662 !important',
+            color: '#fff',
+          },
+          '& .MuiPaginationItem-root:hover': {
+            backgroundColor: '#f4a87c',
+            color: '#fff',
+          },
+        },
+      },
+    },
   },
 });
 
