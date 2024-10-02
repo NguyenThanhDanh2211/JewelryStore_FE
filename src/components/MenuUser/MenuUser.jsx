@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Menu, MenuItem } from '@mui/material';
+import { Link, Menu, MenuItem } from '@mui/material';
 
 import { CartContext } from '~/contexts/CartContext';
 
@@ -30,7 +30,11 @@ function MenuUser({ anchorEl, handleCloseMenu }) {
         horizontal: 'right',
       }}
     >
-      <MenuItem>My Account</MenuItem>
+      <MenuItem>
+        <Link href="/me" sx={{ textDecoration: 'none' }}>
+          My Account
+        </Link>
+      </MenuItem>
       <MenuItem onClick={handleLogout}>Log out</MenuItem>
     </Menu>
   );

@@ -41,3 +41,18 @@ export const me = async (token) => {
     throw error;
   }
 };
+
+export const update = async (userData, token) => {
+  try {
+    const response = await httpRequest.post('user/update', userData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

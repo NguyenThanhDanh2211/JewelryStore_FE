@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import {
   Card,
   Stack,
@@ -44,7 +44,6 @@ const MuiCard = styled(Card)(({ theme }) => ({
 }));
 
 function Login() {
-  const defaultTheme = createTheme();
   const navigate = useNavigate();
 
   const [successMessage, setSuccessMessage] = useState('');
@@ -112,7 +111,6 @@ function Login() {
   return (
     <>
       <Navbar />
-      <ThemeProvider theme={defaultTheme}></ThemeProvider>
       <CssBaseline enableColorScheme />
       <LogInContainer direction="column" justifyContent="space-between">
         {(successMessage || errorMessage) && (

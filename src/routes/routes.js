@@ -8,6 +8,7 @@ import About from '~/pages/About';
 import Shop from '~/pages/Shop';
 import Contact from '~/pages/Contact';
 import ProductDetail from '~/pages/ProductDetail';
+import MyAccount from '~/pages/MyAccount';
 
 const publicRoutes = [
   {
@@ -41,6 +42,10 @@ const publicRoutes = [
   {
     path: config.routes.detailProduct,
     component: ProductDetail,
+  },
+  {
+    path: config.routes.myAccount,
+    component: MyAccount,
   },
 ];
 

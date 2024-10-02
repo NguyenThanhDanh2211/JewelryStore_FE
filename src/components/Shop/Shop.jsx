@@ -45,7 +45,7 @@ function ProductPage() {
       try {
         const filters = {
           page: currentPage,
-          limit: 3, // Adjust limit based on your pagination settings
+          limit: 9, // Adjust limit based on your pagination settings
           category: selectedCategory !== 'All' ? selectedCategory : undefined,
           tag: selectedTag,
           minPrice: selectedPriceRange ? selectedPriceRange[0] : undefined,

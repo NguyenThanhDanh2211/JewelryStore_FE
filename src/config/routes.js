@@ -8,6 +8,7 @@ const routes = {
   shop: '/product',
   contact: '/contact',
   detailProduct: '/product/:slug',
+  myAccount: '/me',
 };
 
 export default routes;

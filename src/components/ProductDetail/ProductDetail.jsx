@@ -93,15 +93,14 @@ function ProductDetail() {
               <Typography variant="body1" sx={{ my: '15px' }}>
                 $ {product.price}
               </Typography>
-              <Typography
-                variant="text"
-                sx={{ textAlign: 'justify', my: '15px' }}
+              <Box
+                sx={{
+                  margin: '0 auto',
+                  textAlign: 'justify',
+                }}
               >
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Pariatur sed numquam et fugit optio aperiam ut, voluptas error
-                culpa aut quidem unde, ducimus consequuntur tempora itaque a,
-                nostrum excepturi eligendi.
-              </Typography>
+                <Typography variant="text">{product.description}</Typography>
+              </Box>
               <Grid
                 sx={{
                   display: 'flex',
