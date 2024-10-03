@@ -65,7 +65,8 @@ function ProductPage() {
   }, [currentPage, selectedCategory, selectedTag, selectedPriceRange]);
 
   const handlePageChange = (event, value) => {
-    setCurrentPage(value); // 'value' represents the page number
+    setCurrentPage(value);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleAddToCart = (product) => {
