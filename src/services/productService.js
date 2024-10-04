@@ -50,6 +50,19 @@ export const getFilteredProducts = async ({
   }
 };
 
+export const search = async (q, type = 'less') => {
+  try {
+    const response = await httpRequest.get('product/search', {
+      params: { q, type },
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
 // export const getLimitProduct = async (page = 1, limit = 2) => {
 //   try {
 //     const response = await httpRequest.get(

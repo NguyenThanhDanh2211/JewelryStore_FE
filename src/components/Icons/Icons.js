@@ -265,11 +265,11 @@ export function ApplePayIcon() {
   );
 }
 
-export function MoMoIcon() {
+export function MoMoIcon({ width, height }) {
   return (
     <svg
-      width="2.6rem"
-      height="2.6rem"
+      width={width}
+      height={height}
       xmlns="http://www.w3.org/2000/svg"
       version="1.1"
       id="Layer_1"

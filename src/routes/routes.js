@@ -9,6 +9,7 @@ import Shop from '~/pages/Shop';
 import Contact from '~/pages/Contact';
 import ProductDetail from '~/pages/ProductDetail';
 import MyAccount from '~/pages/MyAccount';
+import Checkout from '~/pages/Checkout';
 
 const publicRoutes = [
   {
@@ -46,6 +47,10 @@ const publicRoutes = [
   {
     path: config.routes.myAccount,
     component: MyAccount,
+  },
+  {
+    path: config.routes.checkout,
+    component: Checkout,
   },
 ];
 

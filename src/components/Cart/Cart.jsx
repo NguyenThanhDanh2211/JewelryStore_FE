@@ -6,6 +6,7 @@ import {
   Typography,
   Button,
   TextField,
+  Link,
 } from '@mui/material';
 import Product from './Product';
 import { CartContext } from '~/contexts/CartContext'; // Import the CartContext
@@ -139,9 +140,11 @@ function Cart() {
           )}
 
           <Box sx={{ mt: 2, pr: 2 }}>
-            <Button variant="single" type="submit" fullWidth>
-              Checkout
-            </Button>
+            <Link href="/checkout">
+              <Button variant="single" type="submit" fullWidth>
+                Checkout
+              </Button>
+            </Link>
           </Box>
         </Grid>
       </Grid>

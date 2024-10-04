@@ -199,7 +199,7 @@ function ProductDetail() {
 
                       <ListItem sx={{ width: 'auto' }}>
                         <ListItemIcon>
-                          <MoMoIcon />
+                          <MoMoIcon width="2.6rem" height="2.6rem" />
                         </ListItemIcon>
                       </ListItem>
                     </List>
