@@ -53,8 +53,8 @@ function Sidebar({ onCategorySelect, onTagSelect, onPriceRangeSelect }) {
         )}
       </List>
 
-      {/* Tags Section */}
-      <Typography variant="nav">Tags</Typography>
+      {/* Materials Section */}
+      <Typography variant="nav">Materials</Typography>
       <List component="nav" aria-label="tags">
         {['Diamond', 'Golden', 'Silver'].map((item, index) => (
           <ListItemButton

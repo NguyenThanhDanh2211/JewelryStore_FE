@@ -100,7 +100,7 @@ function Search({ open, toggleSearchDrawer }) {
                 </Grid>
               ))
             ) : (
-              <Typography variant="nav">
+              <Typography variant="nav" color="rgb(154, 154, 154)">
                 Sorry, no results matched your search for.
               </Typography>
             )}

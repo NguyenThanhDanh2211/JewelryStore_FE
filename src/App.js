@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { publicRoutes } from './routes';
 import { CartProvider } from './contexts/CartContext';
+import GoToTop from './components/GoToTop';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
                   element={
                     <Layout>
                       <Page />
+                      <GoToTop />
                     </Layout>
                   }
                 />

@@ -16,11 +16,12 @@ import {
   ListItemIcon,
 } from '@mui/material';
 
-import { getProductBySlug } from '~/services/productService';
+import { getAllProduct, getProductBySlug } from '~/services/productService';
 import { styled } from '@mui/material/styles';
 import Image from './Image';
 import { CartContext } from '~/contexts/CartContext';
 import { ApplePayIcon, MoMoIcon, PayPalIcon, VisaIcon } from '../Icons';
+import ProductCardComponent from '../ProductCard';
 
 const ProductDetailContainer = styled(Stack)(({ theme }) => ({
   display: 'flex',
@@ -38,6 +39,7 @@ function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
+  const [relatedProducts, setRelatedProducts] = useState([]);
 
   const { addProductToCart } = useContext(CartContext);
 
@@ -68,6 +70,25 @@ function ProductDetail() {
 
     fetchProduct();
   }, [slug]);
+
+  useEffect(() => {
+    const fetchRelated = async () => {
+      try {
+        if (product && product.category) {
+          const response = await getAllProduct();
+          const related = response.filter(
+            (item) =>
+              item.category === product.category && item.slug !== product.slug
+          );
+
+          setRelatedProducts(related);
+        }
+      } catch (error) {
+        console.log('Error fetching products', error);
+      }
+    };
+    fetchRelated();
+  }, [product]);
 
   return (
     <>
@@ -207,11 +228,47 @@ function ProductDetail() {
                 </Grid>
               </Box>
             </Grid>
+            <Grid item xs={12}>
+              <Divider />
+            </Grid>
           </Grid>
         ) : (
           <p>Loading product details...</p>
         )}
       </ProductDetailContainer>
+
+      <Box
+        display="flex"
+        flexDirection="column"
+        sx={{ maxWidth: '1200px', margin: 'auto', pb: '40px' }}
+      >
+        <Typography>CMT</Typography>
+        <Divider />
+      </Box>
+
+      <Box
+        display="flex"
+        flexDirection="column"
+        sx={{ maxWidth: '1200px', margin: 'auto', pb: '40px' }}
+      >
+        <Typography variant="h3" my={3}>
+          Related Products
+        </Typography>
+
+        {product && relatedProducts.length > 0 && (
+          <Grid
+            container
+            spacing={4}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
+            {relatedProducts.map((item) => (
+              <Grid item xs={12} sm={5} md={3} key={item._id}>
+                <ProductCardComponent product={item} />
+              </Grid>
+            ))}
+          </Grid>
+        )}
+      </Box>
     </>
   );
 }

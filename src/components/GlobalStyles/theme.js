@@ -69,7 +69,7 @@ const theme = createTheme({
       fontFamily: 'Poppins, sans-serif',
       fontWeight: 600,
       fontSize: 20,
-      color: 'rgb(154, 154, 154)',
+      // color: 'rgb(154, 154, 154)',
     },
   },
 

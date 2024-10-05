@@ -56,7 +56,9 @@ function CartDrawer({ open, toggleDrawer }) {
               />
             ))
           ) : (
-            <Typography variant="nav">No items in the cart.</Typography>
+            <Typography variant="nav" color="rgb(154, 154, 154)">
+              No items in the cart.
+            </Typography>
           )}
         </Box>
 
@@ -71,12 +73,20 @@ function CartDrawer({ open, toggleDrawer }) {
             alignItems="center"
           >
             <Grid item xs={6}>
-              <Typography variant="nav" sx={{ my: 2 }}>
+              <Typography
+                variant="nav"
+                sx={{ my: 2 }}
+                color="rgb(154, 154, 154)"
+              >
                 Subtotal:
               </Typography>
             </Grid>
             <Grid item xs={6} container justifyContent="flex-end">
-              <Typography variant="nav" sx={{ my: 2 }}>
+              <Typography
+                variant="nav"
+                sx={{ my: 2 }}
+                color="rgb(154, 154, 154)"
+              >
                 $ {cart.totalPrice}
               </Typography>
             </Grid>

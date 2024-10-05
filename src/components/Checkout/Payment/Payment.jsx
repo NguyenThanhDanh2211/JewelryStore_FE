@@ -88,7 +88,9 @@ export default function PaymentForm() {
                   })}
                 />
 
-                <Typography variant="nav">Cash on delivery</Typography>
+                <Typography variant="nav" color="rgb(154, 154, 154)">
+                  Cash on delivery
+                </Typography>
               </CardContent>
             </CardActionArea>
           </Card>
@@ -104,7 +106,9 @@ export default function PaymentForm() {
               >
                 <MoMoIcon height="2rem" width="2rem" />
 
-                <Typography variant="nav">MoMo</Typography>
+                <Typography variant="nav" color="rgb(154, 154, 154)">
+                  MoMo
+                </Typography>
               </CardContent>
             </CardActionArea>
           </Card>
