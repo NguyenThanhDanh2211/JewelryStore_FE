@@ -65,3 +65,18 @@ export const delProductInCart = async (productId, token) => {
     throw error;
   }
 };
+
+export const delAllProducts = async (token) => {
+  try {
+    const response = await httpRequest.dele('/cart/delete-all', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.error('Error deleting all products from cart:', error);
+    throw error;
+  }
+};

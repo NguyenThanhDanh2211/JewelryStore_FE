@@ -21,8 +21,10 @@ import CartDrawer from '../CartDrawer';
 import SearchDrawer from '../SearchDrawer';
 import { CartContext } from '~/contexts/CartContext';
 
-const NavbarContainer = styled(Stack)(({ theme, isFixed }) => ({
-  height: '90px',
+const NavbarContainer = styled(Stack, {
+  shouldForwardProp: (prop) => prop !== 'isFixed',
+})(({ theme, isFixed }) => ({
+  height: '100px',
   padding: theme.spacing(1),
   backgroundColor: '#f5f5f5',
   transition: 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out',
@@ -140,7 +142,7 @@ function Navbar() {
               display: 'flex',
             }}
           >
-            <Grid container spacing={4}>
+            <Grid container spacing={4} display="flex" ml={1}>
               {navLinks.map((link) => (
                 <Grid item key={link.label}>
                   <Link
@@ -188,6 +190,8 @@ function Navbar() {
           {/* icon */}
           <Grid
             item
+            display="flex"
+            mr={4}
             sx={{
               position: 'absolute',
               right: '30px',

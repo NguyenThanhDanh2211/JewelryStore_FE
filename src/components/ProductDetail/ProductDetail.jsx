@@ -112,7 +112,7 @@ function ProductDetail() {
             <Grid item xs={6}>
               <Typography variant="h3">{product.name}</Typography>
               <Typography variant="body1" sx={{ my: '15px' }}>
-                $ {product.price}
+                $ {product.price.toFixed(2)}
               </Typography>
               <Box
                 sx={{

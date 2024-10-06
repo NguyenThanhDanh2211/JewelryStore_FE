@@ -37,7 +37,6 @@ function Search({ open, toggleSearchDrawer }) {
   const inputRef = useRef();
 
   useEffect(() => {
-    console.log(debouncedValue);
     if (!debouncedValue) {
       setSearchResult([]);
       return;

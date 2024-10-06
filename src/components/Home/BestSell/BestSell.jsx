@@ -83,8 +83,7 @@ function BestSell() {
       {/* Displaying the products */}
       <Grid
         container
-        spacing={4}
-        sx={{ maxWidth: '1200px', margin: 'auto', pb: '40px' }}
+        sx={{ maxWidth: '1200px', ml: '90px', mt: '10px', pb: '40px' }}
       >
         {products.slice(3, 7).map((product) => (
           <Grid item xs={12} sm={5} md={3} key={product._id}>

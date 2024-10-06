@@ -3,6 +3,7 @@ import {
   addToCart,
   getAllCart,
   delProductInCart,
+  delAllProducts,
   updateCart,
 } from '~/services/cartService';
 
@@ -30,6 +31,17 @@ export const CartProvider = ({ children }) => {
       await fetchCart();
     } catch (error) {
       console.log('Error deleting product from cart: ', error);
+    }
+  };
+
+  const deleAllProductsFromCart = async () => {
+    try {
+      const token = localStorage.getItem('authToken');
+      await delAllProducts(token);
+
+      resetCart();
+    } catch (error) {
+      console.log('Error deleting all product from cart: ', error);
     }
   };
 
@@ -73,6 +85,7 @@ export const CartProvider = ({ children }) => {
         addProductToCart,
         deleteProductFromCart,
         updateProductInCart,
+        deleAllProductsFromCart,
         resetCart,
         fetchCart,
       }}

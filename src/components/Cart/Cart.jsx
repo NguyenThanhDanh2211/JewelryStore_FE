@@ -39,7 +39,7 @@ function Cart() {
 
   return (
     <div>
-      <Grid container spacing={2} item xs={12} p={5}>
+      <Grid container spacing={2} item xs={12} p={5} pt={12} px={7}>
         <Grid item xs={8} container pr={5}>
           <Grid item container spacing={2} xs={12} sx={{ fontWeight: 'bold' }}>
             <Grid item xs={5}>
@@ -91,14 +91,18 @@ function Cart() {
 
           <Grid container justifyContent="space-between" sx={{ mb: 1, pr: 2 }}>
             <Typography variant="body3">Subtotal</Typography>
-            <Typography variant="body3">$ {cart.totalPrice}</Typography>
+            <Typography variant="body3">
+              $ {(cart.totalPrice - 0).toFixed(2)}
+            </Typography>
           </Grid>
 
           <Divider sx={{ my: 2, mr: 2 }} />
 
           <Grid container justifyContent="space-between" sx={{ mb: 2, pr: 2 }}>
             <Typography variant="body3">Total</Typography>
-            <Typography variant="body3">$ {cart.totalPrice}</Typography>
+            <Typography variant="body3">
+              $ {(cart.totalPrice - 0).toFixed(2)}
+            </Typography>
           </Grid>
           <Divider sx={{ mb: 2, mr: 2 }} />
 

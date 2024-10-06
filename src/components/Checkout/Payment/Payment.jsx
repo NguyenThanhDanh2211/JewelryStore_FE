@@ -1,24 +1,26 @@
-import * as React from 'react';
+import { useState } from 'react';
 
-import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
+import {
+  Alert,
+  Typography,
+  Stack,
+  Box,
+  CardActionArea,
+  CardContent,
+  FormControl,
+  RadioGroup,
+  FormControlLabel,
+  OutlinedInput,
+  FormLabel,
+  Checkbox,
+} from '@mui/material';
 import MuiCard from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
-import CardContent from '@mui/material/CardContent';
-import Checkbox from '@mui/material/Checkbox';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import RadioGroup from '@mui/material/RadioGroup';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 
 import { styled } from '@mui/material/styles';
 
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import SimCardRoundedIcon from '@mui/icons-material/SimCardRounded';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import { MoMoIcon } from '~/components/Icons';
 
@@ -41,11 +43,11 @@ const Card = styled(MuiCard)(({ theme }) => ({
   ],
 }));
 
-export default function PaymentForm() {
-  const [paymentType, setPaymentType] = React.useState('cash');
+function PaymentForm({ paymentMethod, setPaymentMethod }) {
+  const [paymentType, setPaymentType] = useState('cash');
 
   const handlePaymentTypeChange = (event) => {
-    setPaymentType(event.target.value);
+    setPaymentMethod(event.target.value);
   };
 
   return (
@@ -55,7 +57,7 @@ export default function PaymentForm() {
         <RadioGroup
           aria-label="Payment options"
           name="paymentType"
-          value={paymentType}
+          value={paymentMethod}
           onChange={handlePaymentTypeChange}
           sx={{
             display: 'flex',
@@ -63,9 +65,9 @@ export default function PaymentForm() {
             gap: 2,
           }}
         >
-          <Card selected={paymentType === 'cash'}>
+          <Card selected={paymentMethod === 'cash'}>
             <CardActionArea
-              onClick={() => setPaymentType('cash')}
+              onClick={() => setPaymentMethod('cash')}
               sx={{
                 '.MuiCardActionArea-focusHighlight': {
                   backgroundColor: 'transparent',
@@ -95,8 +97,8 @@ export default function PaymentForm() {
             </CardActionArea>
           </Card>
 
-          <Card selected={paymentType === 'momo'}>
-            <CardActionArea onClick={() => setPaymentType('momo')}>
+          <Card selected={paymentMethod === 'momo'}>
+            <CardActionArea onClick={() => setPaymentMethod('momo')}>
               <CardContent
                 sx={{
                   display: 'flex',
@@ -115,14 +117,14 @@ export default function PaymentForm() {
         </RadioGroup>
       </FormControl>
 
-      {paymentType === 'momo' && (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      {paymentMethod === 'momo' && (
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }} mb={3}>
           <Typography>Thanh toán bằng ví điện tử MoMo</Typography>
           <Typography>MÃ QR, quét để thanh toán</Typography>
         </Box>
       )}
 
-      {paymentType === 'cash' && (
+      {paymentMethod === 'cash' && (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Alert severity="warning" icon={<WarningRoundedIcon />}>
             <Typography variant="text1">
@@ -148,7 +150,7 @@ export default function PaymentForm() {
             </Typography>
           </Box>
           <Box display="flex" alignContent="center">
-            <Typography variant="text" gutterBottom>
+            <Typography variant="text" gutterBottom mb={3}>
               <strong>Important:</strong> <br />
               - Please ensure someone is available at the delivery address to
               receive and pay for the order. <br />
@@ -162,3 +164,5 @@ export default function PaymentForm() {
     </Stack>
   );
 }
+
+export default PaymentForm;

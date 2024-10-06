@@ -49,20 +49,18 @@ function ListProduct({ product, updateCartItems }) {
       <Grid
         item
         container
-        spacing={2}
         xs={12}
         justifyContent="space-between"
         alignItems="center"
-        sx={{ mb: 1 }}
       >
         <Grid item xs={3}>
-          <Box>
+          <Box sx={{ m: 1 }}>
             {productImg ? (
               <Link to={`/product/${slug}`} component={RouterLink}>
                 <img
                   src={productImg[0]}
                   alt={productName}
-                  style={{ width: '100%' }}
+                  style={{ width: '90%' }}
                 />
               </Link>
             ) : (
@@ -119,7 +117,9 @@ function ListProduct({ product, updateCartItems }) {
               </ButtonGroup>
             </Grid>
             <Grid item>
-              <Typography variant="body2">$ {itemTotalPrice}</Typography>
+              <Typography variant="body2">
+                $ {itemTotalPrice.toFixed(2)}
+              </Typography>
             </Grid>
           </Grid>
         </Grid>

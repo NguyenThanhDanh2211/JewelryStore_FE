@@ -49,14 +49,7 @@ function Product({ product, updateCartItems }) {
   return (
     <>
       {/* title */}
-      <Grid
-        item
-        container
-        spacing={2}
-        xs={12}
-        // justifyContent="space-between"
-        alignItems="center"
-      >
+      <Grid item container xs={12} alignItems="center">
         <Grid item xs={2}>
           <Box>
             {productImg ? (
@@ -82,7 +75,7 @@ function Product({ product, updateCartItems }) {
           </Link>
         </Grid>
         <Grid item xs={2}>
-          $ {productPrice}
+          $ {productPrice.toFixed(2)}
         </Grid>
         <Grid item xs={2}>
           <ButtonGroup>
@@ -98,7 +91,7 @@ function Product({ product, updateCartItems }) {
           </ButtonGroup>
         </Grid>
         <Grid item xs={2}>
-          $ {itemTotalPrice}
+          $ {itemTotalPrice.toFixed(2)}
         </Grid>
         <Grid item xs={1}>
           <IconButton onClick={handleRemove}>

@@ -29,7 +29,7 @@ function Home() {
 
           <TabCate />
           <BestSell />
-          <Stack alignItems="center" justifyContent="center" m={10}>
+          <Stack alignItems="center" justifyContent="center" m={8}>
             <Box
               component="img"
               src={icon}
@@ -39,7 +39,7 @@ function Home() {
                 display: 'block',
               }}
             />
-            <Box maxWidth="750px" mx={8} my={4}>
+            <Box maxWidth="750px" mx={8} my={4} mb={2}>
               <Typography variant="h3" textAlign="center">
                 We make high-quality, handcrafted jewelry for over a decade,
                 having the same passion & values!
@@ -47,7 +47,9 @@ function Home() {
             </Box>
           </Stack>
 
-          <Discount />
+          <Box mt={5}>
+            <Discount />
+          </Box>
         </MuiCard>
       </HomeContainer>
     </>

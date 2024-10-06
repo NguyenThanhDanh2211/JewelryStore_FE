@@ -31,7 +31,7 @@ function Result({ product }) {
         </Grid>
         <Grid xs={10} item display="flex" flexDirection="column" spacing={2}>
           <Typography variant="h2">{product.name}</Typography>
-          <Typography variant="text1">$ {product.price}</Typography>
+          <Typography variant="text1">$ {product.price.toFixed(2)}</Typography>
         </Grid>
       </Grid>
     </Link>

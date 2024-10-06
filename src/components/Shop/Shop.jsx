@@ -21,6 +21,7 @@ const ShopContainer = styled(Stack)(({ theme }) => ({
   alignSelf: 'center',
   width: '100%',
   padding: theme.spacing(4),
+  paddingTop: theme.spacing(7),
   gap: theme.spacing(2),
   margin: 'auto',
   maxWidth: '1200px',
@@ -111,7 +112,7 @@ function ProductPage() {
           <Typography variant="nav" gutterBottom mb={1}>
             {selectedCategory} {selectedTag} {selectedPriceRange}
           </Typography>
-          <Grid container spacing={3}>
+          <Grid container>
             {products.map((product) => (
               <Grid item xs={12} sm={6} md={4} key={product._id}>
                 <ProductCardComponent

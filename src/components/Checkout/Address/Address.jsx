@@ -8,6 +8,7 @@ import {
   Checkbox,
   Stack,
 } from '@mui/material';
+import { useEffect } from 'react';
 
 const AddressContainer = styled(Stack)(({ theme }) => ({
   display: 'flex',
@@ -20,56 +21,86 @@ const FormGrid = styled(Grid)(() => ({
   flexDirection: 'column',
 }));
 
-function Address() {
+function Address({ addressData, setAddressData }) {
+  useEffect(() => {
+    if (!addressData.name) {
+      setAddressData((prev) => ({ ...prev, name: '' }));
+    }
+    if (!addressData.phone) {
+      setAddressData((prev) => ({ ...prev, phone: '' }));
+    }
+    if (!addressData.address) {
+      setAddressData((prev) => ({ ...prev, address: '' }));
+    }
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setAddressData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   return (
-    <AddressContainer direction="column" justifyContent="flex-end">
-      <Typography variant="h3">Customer information</Typography>
+    <AddressContainer>
+      <Typography variant="h3">Customer Information</Typography>
       <Grid container spacing={2}>
-        <FormGrid xs={12} item>
+        <FormGrid item xs={12}>
           <FormLabel htmlFor="name" required>
-            Full name
+            Full Name
           </FormLabel>
           <OutlinedInput
             id="name"
             name="name"
-            type="name"
+            value={addressData.name || ''}
+            onChange={handleChange}
             placeholder="Nguyen Thanh Danh"
             autoComplete="name"
             required
             size="small"
           />
         </FormGrid>
-        <FormGrid xs={12} item>
-          <FormLabel htmlFor="numberPhone" required>
-            Number phone
+        <FormGrid item xs={12}>
+          <FormLabel htmlFor="phone" required>
+            Phone Number
           </FormLabel>
           <OutlinedInput
-            id="numberPhone"
-            name="numberPhone"
-            type="numberPhone"
+            id="phone"
+            name="phone"
+            value={addressData.phone || ''}
+            onChange={handleChange}
+            type="tel"
             placeholder="+84 123 456 789"
-            autoComplete="number phone"
+            autoComplete="tel"
             required
             size="small"
           />
         </FormGrid>
-        <FormGrid xs={12} item>
+        <FormGrid item xs={12}>
           <FormLabel htmlFor="address" required>
             Address
           </FormLabel>
           <OutlinedInput
             id="address"
             name="address"
-            type="address"
+            value={addressData.address || ''}
+            onChange={handleChange}
             placeholder="Street name and number"
             autoComplete="shipping address"
             required
             size="small"
           />
         </FormGrid>
-        <FormGrid xs={12} item>
+        <FormGrid item xs={12}>
           <FormControlLabel
-            control={<Checkbox name="saveAddress" value="yes" />}
+            control={
+              <Checkbox
+                name="saveAddress"
+                checked={addressData.saveAddress || false}
+                onChange={handleChange}
+              />
+            }
             label="Use this address for payment details"
           />
         </FormGrid>
