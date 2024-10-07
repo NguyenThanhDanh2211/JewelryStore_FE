@@ -256,13 +256,16 @@ function ProductDetail() {
         </Typography>
 
         {product && relatedProducts.length > 0 && (
-          <Grid
-            container
-            spacing={4}
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          >
+          <Grid container spacing={2}>
             {relatedProducts.map((item) => (
-              <Grid item xs={12} sm={5} md={3} key={item._id}>
+              <Grid
+                item
+                xs={12}
+                sm={5}
+                md={3}
+                key={item._id}
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              >
                 <ProductCardComponent product={item} />
               </Grid>
             ))}

@@ -112,7 +112,7 @@ function ProductPage() {
           <Typography variant="nav" gutterBottom mb={1}>
             {selectedCategory} {selectedTag} {selectedPriceRange}
           </Typography>
-          <Grid container>
+          <Grid container spacing={3}>
             {products.map((product) => (
               <Grid item xs={12} sm={6} md={4} key={product._id}>
                 <ProductCardComponent

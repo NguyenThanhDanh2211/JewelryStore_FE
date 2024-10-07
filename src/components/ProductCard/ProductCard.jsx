@@ -34,9 +34,7 @@ const CartIconContainer = styled(Box)(({ theme }) => ({
 function ProductCardComponent({ product, handleAddToCart }) {
   return (
     <Link to={`/product/${product.slug}`} style={{ textDecoration: 'none' }}>
-      <ProductCard
-        sx={{ height: 375, marginBottom: '25px', marginRight: '25px' }}
-      >
+      <ProductCard sx={{ height: 375 }}>
         <CartIconContainer
           className="cart-icon"
           onClick={(e) => {
