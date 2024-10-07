@@ -105,8 +105,8 @@ function ProductDetail() {
         </Snackbar>
 
         {product ? (
-          <Grid container item xs={12} spacing={10}>
-            <Grid item xs={6}>
+          <Grid container item xs={12} spacing={4}>
+            <Grid item xs={6} mt={1}>
               <Image images={product.image} name={product.name} />
             </Grid>
             <Grid item xs={6}>
