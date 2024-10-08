@@ -1,7 +1,13 @@
-import CategoryComponent from '~/components/Category';
+import Navbar from '~/components/Navbar';
+import CategoryCo from '~/components/Category';
 
 function Category() {
-  return <CategoryComponent />;
+  return (
+    <>
+      <Navbar />
+      <CategoryCo />
+    </>
+  );
 }
 
 export default Category;

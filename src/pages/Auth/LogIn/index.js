@@ -21,10 +21,12 @@ import {
 import { FacebookIcon, GoogleIcon } from '~/components/Icons';
 import { login } from '~/services/userService';
 import ForgotPassword from '~/components/ForgotPassword';
+import Navbar from '~/components/Navbar';
 
 const LogInContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
-  padding: 20,
+  width: '100%',
+  marginTop: '25px',
 }));
 
 const MuiCard = styled(Card)(({ theme }) => ({
@@ -110,6 +112,7 @@ function Login() {
   return (
     <>
       <CssBaseline enableColorScheme />
+      <Navbar />
       <LogInContainer direction="column" justifyContent="space-between">
         {(successMessage || errorMessage) && (
           <Box

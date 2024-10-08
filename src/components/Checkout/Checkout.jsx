@@ -25,7 +25,7 @@ const CheckoutContainer = styled(Stack)(({ theme }) => ({
   flexDirection: 'column',
   height: '100%',
   width: '100%',
-  maxWidth: '1200px',
+  // maxWidth: '1200px',
   padding: theme.spacing(1),
   paddingTop: theme.spacing(8),
   margin: 'auto',

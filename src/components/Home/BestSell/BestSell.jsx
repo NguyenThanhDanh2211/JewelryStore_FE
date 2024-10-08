@@ -20,14 +20,14 @@ function BestSell() {
   }, []);
 
   return (
-    <Box alignItems="center" p={10}>
+    <Box alignItems="center" mb={7}>
       <Grid
         container
-        spacing={5}
+        // spacing={5}
         sx={{
           backgroundColor: '#f5f5f5',
           padding: '20px 0',
-          maxWidth: '1200px',
+          // maxWidth: '1200px',
           margin: 'auto',
         }}
       >
@@ -81,11 +81,7 @@ function BestSell() {
       </Grid>
 
       {/* Displaying the products */}
-      <Grid
-        container
-        spacing={4}
-        sx={{ maxWidth: '1200px', ml: '60px', pb: '40px' }}
-      >
+      <Grid container spacing={4}>
         {products.slice(0, 4).map((product) => (
           <Grid item xs={12} sm={5} md={3} key={product._id}>
             <ProductCardComponent product={product} />

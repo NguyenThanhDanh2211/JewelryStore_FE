@@ -6,12 +6,11 @@ function Discount() {
   return (
     <Grid
       container
-      spacing={4}
+      spacing={8}
       alignItems="center"
       sx={{
         backgroundColor: '#f5f5f5',
         padding: '40px 0',
-        maxWidth: '1200px',
         margin: 'auto',
       }}
     >
@@ -72,7 +71,7 @@ function Discount() {
           component="img"
           src={discount}
           sx={{
-            width: '100%',
+            width: '80%',
             height: 'auto',
             borderRadius: '8px',
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',

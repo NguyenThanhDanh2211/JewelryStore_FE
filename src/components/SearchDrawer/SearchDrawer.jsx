@@ -90,11 +90,11 @@ function Search({ open, toggleSearchDrawer }) {
       </Box>
 
       {searchValue && (
-        <Box px={17} width="100%" display="flex" flexDirection="column" mb={2}>
-          <Grid container spacing={2}>
+        <Box px={15} width="100%" display="flex" flexDirection="column" mb={1}>
+          <Grid container spacing={1}>
             {searchResult.length > 0 ? (
               searchResult.map((product) => (
-                <Grid item xs={6} key={product._id}>
+                <Grid item xs={4} key={product._id}>
                   <Result product={product} />
                 </Grid>
               ))

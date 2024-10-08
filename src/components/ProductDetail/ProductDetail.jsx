@@ -28,13 +28,14 @@ const ProductDetailContainer = styled(Stack)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   width: '100%',
-  padding: theme.spacing(8),
+  padding: theme.spacing(2),
+  paddingTop: '30px',
   gap: theme.spacing(2),
   margin: 'auto',
 }));
 
 function ProductDetail() {
-  const { slug } = useParams();
+  const { category, slug } = useParams();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [alertOpen, setAlertOpen] = useState(false);
@@ -61,7 +62,7 @@ function ProductDetail() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await getProductBySlug(slug);
+        const response = await getProductBySlug(category, slug);
         setProduct(response);
       } catch (error) {
         console.log('Error fetch Product', error);
@@ -69,7 +70,7 @@ function ProductDetail() {
     };
 
     fetchProduct();
-  }, [slug]);
+  }, [category, slug]);
 
   useEffect(() => {
     const fetchRelated = async () => {
@@ -106,10 +107,10 @@ function ProductDetail() {
 
         {product ? (
           <Grid container item xs={12} spacing={4}>
-            <Grid item xs={6} mt={1}>
+            <Grid item xs={4} mt={1}>
               <Image images={product.image} name={product.name} />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={8}>
               <Typography variant="h3">{product.name}</Typography>
               <Typography variant="body1" sx={{ my: '15px' }}>
                 $ {product.price.toFixed(2)}
@@ -240,7 +241,11 @@ function ProductDetail() {
       <Box
         display="flex"
         flexDirection="column"
-        sx={{ maxWidth: '1200px', margin: 'auto', pb: '40px' }}
+        sx={{
+          // maxWidth: '1200px',
+          margin: 'auto',
+          pb: '40px',
+        }}
       >
         <Typography>CMT</Typography>
         <Divider />
@@ -249,7 +254,7 @@ function ProductDetail() {
       <Box
         display="flex"
         flexDirection="column"
-        sx={{ maxWidth: '1200px', margin: 'auto', pb: '40px' }}
+        sx={{ width: '100%', margin: 'auto', p: '30px' }}
       >
         <Typography variant="h3" my={3}>
           Related Products
@@ -261,7 +266,7 @@ function ProductDetail() {
               <Grid
                 item
                 xs={12}
-                sm={5}
+                sm={6}
                 md={3}
                 key={item._id}
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}

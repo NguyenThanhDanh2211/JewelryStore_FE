@@ -31,7 +31,7 @@ function TabCate() {
               component="img"
               src={rings}
               sx={{
-                width: '60%',
+                width: '80%',
                 height: 'auto',
                 borderRadius: '8px',
                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
@@ -40,7 +40,7 @@ function TabCate() {
             />
             <Box
               sx={{
-                width: '60%',
+                width: '80%',
                 margin: '0 auto',
                 textAlign: 'justify',
               }}
@@ -59,7 +59,7 @@ function TabCate() {
               component="img"
               src={necklace}
               sx={{
-                width: '60%',
+                width: '80%',
                 height: 'auto',
                 borderRadius: '8px',
                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
@@ -68,7 +68,7 @@ function TabCate() {
             />
             <Box
               sx={{
-                width: '60%',
+                width: '80%',
                 margin: '0 auto',
                 textAlign: 'justify',
               }}
@@ -87,7 +87,7 @@ function TabCate() {
               component="img"
               src={earrings}
               sx={{
-                width: '60%',
+                width: '80%',
                 height: 'auto',
                 borderRadius: '8px',
                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
@@ -96,7 +96,7 @@ function TabCate() {
             />
             <Box
               sx={{
-                width: '60%',
+                width: '80%',
                 margin: '0 auto',
                 textAlign: 'justify',
               }}
@@ -115,7 +115,7 @@ function TabCate() {
               component="img"
               src={bracelet}
               sx={{
-                width: '60%',
+                width: '80%',
                 height: 'auto',
                 borderRadius: '8px',
                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
@@ -124,7 +124,7 @@ function TabCate() {
             />
             <Box
               sx={{
-                width: '60%',
+                width: '80%',
                 margin: '0 auto',
                 textAlign: 'justify',
               }}

@@ -9,6 +9,8 @@ import {
   IconButton,
   Avatar,
   Badge,
+  Menu,
+  MenuItem,
   Typography,
 } from '@mui/material';
 
@@ -26,12 +28,13 @@ const NavbarContainer = styled(Stack, {
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  height: '100px',
+  // height: '100px',
+  // border: '1px solid',
   padding: theme.spacing(6),
   backgroundColor: '#f5f5f5',
   transition: 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out',
   opacity: 1,
-  transform: 'translateY(0)',
+  // transform: 'translateY(0)',
   ...(isFixed && {
     position: 'fixed',
     top: 0,
@@ -44,11 +47,12 @@ const NavbarContainer = styled(Stack, {
   }),
 }));
 
-const navLinks = [
-  { label: 'HOME', path: '/' },
-  { label: 'SHOP', path: '/category' },
-  { label: 'ABOUT', path: '/about' },
-  { label: 'CONTACT', path: '/contact' },
+const categories = [
+  { label: 'Rings', path: '/shop/rings' },
+  { label: 'Earrings', path: '/shop/earrings' },
+  { label: 'Necklaces', path: '/shop/necklaces' },
+  { label: 'Bracelets', path: '/shop/bracelets' },
+  { label: "Men's Jewelry", path: 'shop/men-jewelry' },
 ];
 
 function Navbar() {
@@ -57,6 +61,19 @@ function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerSearchOpen, setDrawerSearchOpen] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
+
+  const [anchorShopEl, setAnchorShopEl] = useState(null);
+  const [isShopHovered, setIsShopHovered] = useState(false);
+
+  const handleShopHover = (e) => {
+    setAnchorShopEl(e.currentTarget);
+    setIsShopHovered(true);
+  };
+
+  const handleShopClose = () => {
+    setAnchorShopEl(null);
+    setIsShopHovered(false);
+  };
 
   const location = useLocation();
 
@@ -125,128 +142,217 @@ function Navbar() {
       justifyContent="space-between"
       isFixed={isFixed}
     >
-      <Grid container sx={{ gap: 2 }}>
-        {/* nav */}
-        <Grid
-          item
-          sx={{
-            position: 'absolute',
-            left: '30px',
-            transform: 'translateY(-50%)',
-            display: 'flex',
-          }}
-        >
-          <Grid container spacing={4} display="flex" ml={1}>
-            {navLinks.map((link) => (
-              <Grid item key={link.label}>
+      <>
+        <Grid container sx={{ gap: 2 }}>
+          <Grid
+            item
+            sx={{
+              position: 'absolute',
+              left: '30px',
+              transform: 'translateY(-50%)',
+              display: 'flex',
+            }}
+          >
+            <Grid container spacing={4} display="flex" ml={1}>
+              {/* HOME link */}
+              <Grid item key="home">
                 <Link
                   color={
-                    location.pathname === link.path
+                    location.pathname === '/' ? '#db9662' : 'rgb(154, 154, 154)'
+                  }
+                  sx={{
+                    textDecoration: 'none',
+                    fontWeight:
+                      location.pathname === '/' ? 'bold' : 'rgb(154, 154, 154)',
+                    '&:hover': {
+                      color: '#db9662',
+                    },
+                  }}
+                  href="/"
+                >
+                  <Typography variant="nav">HOME</Typography>
+                </Link>
+              </Grid>
+
+              {/* SHOP link with dropdown */}
+              <Grid
+                item
+                onMouseEnter={handleShopHover}
+                onMouseLeave={handleShopClose}
+              >
+                <Typography
+                  variant="nav"
+                  sx={{
+                    textDecoration: 'none',
+                    cursor: 'pointer',
+                    color: isShopHovered ? '#db9662' : 'rgb(154, 154, 154)',
+                    '&:hover': { color: '#db9662' },
+                  }}
+                >
+                  SHOP
+                </Typography>
+                <Menu
+                  anchorEl={anchorShopEl}
+                  open={Boolean(anchorShopEl)}
+                  onClose={handleShopClose}
+                  MenuListProps={{
+                    onMouseEnter: () => setIsShopHovered(true),
+                    onMouseLeave: handleShopClose,
+                  }}
+                >
+                  {categories.map((category) => (
+                    <MenuItem
+                      key={category.label}
+                      onClick={handleShopClose}
+                      sx={{
+                        '&:hover': { color: '#db9662' },
+                      }}
+                    >
+                      <Link
+                        href={category.path}
+                        sx={{ textDecoration: 'none', color: 'inherit' }}
+                      >
+                        {category.label}
+                      </Link>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Grid>
+
+              {/* ABOUT link */}
+              <Grid item key="about">
+                <Link
+                  color={
+                    location.pathname === '/about'
                       ? '#db9662'
                       : 'rgb(154, 154, 154)'
                   }
                   sx={{
                     textDecoration: 'none',
                     fontWeight:
-                      location.pathname === link.path
+                      location.pathname === '/about'
                         ? 'bold'
                         : 'rgb(154, 154, 154)',
                     '&:hover': {
                       color: '#db9662',
                     },
                   }}
-                  href={link.path}
+                  href="/about"
                 >
-                  <Typography variant="nav">{link.label}</Typography>
+                  <Typography variant="nav">ABOUT</Typography>
                 </Link>
               </Grid>
-            ))}
-          </Grid>
-        </Grid>
 
-        {/* logo */}
-        <Grid item>
-          <Link href="/">
-            <Box
-              component="img"
-              alt="Jewelry Store"
-              src={logo}
-              sx={{
-                position: 'absolute',
-                height: '70px',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-              }}
-            />
-          </Link>
-        </Grid>
-
-        {/* icon */}
-        <Grid
-          item
-          display="flex"
-          mr={4}
-          sx={{
-            position: 'absolute',
-            right: '30px',
-            transform: 'translateY(-50%)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            gap: 2,
-          }}
-        >
-          <Grid container spacing={2}>
-            <Grid item>
-              <IconButton color="inherit" onClick={toggleSearchDrawer(true)}>
-                <SearchIcon />
-              </IconButton>
-              <SearchDrawer
-                open={drawerSearchOpen}
-                toggleSearchDrawer={toggleSearchDrawer}
-              />
-            </Grid>
-
-            <Grid item>
-              <IconButton color="inherit" onClick={handleCartIconClick}>
-                <Badge
-                  badgeContent={cart.totalQuantity}
+              {/* CONTACT link */}
+              <Grid item key="contact">
+                <Link
+                  color={
+                    location.pathname === '/contact'
+                      ? '#db9662'
+                      : 'rgb(154, 154, 154)'
+                  }
                   sx={{
-                    '& .MuiBadge-badge': {
-                      backgroundColor: '#db9662',
-                      color: 'white',
+                    textDecoration: 'none',
+                    fontWeight:
+                      location.pathname === '/contact'
+                        ? 'bold'
+                        : 'rgb(154, 154, 154)',
+                    '&:hover': {
+                      color: '#db9662',
                     },
                   }}
+                  href="/contact"
                 >
-                  <CartIcon />
-                </Badge>
-              </IconButton>
-              <CartDrawer open={drawerOpen} toggleDrawer={toggleDrawer} />
-            </Grid>
-            <Grid item>
-              {userName ? (
-                <>
-                  <IconButton color="inherit" onClick={handleOpenMenu}>
-                    <Avatar sx={{ width: '1.6rem', height: '1.6rem' }}>
-                      {userName.charAt(0).toUpperCase()}
-                    </Avatar>
-                  </IconButton>
-                  <MenuUser
-                    anchorEl={anchorEl}
-                    handleCloseMenu={handleCloseMenu}
-                  />
-                </>
-              ) : (
-                <Link href="/login" color="inherit">
-                  <IconButton color="inherit">
-                    <UserIcon />
-                  </IconButton>
+                  <Typography variant="nav">CONTACT</Typography>
                 </Link>
-              )}
+              </Grid>
+            </Grid>
+          </Grid>
+
+          {/* logo */}
+          <Grid item>
+            <Link href="/">
+              <Box
+                component="img"
+                alt="Jewelry Store"
+                src={logo}
+                sx={{
+                  position: 'absolute',
+                  height: '70px',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                }}
+              />
+            </Link>
+          </Grid>
+
+          {/* icon */}
+          <Grid
+            item
+            display="flex"
+            mr={4}
+            sx={{
+              position: 'absolute',
+              right: '30px',
+              transform: 'translateY(-50%)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              gap: 2,
+            }}
+          >
+            <Grid container spacing={2}>
+              <Grid item>
+                <IconButton color="inherit" onClick={toggleSearchDrawer(true)}>
+                  <SearchIcon />
+                </IconButton>
+                <SearchDrawer
+                  open={drawerSearchOpen}
+                  toggleSearchDrawer={toggleSearchDrawer}
+                />
+              </Grid>
+
+              <Grid item>
+                <IconButton color="inherit" onClick={handleCartIconClick}>
+                  <Badge
+                    badgeContent={cart.totalQuantity}
+                    sx={{
+                      '& .MuiBadge-badge': {
+                        backgroundColor: '#db9662',
+                        color: 'white',
+                      },
+                    }}
+                  >
+                    <CartIcon />
+                  </Badge>
+                </IconButton>
+                <CartDrawer open={drawerOpen} toggleDrawer={toggleDrawer} />
+              </Grid>
+              <Grid item>
+                {userName ? (
+                  <>
+                    <IconButton color="inherit" onClick={handleOpenMenu}>
+                      <Avatar sx={{ width: '1.6rem', height: '1.6rem' }}>
+                        {userName.charAt(0).toUpperCase()}
+                      </Avatar>
+                    </IconButton>
+                    <MenuUser
+                      anchorEl={anchorEl}
+                      handleCloseMenu={handleCloseMenu}
+                    />
+                  </>
+                ) : (
+                  <Link href="/login" color="inherit">
+                    <IconButton color="inherit">
+                      <UserIcon />
+                    </IconButton>
+                  </Link>
+                )}
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </>
     </NavbarContainer>
   );
 }

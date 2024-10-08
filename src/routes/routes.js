@@ -5,12 +5,12 @@ import Login from '~/pages/Auth/LogIn';
 import Register from '~/pages/Auth/Register';
 import Cart from '~/pages/Cart';
 import About from '~/pages/About';
-import Category from '~/pages/Category';
 import Shop from '~/pages/Shop';
 import Contact from '~/pages/Contact';
 import ProductDetail from '~/pages/ProductDetail';
 import MyAccount from '~/pages/MyAccount';
 import Checkout from '~/pages/Checkout';
+import Category from '~/pages/Category';
 
 const publicRoutes = [
   {

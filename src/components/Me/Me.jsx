@@ -28,7 +28,7 @@ const MuiCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(4),
   // gap: theme.spacing(2),
   margin: 'auto',
-  maxWidth: '1200px',
+  // maxWidth: '1200px',
   backgroundColor: '#f5f5f5',
 }));
 

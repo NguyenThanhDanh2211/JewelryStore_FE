@@ -17,7 +17,7 @@ function Result({ product }) {
         sx={{
           border: '1px solid #ccc',
           borderRadius: 1,
-          padding: 2,
+          padding: 1,
           //   marginBottom: 2,
         }}
       >

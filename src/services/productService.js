@@ -1,8 +1,8 @@
 import * as httpRequest from '~/utils/httpRequest';
 
-export const getProductBySlug = async (slug) => {
+export const getProductBySlug = async (category, slug) => {
   try {
-    const response = await httpRequest.get(`product/${slug}`);
+    const response = await httpRequest.get(`product/${category}/${slug}`);
 
     return response;
   } catch (error) {
@@ -14,6 +14,17 @@ export const getProductBySlug = async (slug) => {
 export const getAllProduct = async () => {
   try {
     const response = await httpRequest.get('product/get-all-products');
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const getProductByCategory = async (category) => {
+  try {
+    const response = await httpRequest.get(`product/get/${category}`);
 
     return response;
   } catch (error) {

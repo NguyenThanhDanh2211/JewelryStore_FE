@@ -24,7 +24,7 @@ const ShopContainer = styled(Stack)(({ theme }) => ({
   paddingTop: theme.spacing(7),
   gap: theme.spacing(2),
   margin: 'auto',
-  maxWidth: '1200px',
+  // maxWidth: '1200px',
 }));
 
 function ProductPage() {

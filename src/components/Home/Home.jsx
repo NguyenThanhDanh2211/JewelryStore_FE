@@ -27,9 +27,13 @@ function Home() {
         <MuiCard variant="outlined" sx={{ border: 'none' }}>
           <Banner />
 
-          <TabCate />
+          <Box my={10}>
+            <TabCate />
+          </Box>
+
           <BestSell />
-          <Stack alignItems="center" justifyContent="center" m={8}>
+
+          <Stack alignItems="center" justifyContent="center" m={8} mt={15}>
             <Box
               component="img"
               src={icon}
@@ -39,7 +43,7 @@ function Home() {
                 display: 'block',
               }}
             />
-            <Box maxWidth="750px" mx={8} my={4} mb={2}>
+            <Box maxWidth="750px" mx={8} my={4}>
               <Typography variant="h3" textAlign="center">
                 We make high-quality, handcrafted jewelry for over a decade,
                 having the same passion & values!
@@ -47,9 +51,7 @@ function Home() {
             </Box>
           </Stack>
 
-          <Box mt={5}>
-            <Discount />
-          </Box>
+          <Discount />
         </MuiCard>
       </HomeContainer>
     </>

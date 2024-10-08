@@ -20,10 +20,12 @@ import {
 } from '@mui/material';
 import { GoogleIcon, FacebookIcon } from '~/components/Icons';
 import { register } from '~/services/userService';
+import Navbar from '~/components/Navbar';
 
 const RegisterContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
-  padding: 20,
+  width: '100%',
+  paddingTop: '25px',
 }));
 
 const MuiCard = styled(Card)(({ theme }) => ({
@@ -104,6 +106,7 @@ function Register() {
 
   return (
     <>
+      <Navbar />
       <CssBaseline enableColorScheme />
       <RegisterContainer direction="column" justifyContent="space-between">
         {(successMessage || errorMessage) && (

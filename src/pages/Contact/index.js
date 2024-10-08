@@ -17,6 +17,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 
 import contact from '~/assets/images/contact.jpg';
+import Navbar from '~/components/Navbar';
 
 const ContactContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
@@ -36,6 +37,7 @@ const MuiCard = styled(Card)(({ theme }) => ({
 function Contact() {
   return (
     <>
+      <Navbar />
       <ContactContainer direction="column">
         <MuiCard variant="outlined" sx={{ border: 'none' }}>
           <Grid container spacing={5}>
