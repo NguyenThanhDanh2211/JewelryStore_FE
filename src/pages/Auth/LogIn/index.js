@@ -20,7 +20,6 @@ import {
 } from '@mui/material';
 import { FacebookIcon, GoogleIcon } from '~/components/Icons';
 import { login } from '~/services/userService';
-import Navbar from '~/components/Navbar';
 import ForgotPassword from '~/components/ForgotPassword';
 
 const LogInContainer = styled(Stack)(({ theme }) => ({
@@ -110,7 +109,6 @@ function Login() {
 
   return (
     <>
-      <Navbar />
       <CssBaseline enableColorScheme />
       <LogInContainer direction="column" justifyContent="space-between">
         {(successMessage || errorMessage) && (

@@ -1,5 +1,3 @@
-import Navbar from '~/components/Navbar';
-import Footer from '~/components/Footer';
 import {
   Box,
   Card,
@@ -38,7 +36,6 @@ const MuiCard = styled(Card)(({ theme }) => ({
 function Contact() {
   return (
     <>
-      <Navbar />
       <ContactContainer direction="column">
         <MuiCard variant="outlined" sx={{ border: 'none' }}>
           <Grid container spacing={5}>
@@ -214,7 +211,6 @@ function Contact() {
           </Grid>
         </MuiCard>
       </ContactContainer>
-      <Footer />
     </>
   );
 }

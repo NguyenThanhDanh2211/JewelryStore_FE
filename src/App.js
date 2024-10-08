@@ -1,41 +1,37 @@
-import { Fragment } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { publicRoutes } from './routes';
-import { CartProvider } from './contexts/CartContext';
-import GoToTop from './components/GoToTop';
+import MainLayout from './layouts';
 
 function App() {
   return (
     <Router>
-      <CartProvider>
-        <div className="App">
-          <Routes>
-            {publicRoutes.map((route, index) => {
-              // let Layout = DefaultLayout;
-              // if (route.layout) {
-              //   Layout = route.layout;
-              // } else if (route.layout === null) {
-              let Layout = Fragment;
-              // }
+      <div className="App">
+        <Routes>
+          {publicRoutes.map((route, index) => {
+            // let Layout = DefaultLayout;
+            // if (route.layout) {
+            //   Layout = route.layout;
+            // } else if (route.layout === null) {
+            let Layout = MainLayout;
+            // }
 
-              const Page = route.component;
-              return (
-                <Route
-                  key={index}
-                  path={route.path}
-                  element={
-                    <Layout>
-                      <Page />
-                      <GoToTop />
-                    </Layout>
-                  }
-                />
-              );
-            })}
-          </Routes>
-        </div>
-      </CartProvider>
+            const Page = route.component;
+            return (
+              <Route
+                key={index}
+                path={route.path}
+                element={
+                  <Layout>
+                    <Page />
+                    {/* <GoToTop /> */}
+                  </Layout>
+                }
+              />
+            );
+          })}
+        </Routes>
+      </div>
     </Router>
   );
 }

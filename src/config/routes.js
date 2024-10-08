@@ -6,6 +6,7 @@ const routes = {
   cart: '/cart',
   about: '/about',
   shop: '/product',
+  category: '/category',
   contact: '/contact',
   detailProduct: '/product/:slug',
   myAccount: '/me',

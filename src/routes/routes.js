@@ -5,6 +5,7 @@ import Login from '~/pages/Auth/LogIn';
 import Register from '~/pages/Auth/Register';
 import Cart from '~/pages/Cart';
 import About from '~/pages/About';
+import Category from '~/pages/Category';
 import Shop from '~/pages/Shop';
 import Contact from '~/pages/Contact';
 import ProductDetail from '~/pages/ProductDetail';
@@ -31,6 +32,10 @@ const publicRoutes = [
   {
     path: config.routes.about,
     component: About,
+  },
+  {
+    path: config.routes.category,
+    component: Category,
   },
   {
     path: config.routes.shop,

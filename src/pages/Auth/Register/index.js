@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import {
   Card,
   CssBaseline,
@@ -20,7 +20,6 @@ import {
 } from '@mui/material';
 import { GoogleIcon, FacebookIcon } from '~/components/Icons';
 import { register } from '~/services/userService';
-import Navbar from '~/components/Navbar';
 
 const RegisterContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
@@ -43,7 +42,6 @@ const MuiCard = styled(Card)(({ theme }) => ({
 }));
 
 function Register() {
-  const defaultTheme = createTheme();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -106,8 +104,6 @@ function Register() {
 
   return (
     <>
-      <Navbar />
-      <ThemeProvider theme={defaultTheme}> </ThemeProvider>
       <CssBaseline enableColorScheme />
       <RegisterContainer direction="column" justifyContent="space-between">
         {(successMessage || errorMessage) && (

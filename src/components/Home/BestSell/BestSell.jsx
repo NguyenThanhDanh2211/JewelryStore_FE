@@ -86,7 +86,7 @@ function BestSell() {
         spacing={4}
         sx={{ maxWidth: '1200px', ml: '60px', pb: '40px' }}
       >
-        {products.slice(3, 7).map((product) => (
+        {products.slice(0, 4).map((product) => (
           <Grid item xs={12} sm={5} md={3} key={product._id}>
             <ProductCardComponent product={product} />
           </Grid>

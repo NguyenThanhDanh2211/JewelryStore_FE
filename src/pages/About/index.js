@@ -1,7 +1,5 @@
 import { Box, Card, Grid, Stack, styled, Typography } from '@mui/material';
-import Footer from '~/components/Footer';
 import { CartOutline, Package, Return, Truck } from '~/components/Icons';
-import Navbar from '~/components/Navbar';
 
 const AboutContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
@@ -27,7 +25,6 @@ const MuiCard = styled(Card)(({ theme }) => ({
 function About() {
   return (
     <>
-      <Navbar />
       <AboutContainer direction="column">
         <MuiCard variant="outlined" sx={{ border: 'none' }}>
           <Grid container item xs={12}>
@@ -137,7 +134,6 @@ function About() {
           </Box>
         </MuiCard>
       </AboutContainer>
-      <Footer />
     </>
   );
 }
