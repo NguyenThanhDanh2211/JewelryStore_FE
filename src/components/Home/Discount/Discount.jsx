@@ -49,7 +49,7 @@ function Discount() {
             this chance to save and upgrade your style today.
           </Typography>
 
-          <Link href="/product">
+          <Link href="/shop">
             <Button
               variant="single"
               size="large"

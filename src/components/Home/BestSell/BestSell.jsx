@@ -23,11 +23,9 @@ function BestSell() {
     <Box alignItems="center" mb={7}>
       <Grid
         container
-        // spacing={5}
         sx={{
           backgroundColor: '#f5f5f5',
           padding: '20px 0',
-          // maxWidth: '1200px',
           margin: 'auto',
         }}
       >
@@ -63,7 +61,7 @@ function BestSell() {
             adding a touch of luxury to your wardrobe.
           </Typography>
           <Box display="flex" justifyContent="flex-start">
-            <Link href="/product">
+            <Link href="/shop">
               <Button
                 variant="single"
                 size="large"

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProductByCategory } from '~/services/productService';
 import ProductCardComponent from '../ProductCard';
-import Collection from './Collection';
+import Collection from './CollectionList';
 
 const CategoryContainer = styled(Stack)(({ theme }) => ({
   display: 'flex',
@@ -14,14 +14,14 @@ const CategoryContainer = styled(Stack)(({ theme }) => ({
 }));
 
 function Category() {
-  const { category } = useParams();
+  const { category, collection } = useParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = await getProductByCategory(category);
+        const data = await getProductByCategory(category, collection);
         setProducts(data);
       } catch (error) {
         console.error('Failed to fetch products:', error);
@@ -31,7 +31,7 @@ function Category() {
     };
 
     fetchProducts();
-  }, [category]);
+  }, [category, collection]);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -43,19 +43,16 @@ function Category() {
         <Typography variant="h3">{category}</Typography>
       </Box>
 
-      {/* Collection */}
+      {/* Selector cho Collection */}
       <Box>
-        <Collection />
+        <Collection category={category} />
       </Box>
 
-      {/* All products */}
+      {/* Hiển thị các sản phẩm */}
       <Grid container spacing={2}>
         {products.map((product) => (
           <Grid item xxs={12} sm={6} md={3} key={product._id}>
-            <ProductCardComponent
-              product={product}
-              // handleAddToCart={handleAddToCart}
-            />
+            <ProductCardComponent product={product} />
           </Grid>
         ))}
       </Grid>

@@ -9,18 +9,17 @@ import {
   IconButton,
   Avatar,
   Badge,
-  Menu,
-  MenuItem,
   Typography,
 } from '@mui/material';
 
 import logo from '~/assets/images/logo-regular.png';
 import { CartIcon, SearchIcon, UserIcon } from '~/components/Icons';
 import { me } from '~/services/userService';
-import MenuUser from '../MenuUser';
+import MenuUser from './MenuUser';
 import CartDrawer from '../CartDrawer';
 import SearchDrawer from '../SearchDrawer';
 import { CartContext } from '~/contexts/CartContext';
+import ShopDropdown from './ShopDropDown';
 
 const NavbarContainer = styled(Stack, {
   shouldForwardProp: (prop) => prop !== 'isFixed',
@@ -28,13 +27,10 @@ const NavbarContainer = styled(Stack, {
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  // height: '100px',
-  // border: '1px solid',
   padding: theme.spacing(6),
   backgroundColor: '#f5f5f5',
   transition: 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out',
   opacity: 1,
-  // transform: 'translateY(0)',
   ...(isFixed && {
     position: 'fixed',
     top: 0,
@@ -47,14 +43,6 @@ const NavbarContainer = styled(Stack, {
   }),
 }));
 
-const categories = [
-  { label: 'Rings', path: '/shop/rings' },
-  { label: 'Earrings', path: '/shop/earrings' },
-  { label: 'Necklaces', path: '/shop/necklaces' },
-  { label: 'Bracelets', path: '/shop/bracelets' },
-  { label: "Men's Jewelry", path: 'shop/men-jewelry' },
-];
-
 function Navbar() {
   const [userName, setUserName] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -63,16 +51,13 @@ function Navbar() {
   const [isFixed, setIsFixed] = useState(false);
 
   const [anchorShopEl, setAnchorShopEl] = useState(null);
-  const [isShopHovered, setIsShopHovered] = useState(false);
 
   const handleShopHover = (e) => {
     setAnchorShopEl(e.currentTarget);
-    setIsShopHovered(true);
   };
 
   const handleShopClose = () => {
     setAnchorShopEl(null);
-    setIsShopHovered(false);
   };
 
   const location = useLocation();
@@ -175,48 +160,22 @@ function Navbar() {
               </Grid>
 
               {/* SHOP link with dropdown */}
-              <Grid
-                item
-                onMouseEnter={handleShopHover}
-                onMouseLeave={handleShopClose}
-              >
-                <Typography
-                  variant="nav"
-                  sx={{
-                    textDecoration: 'none',
-                    cursor: 'pointer',
-                    color: isShopHovered ? '#db9662' : 'rgb(154, 154, 154)',
-                    '&:hover': { color: '#db9662' },
-                  }}
+              <Grid item>
+                <Box
+                  onMouseEnter={handleShopHover}
+                  onMouseLeave={handleShopClose}
+                  color={
+                    location.pathname.startsWith('/shop')
+                      ? '#db9662'
+                      : 'rgb(154, 154, 154)'
+                  }
                 >
-                  SHOP
-                </Typography>
-                <Menu
-                  anchorEl={anchorShopEl}
-                  open={Boolean(anchorShopEl)}
-                  onClose={handleShopClose}
-                  MenuListProps={{
-                    onMouseEnter: () => setIsShopHovered(true),
-                    onMouseLeave: handleShopClose,
-                  }}
-                >
-                  {categories.map((category) => (
-                    <MenuItem
-                      key={category.label}
-                      onClick={handleShopClose}
-                      sx={{
-                        '&:hover': { color: '#db9662' },
-                      }}
-                    >
-                      <Link
-                        href={category.path}
-                        sx={{ textDecoration: 'none', color: 'inherit' }}
-                      >
-                        {category.label}
-                      </Link>
-                    </MenuItem>
-                  ))}
-                </Menu>
+                  <Typography variant="nav">SHOP</Typography>
+                  <ShopDropdown
+                    anchorShopEl={anchorShopEl}
+                    handleShopClose={handleShopClose}
+                  />
+                </Box>
               </Grid>
 
               {/* ABOUT link */}

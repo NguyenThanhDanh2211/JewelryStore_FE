@@ -16,7 +16,8 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { CartContext } from '~/contexts/CartContext';
 
 function Product({ product, updateCartItems }) {
-  const { productId, slug, productImg, productName, productPrice } = product;
+  const { productId, slug, productImg, productName, productPrice, category } =
+    product;
   const initialQuantity = product.quantity;
 
   const [quantity, setQuantity] = useState(initialQuantity);
@@ -50,10 +51,13 @@ function Product({ product, updateCartItems }) {
     <>
       {/* title */}
       <Grid item container xs={12} alignItems="center">
-        <Grid item xs={2}>
+        <Grid item xs={1.75}>
           <Box>
             {productImg ? (
-              <Link to={`/product/${slug}`} component={RouterLink}>
+              <Link
+                to={`/shop/${category.toLowerCase()}/${slug}`}
+                component={RouterLink}
+              >
                 <img
                   src={productImg[0]}
                   alt={productName}
@@ -65,19 +69,19 @@ function Product({ product, updateCartItems }) {
             )}
           </Box>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={3.5}>
           <Link
             component={RouterLink}
-            to={`/product/${slug}`}
+            to={`/shop/${category.toLowerCase()}/${slug}`}
             sx={{ textDecoration: 'none', color: 'inherit' }}
           >
             <Typography variant="h2">{productName}</Typography>
           </Link>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={1.5}>
           $ {productPrice.toFixed(2)}
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={2.5}>
           <ButtonGroup>
             <Button onClick={() => handleUpdateQuantity(quantity - 1)}>
               <Typography variant="body2">-</Typography>
@@ -90,7 +94,7 @@ function Product({ product, updateCartItems }) {
             </Button>
           </ButtonGroup>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={1.5}>
           $ {itemTotalPrice.toFixed(2)}
         </Grid>
         <Grid item xs={1}>

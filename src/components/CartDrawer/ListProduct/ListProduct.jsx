@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 import {
   Grid,
   Box,
@@ -14,7 +13,8 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { CartContext } from '~/contexts/CartContext';
 
 function ListProduct({ product, updateCartItems }) {
-  const { productId, slug, productImg, productName, productPrice } = product;
+  const { productId, slug, productImg, productName, productPrice, category } =
+    product;
   const initialQuantity = product.quantity;
 
   const [quantity, setQuantity] = useState(initialQuantity);
@@ -26,7 +26,6 @@ function ListProduct({ product, updateCartItems }) {
     useContext(CartContext);
 
   const handleUpdateQuantity = async (newQuantity) => {
-    // const token = localStorage.getItem('authToken');
     if (newQuantity < 0) return;
 
     setQuantity(newQuantity);
@@ -56,7 +55,7 @@ function ListProduct({ product, updateCartItems }) {
         <Grid item xs={3}>
           <Box sx={{ m: 1 }}>
             {productImg ? (
-              <Link to={`/product/${slug}`} component={RouterLink}>
+              <Link href={`/shop/${category.toLowerCase()}/${slug}`}>
                 <img
                   src={productImg[0]}
                   alt={productName}
@@ -79,8 +78,7 @@ function ListProduct({ product, updateCartItems }) {
           >
             <Grid item>
               <Link
-                component={RouterLink}
-                to={`/product/${slug}`}
+                href={`/shop/${category.toLowerCase()}/${slug}`}
                 sx={{ textDecoration: 'none', color: 'inherit' }}
               >
                 <Typography variant="h2">{productName}</Typography>

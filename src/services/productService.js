@@ -22,9 +22,13 @@ export const getAllProduct = async () => {
   }
 };
 
-export const getProductByCategory = async (category) => {
+export const getProductByCategory = async (category, collection = null) => {
   try {
-    const response = await httpRequest.get(`product/get/${category}`);
+    let url = `product/get/${category}`;
+    if (collection) {
+      url += `&collection=${collection}`;
+    }
+    const response = await httpRequest.get(url);
 
     return response;
   } catch (error) {

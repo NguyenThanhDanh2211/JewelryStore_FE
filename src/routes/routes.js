@@ -42,6 +42,10 @@ const publicRoutes = [
     component: Shop,
   },
   {
+    path: config.routes.collection, // thay doi
+    component: Shop,
+  },
+  {
     path: config.routes.contact,
     component: Contact,
   },

@@ -9,7 +9,7 @@ import {
   IconButton,
   styled,
 } from '@mui/material';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { CartIcon } from '../Icons';
 
 const ProductCard = styled(Card)(({ theme }) => ({
@@ -32,10 +32,11 @@ const CartIconContainer = styled(Box)(({ theme }) => ({
 }));
 
 function ProductCardComponent({ product, handleAddToCart }) {
-  const { category } = useParams();
+  const { slug, category } = product;
+
   return (
     <Link
-      to={`/shop/${category}/${product.slug}`}
+      to={`/shop/${category.toLowerCase()}/${slug}`}
       style={{ textDecoration: 'none' }}
     >
       <ProductCard sx={{ height: 355 }}>

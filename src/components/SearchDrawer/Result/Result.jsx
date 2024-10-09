@@ -1,10 +1,10 @@
 import { Box, Grid, Link, Typography } from '@mui/material';
 
 function Result({ product }) {
-  const { slug } = product;
+  const { slug, category } = product;
   return (
     <Link
-      href={`/product/${slug}`}
+      href={`/shop/${category.toLowerCase()}/${slug}`}
       sx={{ textDecoration: 'none', color: 'inherit' }}
     >
       <Grid

@@ -14,6 +14,7 @@ import {
   List,
   ListItem,
   ListItemIcon,
+  Link,
 } from '@mui/material';
 
 import { getAllProduct, getProductBySlug } from '~/services/productService';
@@ -161,7 +162,21 @@ function ProductDetail() {
                 <Divider />
               </Box>
               <Typography variant="text">
-                Category: {product.category}
+                Category:{' '}
+                <Link
+                  href={`/shop/${category.toLowerCase()}`}
+                  style={{ textDecoration: 'none' }}
+                >
+                  {product.category}
+                </Link>
+                <Link
+                  href={`/shop/$${category.toLowerCase()}/collection/${
+                    product.collect
+                  }`}
+                  style={{ textDecoration: 'none' }}
+                >
+                  {', '} {product.collect}
+                </Link>
               </Typography>
 
               {/* Payment */}

@@ -138,7 +138,7 @@ function TabCate() {
           </>
         )}
 
-        <Link href="/product">
+        <Link href="/shop">
           <Button
             variant="single"
             size="large"

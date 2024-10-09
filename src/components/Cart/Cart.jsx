@@ -7,9 +7,19 @@ import {
   Button,
   TextField,
   Link,
+  styled,
+  Stack,
 } from '@mui/material';
 import Product from './Product';
 import { CartContext } from '~/contexts/CartContext'; // Import the CartContext
+
+const CartContainer = styled(Stack)(({ theme }) => ({
+  height: '100%',
+  width: '100%',
+  padding: theme.spacing(1),
+  display: 'flex',
+  flexDirection: 'column',
+}));
 
 function Cart() {
   const { cart, updateProductInCart, fetchCart } = useContext(CartContext);
@@ -38,26 +48,26 @@ function Cart() {
   };
 
   return (
-    <div>
-      <Grid container spacing={2} item xs={12} p={5} pt={12} px={7}>
-        <Grid item xs={8} container pr={5}>
-          <Grid item container spacing={2} xs={12} sx={{ fontWeight: 'bold' }}>
-            <Grid item xs={5}>
+    <CartContainer>
+      <Grid container spacing={2} item xs={12} md={12} p={5} pt={12} px={7}>
+        <Grid item xs={8} container>
+          <Grid item container spacing={1} xs={12} sx={{ fontWeight: 'bold' }}>
+            <Grid item xs={5.25}>
               <Typography variant="nav">Product</Typography>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={1.5}>
               <Typography variant="nav">Price</Typography>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={2.25}>
               <Typography variant="nav">Quantity</Typography>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={1.5}>
               <Typography variant="nav">Subtotal</Typography>
             </Grid>
             <Grid item xs={1}></Grid>
           </Grid>
 
-          <Grid item xs={12} py={1}>
+          <Grid item xs={12} mb={1}>
             <Divider />
           </Grid>
 
@@ -76,8 +86,8 @@ function Cart() {
 
         <Grid
           item
-          xs={4}
-          pl={5}
+          xs={12}
+          md={4}
           sx={{
             position: 'sticky',
             top: '10px',
@@ -87,7 +97,7 @@ function Cart() {
           <Typography variant="h3" gutterBottom>
             Cart Total
           </Typography>
-          <Divider sx={{ mb: 2, mr: 2 }} />
+          <Divider sx={{ mb: 1, mr: 2 }} />
 
           <Grid container justifyContent="space-between" sx={{ mb: 1, pr: 2 }}>
             <Typography variant="body3">Subtotal</Typography>
@@ -152,7 +162,7 @@ function Cart() {
           </Box>
         </Grid>
       </Grid>
-    </div>
+    </CartContainer>
   );
 }
 

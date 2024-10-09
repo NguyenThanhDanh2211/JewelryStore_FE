@@ -1,8 +1,7 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Box,
   Button,
-  Divider,
   Grid,
   Link,
   Stack,
