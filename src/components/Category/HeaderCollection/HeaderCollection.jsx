@@ -3,7 +3,8 @@ import { Grid, Typography, Box } from '@mui/material';
 import Wedding from '~/assets/images/BrowseGridHero_WomensWeddingBands_Desktop.webp';
 import Eternity from '~/assets/images/QuickLink-BG-Hero-EternityRings-Desktop.webp';
 import Cocktail from '~/assets/images/QuickLink-BG-Hero-CocktailRings-Desktop.webp';
-import Men from '~/assets/images/2024-Icons-BG-2x2-Onfig-Schlum1.png';
+import Men from '~/assets/images/Menjewe.png';
+import MenRing from '~/assets/images/MenRing.png';
 import Stub from '~/assets/images/StudEarrings-Desktop.webp';
 import Hoop from '~/assets/images/QuickLink-BG-Hero-HoopEarrings-Desktop.webp';
 import Drop from '~/assets/images/QuickLink-BG-Hero-DropDangleEarrings-Desktop.webp';
@@ -80,7 +81,7 @@ function HeaderCollection({ collectionType }) {
         "From diamond cocktail rings to emerald cocktail rings and more, these extraordinary designs showcase the world's most beautiful gemstones and finest craftsmanship.",
     },
     "Men's": {
-      image: Men,
+      image: MenRing,
       title: "Men's Rings",
       description:
         'Our rings for men feature thoughtfully designed styles, precisely crafted with traditional techniques. Discover sleek band rings and signet rings, which can be personalized with a monogram or date.',

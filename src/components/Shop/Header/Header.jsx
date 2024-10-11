@@ -1,5 +1,5 @@
 import { Box, Divider, Grid, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const categories = [
   {
@@ -30,9 +30,10 @@ const categories = [
 ];
 
 function Header() {
+  const location = useLocation();
   return (
     <>
-      <Divider />
+      {location.pathname === '/shop' && <Divider />}
       <Grid container display="flex" justifyContent="center" spacing={2} mt={2}>
         {categories.map((cate) => (
           <Grid item xs={6} sm={2} key={cate.label}>
@@ -44,7 +45,12 @@ function Header() {
               }}
             >
               <Link
-                to={cate.path}
+                to={
+                  location.pathname === '/'
+                    ? `shop/${cate.path}`
+                    : `${cate.path}`
+                }
+                // to={cate.path}
                 style={{
                   textDecoration: 'none',
                   color: 'inherit',

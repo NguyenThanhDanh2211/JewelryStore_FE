@@ -55,7 +55,7 @@ function CollectionList({ category, onSelectCollection }) {
 
   const handleCollectionClick = (collect) => {
     onSelectCollection(collect.label);
-    navigate(`/shop/${category}?collection=${collect.label.toLowerCase()}`);
+    navigate(`/shop/${category}?collection=${collect.label}`);
   };
 
   const collections = categoryCollections[category] || [];

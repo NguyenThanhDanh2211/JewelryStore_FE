@@ -7,7 +7,8 @@ import { CartProvider } from '~/contexts/CartContext';
 
 const LayoutContainer = styled(Stack)(({ theme }) => ({
   display: 'flex',
-  height: '100%',
+  flexDirection: 'column',
+  height: 'auto',
   width: '100%',
   maxWidth: '90%',
   justifyContent: 'center',

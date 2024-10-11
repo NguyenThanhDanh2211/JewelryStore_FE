@@ -1,4 +1,12 @@
-import { Grid, Typography, Button, Box, Link } from '@mui/material';
+import {
+  Grid,
+  Typography,
+  Button,
+  Box,
+  Link,
+  Alert,
+  Snackbar,
+} from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import ProductCardComponent from '~/components/ProductCard/ProductCard';
 import { CartContext } from '~/contexts/CartContext';
@@ -7,6 +15,9 @@ import { getAllProduct } from '~/services/productService';
 function BestSell() {
   const [products, setProducts] = useState([]);
   const { addProductToCart } = useContext(CartContext);
+
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -23,6 +34,12 @@ function BestSell() {
 
   const handleAddToCart = (product) => {
     addProductToCart(product, 1);
+    setAlertMessage(`${product.name} has been added to the cart!`);
+    setAlertOpen(true);
+  };
+
+  const handleCloseAlert = () => {
+    setAlertOpen(false);
   };
 
   return (
@@ -95,6 +112,18 @@ function BestSell() {
           </Grid>
         ))}
       </Grid>
+
+      {/* Alert Snackbar */}
+      <Snackbar
+        open={alertOpen}
+        autoHideDuration={3000}
+        onClose={handleCloseAlert}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert onClose={handleCloseAlert} severity="success">
+          {alertMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

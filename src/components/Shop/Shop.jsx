@@ -62,7 +62,7 @@ function ProductPage() {
 
   const handleAddToCart = (product) => {
     addProductToCart(product, 1);
-    setAlertMessage(`${product.name} đã được thêm vào giỏ hàng!`);
+    setAlertMessage(`${product.name} has been added to the cart!`);
     setAlertOpen(true);
   };
 

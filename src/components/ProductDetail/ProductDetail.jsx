@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import {
   Button,
@@ -37,6 +37,7 @@ const ProductDetailContainer = styled(Stack)(({ theme }) => ({
 
 function ProductDetail() {
   const { category, slug } = useParams();
+  const location = useLocation();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [alertOpen, setAlertOpen] = useState(false);
@@ -52,13 +53,13 @@ function ProductDetail() {
 
   const handleAddToCart = (product) => {
     addProductToCart(product, quantity);
-    setAlertMessage(`${product.name} đã được thêm vào giỏ hàng!`);
+    setAlertMessage(`${product.name} has been added to the cart!`);
     setAlertOpen(true);
   };
 
   const handleAddToCartOne = (product) => {
     addProductToCart(product, 1);
-    setAlertMessage(`${product.name} đã được thêm vào giỏ hàng!`);
+    setAlertMessage(`${product.name} has been added to the cart!`);
     setAlertOpen(true);
   };
 
@@ -97,6 +98,10 @@ function ProductDetail() {
     };
     fetchRelated();
   }, [product]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   return (
     <>
@@ -178,7 +183,7 @@ function ProductDetail() {
                 </Link>
                 {product.collect && (
                   <Link
-                    href={`/shop/${category.toLowerCase()}?collect=${
+                    href={`/shop/${category.toLowerCase()}?collection=${
                       product.collect
                     }`}
                     style={{ textDecoration: 'none' }}

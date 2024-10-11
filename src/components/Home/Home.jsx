@@ -5,6 +5,7 @@ import TabCate from './TabCate';
 import icon from '~/assets/images/icon.png';
 import BestSell from './BestSell';
 import Banner from './Banner';
+import Header from '../Shop/Header';
 
 const HomeContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
@@ -26,6 +27,21 @@ function Home() {
       <HomeContainer direction="column" justifyContent="space-between">
         <MuiCard variant="outlined" sx={{ border: 'none' }}>
           <Banner />
+
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              // justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Typography variant="h3">Explore Our Categories</Typography>
+            <Typography variant="text" mt={1}>
+              Exceptional designs paired with masterful craftsmanship.
+            </Typography>
+            <Header />
+          </Box>
 
           <Box my={10}>
             <TabCate />

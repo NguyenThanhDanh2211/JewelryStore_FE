@@ -35,7 +35,10 @@ function ProductCardComponent({ product, handleAddToCart }) {
   const { slug, category } = product;
 
   return (
-    <Link to={`/shop/${category}/${slug}`} style={{ textDecoration: 'none' }}>
+    <Link
+      to={`/shop/${category.toLowerCase()}/${slug}`}
+      style={{ textDecoration: 'none' }}
+    >
       <ProductCard sx={{ height: 355 }}>
         <CartIconContainer
           className="cart-icon"
