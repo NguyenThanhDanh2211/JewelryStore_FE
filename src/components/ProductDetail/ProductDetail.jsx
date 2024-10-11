@@ -56,6 +56,12 @@ function ProductDetail() {
     setAlertOpen(true);
   };
 
+  const handleAddToCartOne = (product) => {
+    addProductToCart(product, 1);
+    setAlertMessage(`${product.name} đã được thêm vào giỏ hàng!`);
+    setAlertOpen(true);
+  };
+
   const handleCloseAlert = () => {
     setAlertOpen(false);
   };
@@ -168,15 +174,20 @@ function ProductDetail() {
                   style={{ textDecoration: 'none' }}
                 >
                   {product.category}
+                  {', '}
                 </Link>
-                <Link
-                  href={`/shop/$${category.toLowerCase()}/collection/${
-                    product.collect
-                  }`}
-                  style={{ textDecoration: 'none' }}
-                >
-                  {', '} {product.collect}
-                </Link>
+                {product.collect && (
+                  <Link
+                    href={`/shop/${category.toLowerCase()}?collect=${
+                      product.collect
+                    }`}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    {product.collect}
+                    {', '}
+                  </Link>
+                )}
+                {product.productId}.
               </Typography>
 
               {/* Payment */}
@@ -277,7 +288,7 @@ function ProductDetail() {
 
         {product && relatedProducts.length > 0 && (
           <Grid container spacing={2}>
-            {relatedProducts.map((item) => (
+            {relatedProducts.slice(0, 4).map((item) => (
               <Grid
                 item
                 xs={12}
@@ -286,7 +297,10 @@ function ProductDetail() {
                 key={item._id}
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               >
-                <ProductCardComponent product={item} />
+                <ProductCardComponent
+                  product={item}
+                  handleAddToCart={handleAddToCartOne}
+                />
               </Grid>
             ))}
           </Grid>

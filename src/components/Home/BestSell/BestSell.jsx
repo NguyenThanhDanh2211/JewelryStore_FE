@@ -1,10 +1,12 @@
 import { Grid, Typography, Button, Box, Link } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ProductCardComponent from '~/components/ProductCard/ProductCard';
+import { CartContext } from '~/contexts/CartContext';
 import { getAllProduct } from '~/services/productService';
 
 function BestSell() {
   const [products, setProducts] = useState([]);
+  const { addProductToCart } = useContext(CartContext);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -18,6 +20,10 @@ function BestSell() {
 
     fetchProduct();
   }, []);
+
+  const handleAddToCart = (product) => {
+    addProductToCart(product, 1);
+  };
 
   return (
     <Box alignItems="center" mb={7}>
@@ -82,7 +88,10 @@ function BestSell() {
       <Grid container spacing={4}>
         {products.slice(0, 4).map((product) => (
           <Grid item xs={12} sm={5} md={3} key={product._id}>
-            <ProductCardComponent product={product} />
+            <ProductCardComponent
+              product={product}
+              handleAddToCart={handleAddToCart}
+            />
           </Grid>
         ))}
       </Grid>

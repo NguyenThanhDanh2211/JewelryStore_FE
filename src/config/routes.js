@@ -7,7 +7,6 @@ const routes = {
   about: '/about',
   shop: '/shop',
   category: '/shop/:category',
-  collection: '/shop/:category/collection/:collection',
   contact: '/contact',
   detailProduct: '/shop/:category/:slug',
   myAccount: '/me',

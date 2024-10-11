@@ -2,17 +2,16 @@ import React, { useEffect, useState, useContext } from 'react';
 import {
   Box,
   Grid,
-  Typography,
   Stack,
   Snackbar,
   Alert,
   Pagination,
   styled,
 } from '@mui/material';
-import Sidebar from './Sidebar';
 import { getFilteredProducts } from '~/services/productService';
 import { CartContext } from '~/contexts/CartContext';
 import ProductCardComponent from '~/components/ProductCard';
+import Header from './Header';
 
 const ShopContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
@@ -21,10 +20,9 @@ const ShopContainer = styled(Stack)(({ theme }) => ({
   alignSelf: 'center',
   width: '100%',
   padding: theme.spacing(4),
-  paddingTop: theme.spacing(7),
+  paddingTop: theme.spacing(4),
   gap: theme.spacing(2),
   margin: 'auto',
-  // maxWidth: '1200px',
 }));
 
 function ProductPage() {
@@ -34,11 +32,6 @@ function ProductPage() {
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
 
-  // Filter states
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedTag, setSelectedTag] = useState(null);
-  const [selectedPriceRange, setSelectedPriceRange] = useState(null);
-
   const { addProductToCart } = useContext(CartContext);
 
   useEffect(() => {
@@ -46,11 +39,8 @@ function ProductPage() {
       try {
         const filters = {
           page: currentPage,
-          limit: 9, // Adjust limit based on your pagination settings
-          category: selectedCategory !== 'All' ? selectedCategory : undefined,
-          tag: selectedTag,
-          minPrice: selectedPriceRange ? selectedPriceRange[0] : undefined,
-          maxPrice: selectedPriceRange ? selectedPriceRange[1] : undefined,
+          limit: 12,
+          category: null,
         };
 
         const response = await getFilteredProducts(filters);
@@ -63,7 +53,7 @@ function ProductPage() {
     };
 
     fetchProducts();
-  }, [currentPage, selectedCategory, selectedTag, selectedPriceRange]);
+  }, [currentPage]);
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
@@ -94,27 +84,18 @@ function ProductPage() {
         </Alert>
       </Snackbar>
 
-      <Box display="flex">
-        {/* Left Drawer Section */}
-        <Sidebar
-          onCategorySelect={setSelectedCategory}
-          onTagSelect={setSelectedTag}
-          onPriceRangeSelect={setSelectedPriceRange}
-        />
+      <Header />
 
-        {/* Right Grid Section for Products */}
+      <Box display="flex" mt={5}>
         <Box
           component="main"
           sx={{ flexGrow: 1 }}
           display="flex"
           flexDirection="column"
         >
-          <Typography variant="nav" gutterBottom mb={1}>
-            {selectedCategory} {selectedTag} {selectedPriceRange}
-          </Typography>
           <Grid container spacing={3}>
             {products.map((product) => (
-              <Grid item xs={12} sm={6} md={4} key={product._id}>
+              <Grid item xs={12} sm={6} md={3} key={product._id}>
                 <ProductCardComponent
                   product={product}
                   handleAddToCart={handleAddToCart}

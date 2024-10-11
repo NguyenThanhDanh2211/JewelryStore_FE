@@ -22,42 +22,53 @@ export const getAllProduct = async () => {
   }
 };
 
-export const getProductByCategory = async (category, collection = null) => {
-  try {
-    let url = `product/get/${category}`;
-    if (collection) {
-      url += `&collection=${collection}`;
-    }
-    const response = await httpRequest.get(url);
+// export const getProductByCategory = async (category, collection = null) => {
+//   try {
+//     let url = `product/get/${category}`;
+//     if (collection) {
+//       url += `&collection=${collection}`;
+//     }
+//     const response = await httpRequest.get(url);
 
-    return response;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-};
+//     return response;
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// };
 
 export const getFilteredProducts = async ({
   page = 1,
   limit = 3,
-  category,
-  tag,
-  minPrice,
-  maxPrice,
+  collect = null,
+  tag = null,
+  minPrice = null,
+  maxPrice = null,
+  men = null,
+  category = null,
+  sort = null,
 }) => {
   try {
     const query = new URLSearchParams({
       page,
       limit,
-      ...(category && { category }),
+      ...(collect && { collect }),
       ...(tag && { tag }),
       ...(minPrice && { minPrice }),
       ...(maxPrice && { maxPrice }),
+      ...(sort && { sort }),
     }).toString();
 
-    const response = await httpRequest.get(
-      `product/get-filtered-products?${query}`
-    );
+    let endpoint;
+    if (!category && men === null) {
+      endpoint = `product/get-filtered-products/?${query}`;
+    } else if (men === true) {
+      endpoint = `product/get-filtered-products/?${query}&men=true`;
+    } else {
+      endpoint = `product/get-filtered-products/${category}?${query}`;
+    }
+
+    const response = await httpRequest.get(endpoint);
     return response;
   } catch (error) {
     console.log(error);

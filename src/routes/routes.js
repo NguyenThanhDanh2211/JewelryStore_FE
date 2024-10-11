@@ -11,6 +11,7 @@ import ProductDetail from '~/pages/ProductDetail';
 import MyAccount from '~/pages/MyAccount';
 import Checkout from '~/pages/Checkout';
 import Category from '~/pages/Category';
+import Collection from '~/pages/Collection';
 
 const publicRoutes = [
   {
@@ -42,8 +43,8 @@ const publicRoutes = [
     component: Shop,
   },
   {
-    path: config.routes.collection, // thay doi
-    component: Shop,
+    path: config.routes.category,
+    component: Collection,
   },
   {
     path: config.routes.contact,
