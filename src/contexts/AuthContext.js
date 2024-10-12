@@ -1,139 +1,76 @@
-// import { createContext, useContext, useState, useEffect } from 'react';
-
-// const AuthContext = createContext();
-
-// export const AuthProvider = ({ children }) => {
-//   const [isAuthenticated, setAuthenticated] = useState(false);
-
-//   useEffect(() => {
-//     const storeUser = localStorage.getItem('authToken');
-//     if (storeUser) {
-//       setAuthenticated(true);
-//     }
-//   }, []);
-
-//   const login = () => {
-//     setAuthenticated(true);
-//     localStorage.setItem('authToken');
-//   };
-
-//   const logout = () => {
-//     setAuthenticated(false);
-//     localStorage.removeItem('authToken');
-//   };
-
-//   return (
-//     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// };
-
-// export const useAuth = () => useContext(AuthContext);
-
-// import { createContext, useState, useEffect, useCallback } from 'react';
-// import { me } from '~/services/userService';
-// import { getAllCart } from '~/services/cartService';
-
-// export const AuthContext = createContext();
-
-// export const AuthProvider = ({ children }) => {
-//   const [userName, setUserName] = useState(null);
-//   const [cart, setCart] = useState({ items: [], totalQuantity: 0 });
-
-//   const fetchUserDetails = useCallback(async () => {
-//     const token = localStorage.getItem('authToken');
-//     if (token) {
-//       try {
-//         const response = await me(token);
-//         setUserName(response.name);
-//       } catch (error) {
-//         console.error('Failed to fetch user details:', error);
-//       }
-//     }
-//   }, []);
-
-//   const fetchCart = useCallback(async () => {
-//     try {
-//       const token = localStorage.getItem('authToken');
-//       if (token) {
-//         const response = await getAllCart(token);
-//         setCart({ ...response });
-//       }
-//     } catch (error) {
-//       console.log('Failed to fetch cart: ', error);
-//     }
-//   }, []);
-
-//   useEffect(() => {
-//     fetchUserDetails();
-//     fetchCart();
-//   }, [fetchUserDetails, fetchCart]);
-
-//   const logout = () => {
-//     localStorage.removeItem('user');
-//   };
-
-//   return (
-//     <AuthContext.Provider value={{ userName, cart, logout }}>
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// };
-
-import { createContext, useState, useEffect, useCallback } from 'react';
+import {
+  createContext,
+  useState,
+  useEffect,
+  useCallback,
+  useContext,
+} from 'react';
 import { me } from '~/services/userService';
-import { getAllCart } from '~/services/cartService';
+import { login } from '~/services/userService';
+import { CartContext } from './CartContext';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [userName, setUserName] = useState(null);
-  const [cart, setCart] = useState({ items: [], totalQuantity: 0 });
+  const { cart, fetchCart } = useContext(CartContext);
+  const [cartQuantity, setCartQuantity] = useState(0);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
 
-  const fetchUserDetails = useCallback(async () => {
+  const fetchUser = useCallback(async () => {
     const token = localStorage.getItem('authToken');
     if (token) {
       try {
         const response = await me(token);
-        setUserName(response.name); // Update user name
+        setUser(response);
+        setIsAuthenticated(true);
       } catch (error) {
-        console.error('Failed to fetch user details:', error);
+        console.log('Failed', error);
       }
     }
   }, []);
 
-  const fetchCart = useCallback(async () => {
+  const loginAu = async (credentials) => {
     try {
-      const token = localStorage.getItem('authToken');
-      if (token) {
-        const response = await getAllCart(token);
-        setCart({ ...response }); // Update cart
+      const response = await login(credentials);
+      if (response && response.token) {
+        localStorage.setItem('authToken', response.token);
+        await fetchUser();
+
+        await fetchCart();
+        return response;
+      } else {
+        throw new Error('Login response does not contain token');
       }
     } catch (error) {
-      console.log('Failed to fetch cart: ', error);
+      console.log('Login failed:', error);
+      throw error;
     }
-  }, []);
-
-  useEffect(() => {
-    fetchUserDetails();
-    fetchCart();
-  }, [fetchUserDetails, fetchCart]);
-
-  const login = async (token) => {
-    localStorage.setItem('authToken', token);
-    await fetchUserDetails();
-    await fetchCart();
   };
 
   const logout = () => {
     localStorage.removeItem('authToken');
-    setUserName(null);
-    setCart({ items: [], totalQuantity: 0 });
+    setUser(null);
+    setIsAuthenticated(false);
   };
 
+  useEffect(() => {
+    fetchUser();
+
+    setCartQuantity(cart.totalQuantity);
+  }, [fetchUser, cart]);
+
   return (
-    <AuthContext.Provider value={{ userName, cart, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated,
+        fetchUser,
+        loginAu,
+        logout,
+        cartQuantity,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -14,11 +14,11 @@ import {
 
 import logo from '~/assets/images/logo-regular.png';
 import { CartIcon, SearchIcon, UserIcon } from '~/components/Icons';
-import { me } from '~/services/userService';
 import MenuUser from './MenuUser';
 import CartDrawer from '../CartDrawer';
 import SearchDrawer from '../SearchDrawer';
 import { CartContext } from '~/contexts/CartContext';
+import { AuthContext } from '~/contexts/AuthContext';
 import ShopDropdown from './ShopDropDown';
 
 const NavbarContainer = styled(Stack, {
@@ -44,7 +44,6 @@ const NavbarContainer = styled(Stack, {
 }));
 
 function Navbar() {
-  const [userName, setUserName] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerSearchOpen, setDrawerSearchOpen] = useState(false);
@@ -78,26 +77,15 @@ function Navbar() {
   }, []);
 
   const { cart, fetchCart } = useContext(CartContext);
+  const { user, isAuthenticated, fetchUser } = useContext(AuthContext);
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     if (token) {
-      fetchUserDetails(token);
+      fetchUser();
       fetchCart();
     }
-  }, [fetchCart]);
-
-  const fetchUserDetails = async () => {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      try {
-        const response = await me(token);
-        setUserName(response.name);
-      } catch (error) {
-        console.error('Failed to fetch user details:', error);
-      }
-    }
-  };
+  }, [fetchCart, fetchUser]);
 
   const handleOpenMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -117,7 +105,7 @@ function Navbar() {
 
   const handleCartIconClick = () => {
     if (location.pathname !== '/cart') {
-      toggleDrawer(true)(); // Open CartDrawer if not on the cart page
+      toggleDrawer(true)();
     }
   };
 
@@ -288,11 +276,11 @@ function Navbar() {
                 <CartDrawer open={drawerOpen} toggleDrawer={toggleDrawer} />
               </Grid>
               <Grid item>
-                {userName ? (
+                {isAuthenticated ? (
                   <>
                     <IconButton color="inherit" onClick={handleOpenMenu}>
                       <Avatar sx={{ width: '1.6rem', height: '1.6rem' }}>
-                        {userName.charAt(0).toUpperCase()}
+                        {user.name.charAt(0).toUpperCase()}
                       </Avatar>
                     </IconButton>
                     <MenuUser

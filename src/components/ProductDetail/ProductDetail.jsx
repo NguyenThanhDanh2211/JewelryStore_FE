@@ -23,6 +23,7 @@ import Image from './Image';
 import { CartContext } from '~/contexts/CartContext';
 import { ApplePayIcon, MoMoIcon, PayPalIcon, VisaIcon } from '../Icons';
 import ProductCardComponent from '../ProductCard';
+import { AuthContext } from '~/contexts/AuthContext';
 
 const ProductDetailContainer = styled(Stack)(({ theme }) => ({
   display: 'flex',
@@ -45,6 +46,7 @@ function ProductDetail() {
   const [relatedProducts, setRelatedProducts] = useState([]);
 
   const { addProductToCart } = useContext(CartContext);
+  const { isAuthenticated } = useContext(AuthContext);
 
   const handleUpdateQuantity = async (newQuantity) => {
     if (newQuantity < 1) return;
@@ -52,14 +54,22 @@ function ProductDetail() {
   };
 
   const handleAddToCart = (product) => {
-    addProductToCart(product, quantity);
-    setAlertMessage(`${product.name} has been added to the cart!`);
+    if (!isAuthenticated) {
+      setAlertMessage('Please login before adding products to the cart.');
+    } else {
+      addProductToCart(product, quantity);
+      setAlertMessage(`${product.name} has been added to the cart!`);
+    }
     setAlertOpen(true);
   };
 
   const handleAddToCartOne = (product) => {
-    addProductToCart(product, 1);
-    setAlertMessage(`${product.name} has been added to the cart!`);
+    if (!isAuthenticated) {
+      setAlertMessage('Please login before adding products to the cart.');
+    } else {
+      addProductToCart(product, 1);
+      setAlertMessage(`${product.name} has been added to the cart!`);
+    }
     setAlertOpen(true);
   };
 
@@ -126,7 +136,10 @@ function ProductDetail() {
           onClose={handleCloseAlert}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         >
-          <Alert onClose={handleCloseAlert} severity="success">
+          <Alert
+            onClose={handleCloseAlert}
+            severity={isAuthenticated ? 'success' : 'error'}
+          >
             {alertMessage}
           </Alert>
         </Snackbar>

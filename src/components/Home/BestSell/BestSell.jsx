@@ -10,11 +10,13 @@ import {
 import { useContext, useEffect, useState } from 'react';
 import ProductCardComponent from '~/components/ProductCard/ProductCard';
 import { CartContext } from '~/contexts/CartContext';
+import { AuthContext } from '~/contexts/AuthContext';
 import { getAllProduct } from '~/services/productService';
 
 function BestSell() {
   const [products, setProducts] = useState([]);
   const { addProductToCart } = useContext(CartContext);
+  const { isAuthenticated } = useContext(AuthContext);
 
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
@@ -33,8 +35,12 @@ function BestSell() {
   }, []);
 
   const handleAddToCart = (product) => {
-    addProductToCart(product, 1);
-    setAlertMessage(`${product.name} has been added to the cart!`);
+    if (!isAuthenticated) {
+      setAlertMessage('Please login before adding products to the cart.');
+    } else {
+      addProductToCart(product, 1);
+      setAlertMessage(`${product.name} has been added to the cart!`);
+    }
     setAlertOpen(true);
   };
 
@@ -120,7 +126,10 @@ function BestSell() {
         onClose={handleCloseAlert}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       >
-        <Alert onClose={handleCloseAlert} severity="success">
+        <Alert
+          onClose={handleCloseAlert}
+          severity={isAuthenticated ? 'success' : 'error'}
+        >
           {alertMessage}
         </Alert>
       </Snackbar>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import {
@@ -19,9 +19,8 @@ import {
   LinearProgress,
 } from '@mui/material';
 import { FacebookIcon, GoogleIcon } from '~/components/Icons';
-import { login } from '~/services/userService';
 import ForgotPassword from '~/components/ForgotPassword';
-import Navbar from '~/components/Navbar';
+import { AuthContext } from '~/contexts/AuthContext';
 
 const LogInContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
@@ -52,6 +51,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [progress, setProgress] = useState(0);
+  const { loginAu } = useContext(AuthContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -74,7 +74,7 @@ function Login() {
     setSuccessMessage('Log in successful!');
 
     try {
-      const response = await login(userData);
+      const response = await loginAu(userData);
 
       if (response && response.token) {
         localStorage.setItem('authToken', response.token);
@@ -112,7 +112,6 @@ function Login() {
   return (
     <>
       <CssBaseline enableColorScheme />
-      <Navbar />
       <LogInContainer direction="column" justifyContent="space-between">
         {(successMessage || errorMessage) && (
           <Box

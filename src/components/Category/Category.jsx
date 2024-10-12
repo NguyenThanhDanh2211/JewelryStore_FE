@@ -222,6 +222,7 @@ import { CartContext } from '~/contexts/CartContext';
 import Sidebar from './Sidebar';
 import Breadcrumb from '../Breadcrumb';
 import HeaderCollection from './HeaderCollection';
+import { AuthContext } from '~/contexts/AuthContext';
 
 const CategoryContainer = styled(Stack)(({ theme }) => ({
   display: 'flex',
@@ -240,7 +241,7 @@ function Category() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [loading, setLoading] = useState(true); // State để xác định xem có đang fetch sản phẩm không
+  const [loading, setLoading] = useState(true);
   const [selectedCollection, setSelectedCollection] = useState(
     selectedCollectionFromQuery || null
   );
@@ -248,6 +249,7 @@ function Category() {
   const [alertMessage, setAlertMessage] = useState('');
 
   const { addProductToCart } = useContext(CartContext);
+  const { isAuthenticated } = useContext(AuthContext);
 
   const [filters, setFilters] = useState({
     tag: null,
@@ -258,7 +260,7 @@ function Category() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      setLoading(true); // Bắt đầu loading khi fetch sản phẩm
+      setLoading(true);
       try {
         const filterParams = {
           page: currentPage,
@@ -300,8 +302,12 @@ function Category() {
   };
 
   const handleAddToCart = (product) => {
-    addProductToCart(product, 1);
-    setAlertMessage(`${product.name} has been added to the cart!`);
+    if (!isAuthenticated) {
+      setAlertMessage('Please login before adding products to the cart.');
+    } else {
+      addProductToCart(product, 1);
+      setAlertMessage(`${product.name} has been added to the cart!`);
+    }
     setAlertOpen(true);
   };
 
@@ -409,7 +415,10 @@ function Category() {
         onClose={handleCloseAlert}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       >
-        <Alert onClose={handleCloseAlert} severity="success">
+        <Alert
+          onClose={handleCloseAlert}
+          severity={isAuthenticated ? 'success' : 'error'}
+        >
           {alertMessage}
         </Alert>
       </Snackbar>

@@ -12,6 +12,7 @@ import { getFilteredProducts } from '~/services/productService';
 import { CartContext } from '~/contexts/CartContext';
 import ProductCardComponent from '~/components/ProductCard';
 import Header from './Header';
+import { AuthContext } from '~/contexts/AuthContext';
 
 const ShopContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
@@ -33,6 +34,7 @@ function ProductPage() {
   const [alertMessage, setAlertMessage] = useState('');
 
   const { addProductToCart } = useContext(CartContext);
+  const { isAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -61,8 +63,12 @@ function ProductPage() {
   };
 
   const handleAddToCart = (product) => {
-    addProductToCart(product, 1);
-    setAlertMessage(`${product.name} has been added to the cart!`);
+    if (!isAuthenticated) {
+      setAlertMessage('Please login before adding products to the cart.');
+    } else {
+      addProductToCart(product, 1);
+      setAlertMessage(`${product.name} has been added to the cart!`);
+    }
     setAlertOpen(true);
   };
 
@@ -79,7 +85,10 @@ function ProductPage() {
         onClose={handleCloseAlert}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       >
-        <Alert onClose={handleCloseAlert} severity="success">
+        <Alert
+          onClose={handleCloseAlert}
+          severity={isAuthenticated ? 'success' : 'error'}
+        >
           {alertMessage}
         </Alert>
       </Snackbar>

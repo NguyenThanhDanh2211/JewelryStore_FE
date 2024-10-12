@@ -3,14 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { Link, Menu, MenuItem } from '@mui/material';
 
 import { CartContext } from '~/contexts/CartContext';
+import { AuthContext } from '~/contexts/AuthContext';
 
 function MenuUser({ anchorEl, handleCloseMenu }) {
   const { resetCart } = useContext(CartContext);
+  const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const open = Boolean(anchorEl);
 
   const handleLogout = () => {
-    localStorage.removeItem('authToken');
+    logout();
     resetCart();
     navigate('/login');
     handleCloseMenu();
