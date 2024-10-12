@@ -11,7 +11,7 @@ import {
 import { CartContext } from '~/contexts/CartContext';
 import { getAllDiscount } from '~/services/discountService';
 
-function YourOrder({ setCouponDetail }) {
+function YourOrder({ setCouponDetail, setTotalPrice }) {
   const { cart } = useContext(CartContext);
   const [showCouponInput, setShowCouponInput] = useState(false);
   const [couponCode, setCouponCode] = useState('');
@@ -25,8 +25,13 @@ function YourOrder({ setCouponDetail }) {
   useEffect(() => {
     if (cart.items.length > 0) {
       setCopiedCart(cart);
+
+      const finalPrice =
+        (parseFloat(cart.totalPrice) - parseFloat(discount)) * 1000;
+
+      setTotalPrice(Number(finalPrice));
     }
-  }, [cart]);
+  }, [cart, discount, setTotalPrice]);
 
   useEffect(() => {
     const fetchDiscount = async () => {

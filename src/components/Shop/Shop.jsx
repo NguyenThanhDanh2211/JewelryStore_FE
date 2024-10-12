@@ -39,7 +39,7 @@ function ProductPage() {
       try {
         const filters = {
           page: currentPage,
-          limit: 12,
+          limit: 16,
           category: null,
         };
 

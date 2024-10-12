@@ -9,20 +9,17 @@ import {
   CardContent,
   FormControl,
   RadioGroup,
-  FormControlLabel,
-  OutlinedInput,
-  FormLabel,
-  Checkbox,
+  Button,
+  CircularProgress,
 } from '@mui/material';
 import MuiCard from '@mui/material/Card';
 
 import { styled } from '@mui/material/styles';
 
-import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
-import SimCardRoundedIcon from '@mui/icons-material/SimCardRounded';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import { MoMoIcon } from '~/components/Icons';
+import { payment, checkTransactionStatus } from '~/services/paymentService';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   border: '1px solid',
@@ -43,11 +40,43 @@ const Card = styled(MuiCard)(({ theme }) => ({
   ],
 }));
 
-function PaymentForm({ paymentMethod, setPaymentMethod }) {
-  const [paymentType, setPaymentType] = useState('cash');
+function PaymentForm({
+  paymentMethod,
+  setPaymentMethod,
+  totalPrice,
+  onPaymentSuccess,
+}) {
+  const [loading, setLoading] = useState(false);
 
   const handlePaymentTypeChange = (event) => {
     setPaymentMethod(event.target.value);
+  };
+
+  const handleMoMoPayment = async () => {
+    try {
+      setLoading(true);
+
+      const response = await payment(Number(totalPrice));
+
+      if (response && response.payUrl) {
+        const newWindow = window.open(response.payUrl, '_blank');
+
+        const checkPaymentStatus = setInterval(async () => {
+          const paymentResponse = await checkTransactionStatus(
+            response.orderId
+          );
+          if (paymentResponse.resultCode === 0) {
+            clearInterval(checkPaymentStatus);
+            setLoading(false);
+            newWindow.close();
+            onPaymentSuccess();
+          }
+        }, 8000);
+      }
+    } catch (error) {
+      console.error('Payment failed:', error);
+      setLoading(false);
+    }
   };
 
   return (
@@ -84,7 +113,7 @@ function PaymentForm({ paymentMethod, setPaymentMethod }) {
                   fontSize="medium"
                   sx={(theme) => ({
                     color:
-                      paymentType === 'cash'
+                      paymentMethod === 'cash'
                         ? theme.palette.primary.main
                         : theme.palette.grey[400],
                   })}
@@ -118,9 +147,38 @@ function PaymentForm({ paymentMethod, setPaymentMethod }) {
       </FormControl>
 
       {paymentMethod === 'momo' && (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }} mb={3}>
-          <Typography>Thanh toán bằng ví điện tử MoMo</Typography>
-          <Typography>MÃ QR, quét để thanh toán</Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+            mb: 3,
+            alignItems: 'center',
+          }}
+        >
+          <Button
+            onClick={handleMoMoPayment}
+            variant="single"
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+              transition: 'background-color 0.3s',
+              pointerEvents: loading ? 'none' : 'auto',
+            }}
+          >
+            {loading ? (
+              <>
+                <CircularProgress
+                  size={20}
+                  sx={{ color: 'rgb(154, 154, 154)', ml: '5px' }}
+                />
+                Processing...
+              </>
+            ) : (
+              <>Click here to pay with MoMo</>
+            )}
+          </Button>
         </Box>
       )}
 

@@ -103,6 +103,20 @@ function ProductDetail() {
     window.scrollTo(0, 0);
   }, [location]);
 
+  const ProductDetails = ({ details }) => {
+    const detailsArray = details.split('/');
+
+    return (
+      <Box mt={2}>
+        {detailsArray.map((detail, index) => (
+          <Typography key={index} variant="text" component="div">
+            - {detail.trim()}
+          </Typography>
+        ))}
+      </Box>
+    );
+  };
+
   return (
     <>
       <ProductDetailContainer direction="column" justifyContent="space-between">
@@ -119,21 +133,24 @@ function ProductDetail() {
 
         {product ? (
           <Grid container item xs={12} spacing={4}>
-            <Grid item xs={4} mt={1}>
+            <Grid item xs={6} mt={1}>
               <Image images={product.image} name={product.name} />
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={6}>
               <Typography variant="h3">{product.name}</Typography>
               <Typography variant="body1" sx={{ my: '15px' }}>
                 $ {product.price.toFixed(2)}
               </Typography>
               <Box
                 sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
                   margin: '0 auto',
                   textAlign: 'justify',
                 }}
               >
                 <Typography variant="text">{product.description}</Typography>
+                {product.detail && <ProductDetails details={product.detail} />}
               </Box>
               <Grid
                 sx={{

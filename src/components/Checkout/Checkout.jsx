@@ -36,7 +36,9 @@ function getStepContent(
   addressData,
   paymentMethod,
   setAddressData,
-  setPaymentMethod
+  setPaymentMethod,
+  totalPrice,
+  handlePaymentSuccess
 ) {
   switch (step) {
     case 0:
@@ -48,6 +50,8 @@ function getStepContent(
         <Payment
           paymentMethod={paymentMethod}
           setPaymentMethod={setPaymentMethod}
+          totalPrice={totalPrice}
+          onPaymentSuccess={handlePaymentSuccess}
         />
       );
     case 2:
@@ -65,6 +69,11 @@ function Checkout() {
 
   const { cart, deleAllProductsFromCart } = useContext(CartContext);
   const [couponDetail, setCouponDetail] = useState('');
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const handlePaymentSuccess = () => {
+    setActiveStep((prevStep) => prevStep + 1);
+  };
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -114,7 +123,10 @@ function Checkout() {
                 alignSelf: 'flex-start',
               }}
             >
-              <YourOrder setCouponDetail={setCouponDetail} />
+              <YourOrder
+                setCouponDetail={setCouponDetail}
+                setTotalPrice={setTotalPrice}
+              />
             </Box>
           </Grid>
           <Grid item xs={7}>
@@ -180,7 +192,9 @@ function Checkout() {
                     addressData,
                     paymentMethod,
                     setAddressData,
-                    setPaymentMethod
+                    setPaymentMethod,
+                    totalPrice,
+                    handlePaymentSuccess
                   )}
                   <Box
                     sx={[

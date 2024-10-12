@@ -290,6 +290,10 @@ function Category() {
     setSelectedCollection(selectedCollectionFromQuery || null);
   }, [selectedCollectionFromQuery]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
     window.scrollTo({ top: 0, behavior: 'smooth' });
