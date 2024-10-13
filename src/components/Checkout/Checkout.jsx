@@ -38,12 +38,17 @@ function getStepContent(
   setAddressData,
   setPaymentMethod,
   totalPrice,
-  handlePaymentSuccess
+  handlePaymentSuccess,
+  errors
 ) {
   switch (step) {
     case 0:
       return (
-        <Address addressData={addressData} setAddressData={setAddressData} />
+        <Address
+          addressData={addressData}
+          setAddressData={setAddressData}
+          errors={errors}
+        />
       );
     case 1:
       return (
@@ -65,17 +70,32 @@ function Checkout() {
   const [activeStep, setActiveStep] = useState(0);
   const [addressData, setAddressData] = useState({});
   const [paymentMethod, setPaymentMethod] = useState('cash');
-  const [messageOrder, setMessageOrder] = useState('');
 
   const { cart, deleAllProductsFromCart } = useContext(CartContext);
   const [couponDetail, setCouponDetail] = useState('');
   const [totalPrice, setTotalPrice] = useState(0);
+  const [errors, setErrors] = useState({});
+  const [orderId, setOrderId] = useState(null);
 
   const handlePaymentSuccess = () => {
     setActiveStep((prevStep) => prevStep + 1);
   };
 
   const handleNext = () => {
+    if (activeStep === 0) {
+      const newErrors = {};
+      if (!addressData.name) newErrors.name = 'Full Name is required';
+      if (!addressData.phone) newErrors.phone = 'Phone Number is required';
+      if (!addressData.address) newErrors.address = 'Address is required';
+
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
+        return;
+      } else {
+        setErrors({});
+      }
+    }
+
     setActiveStep(activeStep + 1);
   };
 
@@ -100,9 +120,8 @@ function Checkout() {
         if (response) {
           await deleAllProductsFromCart();
           setActiveStep(activeStep + 1);
-          setMessageOrder('Order placed successfully');
+          setOrderId(response.order._id);
         } else {
-          setMessageOrder('Error placing order');
           console.log('Error placing order');
         }
       } catch (error) {
@@ -164,15 +183,15 @@ function Checkout() {
               {activeStep === steps.length ? (
                 <Stack spacing={2} useFlexGap>
                   <Typography variant="h1">📦</Typography>
-                  <Typography variant="h5">
+                  <Typography variant="text1" fontSize={25}>
                     Thank you for your order!
                   </Typography>
-                  <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-                    {/* Your order number is
-                    <strong>&nbsp;#140396</strong>. We have emailed your order
-                    confirmation and will update you once its shipped. */}
-                    {messageOrder}
+                  <Typography variant="text" fontSize={20}>
+                    Your order number is <strong>&nbsp;#{orderId}</strong>. We
+                    have emailed your order confirmation and will update you
+                    once it's shipped.
                   </Typography>
+
                   <Link href="/">
                     <Button
                       variant="single"
@@ -194,7 +213,8 @@ function Checkout() {
                     setAddressData,
                     setPaymentMethod,
                     totalPrice,
-                    handlePaymentSuccess
+                    handlePaymentSuccess,
+                    errors
                   )}
                   <Box
                     sx={[

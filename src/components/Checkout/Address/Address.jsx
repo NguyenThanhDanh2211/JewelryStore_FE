@@ -7,6 +7,7 @@ import {
   FormControlLabel,
   Checkbox,
   Stack,
+  FormHelperText,
 } from '@mui/material';
 import { useEffect } from 'react';
 
@@ -21,24 +22,22 @@ const FormGrid = styled(Grid)(() => ({
   flexDirection: 'column',
 }));
 
-function Address({ addressData, setAddressData }) {
+function Address({ addressData, setAddressData, errors }) {
+  // Accept errors prop
   useEffect(() => {
-    if (!addressData.name) {
-      setAddressData((prev) => ({ ...prev, name: '' }));
-    }
-    if (!addressData.phone) {
-      setAddressData((prev) => ({ ...prev, phone: '' }));
-    }
-    if (!addressData.address) {
-      setAddressData((prev) => ({ ...prev, address: '' }));
-    }
+    setAddressData((prev) => ({
+      name: prev.name || '',
+      phone: prev.phone || '',
+      address: prev.address || '',
+      saveAddress: prev.saveAddress || false,
+    }));
   }, []);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, type, checked, value } = e.target;
     setAddressData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: type === 'checkbox' ? checked : value,
     }));
   };
 
@@ -60,6 +59,9 @@ function Address({ addressData, setAddressData }) {
             required
             size="small"
           />
+          {errors && errors.name && (
+            <FormHelperText error>{errors.name}</FormHelperText>
+          )}
         </FormGrid>
         <FormGrid item xs={12}>
           <FormLabel htmlFor="phone" required>
@@ -76,6 +78,9 @@ function Address({ addressData, setAddressData }) {
             required
             size="small"
           />
+          {errors && errors.phone && (
+            <FormHelperText error>{errors.phone}</FormHelperText>
+          )}
         </FormGrid>
         <FormGrid item xs={12}>
           <FormLabel htmlFor="address" required>
@@ -91,6 +96,9 @@ function Address({ addressData, setAddressData }) {
             required
             size="small"
           />
+          {errors && errors.address && (
+            <FormHelperText error>{errors.address}</FormHelperText>
+          )}
         </FormGrid>
         <FormGrid item xs={12}>
           <FormControlLabel

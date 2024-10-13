@@ -34,10 +34,12 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await login(credentials);
       if (response && response.token) {
-        localStorage.setItem('authToken', response.token);
-        await fetchUser();
+        if (!credentials.email.endsWith('@admin.com')) {
+          localStorage.setItem('authToken', response.token);
+          await fetchUser();
 
-        await fetchCart();
+          await fetchCart();
+        }
         return response;
       } else {
         throw new Error('Login response does not contain token');

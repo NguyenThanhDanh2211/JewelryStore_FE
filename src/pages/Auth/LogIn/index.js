@@ -64,23 +64,39 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const userData = {
-      email: data.get('email'),
-      password: data.get('password'),
-    };
+    const email = data.get('email');
+    const password = data.get('password');
+
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setErrorMessage('Please enter a valid email address.');
+      return;
+    } else {
+      setErrorMessage('');
+    }
+
+    if (!password || password.length < 1) {
+      setErrorMessage('Please enter a valid password.');
+      return;
+    } else {
+      setErrorMessage('');
+    }
 
     setLoading(true);
-    setErrorMessage('');
     setSuccessMessage('Log in successful!');
+    setErrorMessage('');
 
     try {
-      const response = await loginAu(userData);
+      const response = await loginAu({ email, password });
 
       if (response && response.token) {
-        localStorage.setItem('authToken', response.token);
-        setTimeout(() => {
-          navigate('/');
-        }, 2000);
+        if (!email.endsWith('@admin.com')) {
+          localStorage.setItem('authToken', response.token);
+          setTimeout(() => {
+            navigate('/');
+          }, 2000);
+        } else {
+          window.location.href = 'http://localhost:8000';
+        }
       }
     } catch (error) {
       setErrorMessage(error.response?.data?.message || 'Something went wrong.');
@@ -162,7 +178,7 @@ function Login() {
                 <Link
                   component="button"
                   onClick={(e) => {
-                    e.preventDefault(); // Prevents form submission
+                    e.preventDefault();
                     handleClickOpen();
                   }}
                   variant="body2"
