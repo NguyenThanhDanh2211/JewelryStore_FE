@@ -11,6 +11,7 @@ const routes = {
   detailProduct: '/shop/:category/:slug',
   myAccount: '/me',
   checkout: '/checkout',
+  myOrder: '/order',
 };
 
 export default routes;

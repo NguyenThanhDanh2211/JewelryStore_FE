@@ -10,25 +10,23 @@ import {
   Alert,
   LinearProgress,
   Card,
+  Divider,
 } from '@mui/material';
 import { me, update } from '~/services/userService';
 
 const MeContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
-  // padding: 20,
+  width: '100%',
   padding: theme.spacing(1),
-  // backgroundColor: '#f5f5f5',
 }));
 
 const MuiCard = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignSelf: ' center',
-  width: '100%',
+  width: '50%',
   padding: theme.spacing(4),
-  // gap: theme.spacing(2),
   margin: 'auto',
-  // maxWidth: '1200px',
   backgroundColor: '#f5f5f5',
 }));
 
@@ -76,7 +74,6 @@ function Me() {
     if (token) {
       try {
         await update(userData, token);
-        // You may want to add a success message or redirect after update
       } catch (error) {
         console.log('Error updating profile:', error);
         setErrorMessage(
@@ -119,15 +116,15 @@ function Me() {
           />
         </Box>
       )}
+      <Divider />
 
       <MuiCard
         component="form"
         onSubmit={handleUpdate}
         variant="outlined"
-        sx={{ border: 'none' }}
+        sx={{ border: 'none', pt: '50px' }}
       >
         <Typography variant="h3">Welcome, {userName}</Typography>
-        <Typography variant="body1">Your Account</Typography>
         <Box>
           <Grid container spacing={2}>
             <Grid item xs={6}>

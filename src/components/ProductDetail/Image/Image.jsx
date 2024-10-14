@@ -7,7 +7,7 @@ function Image({ images }) {
         {images[0] && (
           <img
             src={images[0]}
-            alt="Image 1"
+            alt="Product 1"
             style={{
               width: '100%',
               height: 'auto',
@@ -20,7 +20,7 @@ function Image({ images }) {
         {images[1] && (
           <img
             src={images[1]}
-            alt="Image 2"
+            alt="Product 2"
             style={{
               width: '100%',
               height: 'auto',
@@ -33,7 +33,7 @@ function Image({ images }) {
         {images[2] && (
           <img
             src={images[2]}
-            alt="Image 3"
+            alt="Product 3"
             style={{
               width: '100%',
               height: 'auto',
@@ -46,7 +46,7 @@ function Image({ images }) {
         {images[3] && (
           <img
             src={images[3]}
-            alt="Image 4"
+            alt="Product 4"
             style={{
               width: '100%',
               height: 'auto',

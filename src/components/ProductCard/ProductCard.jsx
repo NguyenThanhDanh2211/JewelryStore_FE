@@ -48,7 +48,7 @@ function ProductCardComponent({ product, handleAddToCart }) {
           }}
         >
           <IconButton>
-            <CartIcon />
+            <CartIcon color="#db9662" />
           </IconButton>
         </CartIconContainer>
         <Box

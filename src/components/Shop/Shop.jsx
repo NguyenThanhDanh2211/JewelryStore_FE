@@ -26,7 +26,7 @@ const ShopContainer = styled(Stack)(({ theme }) => ({
   margin: 'auto',
 }));
 
-function ProductPage() {
+function Shop() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -129,4 +129,4 @@ function ProductPage() {
   );
 }
 
-export default ProductPage;
+export default Shop;

@@ -11,7 +11,7 @@ import { useContext, useEffect, useState } from 'react';
 import ProductCardComponent from '~/components/ProductCard/ProductCard';
 import { CartContext } from '~/contexts/CartContext';
 import { AuthContext } from '~/contexts/AuthContext';
-import { getAllProduct } from '~/services/productService';
+import { getFilteredProducts } from '~/services/productService';
 
 function BestSell() {
   const [products, setProducts] = useState([]);
@@ -24,8 +24,13 @@ function BestSell() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await getAllProduct();
-        setProducts(response);
+        const response = await getFilteredProducts({ page: 1, limit: 4 });
+
+        const products = Array.isArray(response)
+          ? response
+          : response.products || [];
+
+        setProducts(products);
       } catch (error) {
         console.log('Error fetching products', error);
       }
@@ -109,7 +114,7 @@ function BestSell() {
 
       {/* Displaying the products */}
       <Grid container spacing={4}>
-        {products.slice(0, 4).map((product) => (
+        {products.map((product) => (
           <Grid item xs={12} sm={5} md={3} key={product._id}>
             <ProductCardComponent
               product={product}

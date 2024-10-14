@@ -192,7 +192,7 @@ function Checkout() {
                     once it's shipped.
                   </Typography>
 
-                  <Link href="/">
+                  <Link href="/order">
                     <Button
                       variant="single"
                       sx={{

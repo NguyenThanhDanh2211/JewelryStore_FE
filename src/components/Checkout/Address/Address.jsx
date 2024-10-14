@@ -31,7 +31,7 @@ function Address({ addressData, setAddressData, errors }) {
       address: prev.address || '',
       saveAddress: prev.saveAddress || false,
     }));
-  }, []);
+  }, [setAddressData]);
 
   const handleChange = (e) => {
     const { name, type, checked, value } = e.target;

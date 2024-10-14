@@ -17,13 +17,17 @@ import {
   Link,
 } from '@mui/material';
 
-import { getAllProduct, getProductBySlug } from '~/services/productService';
+import {
+  getFilteredProducts,
+  getProductBySlug,
+} from '~/services/productService';
 import { styled } from '@mui/material/styles';
 import Image from './Image';
 import { CartContext } from '~/contexts/CartContext';
 import { ApplePayIcon, MoMoIcon, PayPalIcon, VisaIcon } from '../Icons';
 import ProductCardComponent from '../ProductCard';
 import { AuthContext } from '~/contexts/AuthContext';
+import Comment from './Cmt';
 
 const ProductDetailContainer = styled(Stack)(({ theme }) => ({
   display: 'flex',
@@ -94,11 +98,17 @@ function ProductDetail() {
     const fetchRelated = async () => {
       try {
         if (product && product.category) {
-          const response = await getAllProduct();
-          const related = response.filter(
-            (item) =>
-              item.category === product.category && item.slug !== product.slug
-          );
+          const response = await getFilteredProducts({
+            page: 1,
+            limit: 5,
+            category: product.category,
+          });
+
+          const products = Array.isArray(response)
+            ? response
+            : response.products || [];
+
+          const related = products.filter((item) => item.slug !== product.slug);
 
           setRelatedProducts(related);
         }
@@ -146,6 +156,9 @@ function ProductDetail() {
 
         {product ? (
           <Grid container item xs={12} spacing={4}>
+            <Grid item xs={12}>
+              <Divider />
+            </Grid>
             <Grid item xs={6} mt={1}>
               <Image images={product.image} name={product.name} />
             </Grid>
@@ -199,14 +212,17 @@ function ProductDetail() {
                   </Button>
                 </Grid>
               </Grid>
-              <Box sx={{ width: '100%', my: 2 }}>
+              <Box sx={{ width: '100%', my: 3 }}>
                 <Divider />
               </Box>
-              <Typography variant="text">
+              <Typography variant="text" fontWeight="300">
                 Category:{' '}
                 <Link
                   href={`/shop/${category.toLowerCase()}`}
-                  style={{ textDecoration: 'none' }}
+                  style={{
+                    textDecoration: 'none',
+                    color: 'inherit',
+                  }}
                 >
                   {product.category}
                   {', '}
@@ -216,7 +232,10 @@ function ProductDetail() {
                     href={`/shop/${category.toLowerCase()}?collection=${
                       product.collect
                     }`}
-                    style={{ textDecoration: 'none' }}
+                    style={{
+                      textDecoration: 'none',
+                      color: 'inherit',
+                    }}
                   >
                     {product.collect}
                     {', '}
@@ -226,14 +245,13 @@ function ProductDetail() {
               </Typography>
 
               {/* Payment */}
-
               <Box
                 sx={{
                   border: '1px solid #ccc',
                   borderRadius: '8px',
                   position: 'relative',
                   padding: '10px',
-                  marginY: 2,
+                  marginY: 3,
                   height: '90px',
                 }}
               >
@@ -290,7 +308,7 @@ function ProductDetail() {
                 </Grid>
               </Box>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} mt={5}>
               <Divider />
             </Grid>
           </Grid>
@@ -299,18 +317,31 @@ function ProductDetail() {
         )}
       </ProductDetailContainer>
 
-      <Box
-        display="flex"
-        flexDirection="column"
-        sx={{
-          // maxWidth: '1200px',
-          margin: 'auto',
-          pb: '40px',
-        }}
-      >
-        <Typography>CMT</Typography>
-        <Divider />
-      </Box>
+      {product && (
+        <Box
+          display="flex"
+          flexDirection="column"
+          width="100%"
+          sx={{
+            margin: 'auto',
+            py: '40px',
+          }}
+        >
+          <Box sx={{ width: '100%', ml: 3 }}>
+            <Typography variant="h3" sx={{ mb: 2 }}>
+              We'd love to hear your thoughts!
+            </Typography>
+            <Typography variant="body2">
+              Share your experience with "{product.name}" by leaving a review
+              below.
+            </Typography>
+          </Box>
+          <Comment productId={product._id} />
+          <Box px={4}>
+            <Divider />
+          </Box>
+        </Box>
+      )}
 
       <Box
         display="flex"

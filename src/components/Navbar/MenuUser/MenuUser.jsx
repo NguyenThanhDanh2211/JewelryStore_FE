@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link, Menu, MenuItem } from '@mui/material';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import { Menu, MenuItem, Link, Divider, Typography } from '@mui/material';
 
 import { CartContext } from '~/contexts/CartContext';
 import { AuthContext } from '~/contexts/AuthContext';
@@ -32,12 +32,38 @@ function MenuUser({ anchorEl, handleCloseMenu }) {
         horizontal: 'right',
       }}
     >
-      <MenuItem>
-        <Link href="/me" sx={{ textDecoration: 'none' }}>
-          My Account
+      <MenuItem onClick={handleCloseMenu}>
+        <Link
+          component={RouterLink}
+          to="/me"
+          sx={{
+            textDecoration: 'none',
+          }}
+        >
+          <Typography variant="text1">My Account</Typography>
         </Link>
       </MenuItem>
-      <MenuItem onClick={handleLogout}>Log out</MenuItem>
+
+      <MenuItem onClick={handleCloseMenu}>
+        <Link
+          component={RouterLink}
+          to="/order"
+          sx={{
+            textDecoration: 'none',
+          }}
+        >
+          <Typography variant="text1">My Orders</Typography>
+        </Link>
+      </MenuItem>
+
+      {/* Divider to separate menu sections */}
+      <Divider />
+
+      <MenuItem onClick={handleLogout}>
+        <Typography variant="text1" sx={{ color: 'red' }}>
+          Log out
+        </Typography>
+      </MenuItem>
     </Menu>
   );
 }

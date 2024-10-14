@@ -33,7 +33,14 @@ function Header() {
   const location = useLocation();
   return (
     <>
-      {location.pathname === '/shop' && <Divider />}
+      {location.pathname === '/shop' && (
+        <>
+          <Divider />
+          <Typography variant="h2" textAlign="center" fontSize={40}>
+            Discover Our Categories Below, Where You Can Find All Our Products!
+          </Typography>
+        </>
+      )}
       <Grid container display="flex" justifyContent="center" spacing={2} mt={2}>
         {categories.map((cate) => (
           <Grid item xs={6} sm={2} key={cate.label}>
