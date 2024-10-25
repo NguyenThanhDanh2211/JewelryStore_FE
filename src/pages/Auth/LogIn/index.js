@@ -82,7 +82,7 @@ function Login() {
     }
 
     setLoading(true);
-    setSuccessMessage('Log in successful!');
+    setSuccessMessage('');
     setErrorMessage('');
 
     try {
@@ -94,6 +94,7 @@ function Login() {
           setTimeout(() => {
             navigate('/');
           }, 2000);
+          setSuccessMessage('Log in successful!');
         } else {
           window.location.href = 'http://localhost:8000';
         }
@@ -203,13 +204,20 @@ function Login() {
               label="Remember me"
             />
             <ForgotPassword open={open} handleClose={handleClose} />
-            <Button type="submit" disabled={loading} fullWidth variant="single">
+            <Button
+              id="btn-login"
+              type="submit"
+              disabled={loading}
+              fullWidth
+              variant="single"
+            >
               Log in
             </Button>
             <Typography variant="body2" sx={{ textAlign: 'center' }}>
               Don&apos;t have an account?{' '}
               <span>
                 <Link
+                  id="register"
                   href="/register"
                   variant="body2"
                   sx={{ alignSelf: 'center' }}

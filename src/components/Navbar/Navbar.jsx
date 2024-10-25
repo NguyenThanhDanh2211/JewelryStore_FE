@@ -62,7 +62,7 @@ function Navbar() {
   const location = useLocation();
 
   const handleScroll = () => {
-    if (window.scrollY >= 250) {
+    if (window.scrollY >= 300) {
       setIsFixed(true);
     } else {
       setIsFixed(false);
@@ -250,7 +250,11 @@ function Navbar() {
           >
             <Grid container spacing={2}>
               <Grid item>
-                <IconButton color="inherit" onClick={toggleSearchDrawer(true)}>
+                <IconButton
+                  id="search-icon"
+                  color="inherit"
+                  onClick={toggleSearchDrawer(true)}
+                >
                   <SearchIcon />
                 </IconButton>
                 <SearchDrawer
@@ -278,7 +282,11 @@ function Navbar() {
               <Grid item>
                 {isAuthenticated ? (
                   <>
-                    <IconButton color="inherit" onClick={handleOpenMenu}>
+                    <IconButton
+                      className="user-icon"
+                      color="inherit"
+                      onClick={handleOpenMenu}
+                    >
                       <Avatar sx={{ width: '1.6rem', height: '1.6rem' }}>
                         {user.name.charAt(0).toUpperCase()}
                       </Avatar>
@@ -290,7 +298,7 @@ function Navbar() {
                   </>
                 ) : (
                   <Link href="/login" color="inherit">
-                    <IconButton color="inherit">
+                    <IconButton id="auth" color="inherit">
                       <UserIcon />
                     </IconButton>
                   </Link>

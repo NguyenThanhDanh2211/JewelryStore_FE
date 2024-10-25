@@ -8,7 +8,6 @@ import {
   Divider,
   Alert,
   Snackbar,
-  CircularProgress,
 } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
@@ -38,7 +37,6 @@ function Category() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [loading, setLoading] = useState(true);
   const [selectedCollection, setSelectedCollection] = useState(
     selectedCollectionFromQuery || null
   );
@@ -57,7 +55,6 @@ function Category() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      setLoading(true);
       try {
         const filterParams = {
           page: currentPage,
@@ -71,14 +68,11 @@ function Category() {
         };
 
         const response = await getFilteredProducts(filterParams);
-
         setProducts(response.products);
         setTotalPages(response.totalPages);
       } catch (error) {
         console.error('Failed to fetch products:', error);
         setProducts([]);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -123,21 +117,6 @@ function Category() {
   const handleSortSelect = (sort) => {
     setFilters((prevFilters) => ({ ...prevFilters, sort }));
   };
-
-  if (loading) {
-    return (
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '80vh',
-        }}
-      >
-        <CircularProgress size={60} />
-      </Box>
-    );
-  }
 
   return (
     <CategoryContainer>
@@ -186,26 +165,42 @@ function Category() {
         </Grid>
         <Grid item xs={9}>
           <Grid container spacing={2}>
-            {products.map((product) => (
-              <Grid item xs={12} sm={6} md={4} key={product._id}>
-                <ProductCardComponent
-                  product={product}
-                  handleAddToCart={handleAddToCart}
-                />
-              </Grid>
-            ))}
+            {products.length > 0 ? (
+              products.map((product) => (
+                <Grid item xs={12} sm={6} md={4} key={product._id}>
+                  <ProductCardComponent
+                    product={product}
+                    handleAddToCart={handleAddToCart}
+                  />
+                </Grid>
+              ))
+            ) : (
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                width="100%"
+              >
+                <Typography variant="text">
+                  We're out of products in this category, but more are coming
+                  soon!
+                </Typography>
+              </Box>
+            )}
           </Grid>
 
-          <Box display="flex" justifyContent="center" mt={3}>
-            <Pagination
-              count={totalPages}
-              page={currentPage}
-              onChange={handlePageChange}
-              shape="rounded"
-              siblingCount={1}
-              boundaryCount={1}
-            />
-          </Box>
+          {products.length > 0 && (
+            <Box display="flex" justifyContent="center" mt={3}>
+              <Pagination
+                count={totalPages}
+                page={currentPage}
+                onChange={handlePageChange}
+                shape="rounded"
+                siblingCount={1}
+                boundaryCount={1}
+              />
+            </Box>
+          )}
         </Grid>
       </Grid>
 

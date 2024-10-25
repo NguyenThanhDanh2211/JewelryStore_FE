@@ -78,6 +78,9 @@ function Register() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!validateInputs()) return;
+
     const data = new FormData(event.currentTarget);
 
     const userData = {
@@ -184,7 +187,7 @@ function Register() {
                 required
                 fullWidth
                 id="name"
-                placeholder="Thanh Danh"
+                placeholder="Nguyen Thanh Danh"
                 error={nameError}
                 helperText={nameErrorMessage}
                 color={nameError ? 'error' : 'primary'}
@@ -224,6 +227,7 @@ function Register() {
               label="I want to receive updates via email."
             />
             <Button
+              id="btn-register"
               type="submit"
               fullWidth
               variant="single"

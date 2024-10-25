@@ -116,7 +116,11 @@ function ListProduct({ product, updateCartItems }) {
             </Grid>
             <Grid item>
               <Typography variant="body2">
-                $ {itemTotalPrice.toFixed(2)}
+                {/* $ {itemTotalPrice.toFixed(2)} */}${' '}
+                {(itemTotalPrice ? itemTotalPrice : 0).toLocaleString('en-US', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
               </Typography>
             </Grid>
           </Grid>

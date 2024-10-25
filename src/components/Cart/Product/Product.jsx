@@ -50,7 +50,14 @@ function Product({ product, updateCartItems }) {
   return (
     <>
       {/* title */}
-      <Grid item container xs={12} alignItems="center">
+      <Grid
+        item
+        container
+        xs={12}
+        alignItems="center"
+        className="product-row"
+        data-product={productName}
+      >
         <Grid item xs={1.75}>
           <Box>
             {productImg ? (
@@ -83,21 +90,33 @@ function Product({ product, updateCartItems }) {
         </Grid>
         <Grid item xs={2.5}>
           <ButtonGroup>
-            <Button onClick={() => handleUpdateQuantity(quantity - 1)}>
+            <Button
+              className="decrease-qty"
+              onClick={() => handleUpdateQuantity(quantity - 1)}
+            >
               <Typography variant="body2">-</Typography>
             </Button>
             <Button>
-              <Typography variant="body2">{quantity}</Typography>
+              <Typography variant="body2" className="product-quantity">
+                {quantity}
+              </Typography>
             </Button>
-            <Button onClick={() => handleUpdateQuantity(quantity + 1)}>
+            <Button
+              className="increase-qty"
+              onClick={() => handleUpdateQuantity(quantity + 1)}
+            >
               <Typography variant="body2">+</Typography>
             </Button>
           </ButtonGroup>
         </Grid>
-        <Grid item xs={1.5}>
-          $ {itemTotalPrice.toFixed(2)}
+        <Grid item xs={1.5} className="total-price">
+          {/* $ {itemTotalPrice.toFixed(2)} */}${' '}
+          {(itemTotalPrice ? itemTotalPrice : 0).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })}
         </Grid>
-        <Grid item xs={1}>
+        <Grid item xs={1} className="remove-product">
           <IconButton onClick={handleRemove}>
             <HighlightOffIcon />
           </IconButton>

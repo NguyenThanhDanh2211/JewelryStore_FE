@@ -37,9 +37,11 @@ function OrderTable({ orders, onClick }) {
           </TableCell>
         </TableRow>
       </TableHead>
-      <TableBody>
+      <TableBody className="orders-list">
         {orders.map((order) => (
           <TableRow
+            className="order-item"
+            data-id={order._id}
             key={order._id}
             onClick={() => onClick(order)}
             style={{ cursor: 'pointer' }}

@@ -31,6 +31,7 @@ const SearchInput = styled(InputBase)(({ theme }) => ({
 function Search({ open, toggleSearchDrawer }) {
   const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
+  const [notFound, setNotFound] = useState('');
 
   const debouncedValue = useDebounce(searchValue, 500);
 
@@ -39,14 +40,24 @@ function Search({ open, toggleSearchDrawer }) {
   useEffect(() => {
     if (!debouncedValue) {
       setSearchResult([]);
+      setNotFound('');
       return;
     }
 
     const fetchSearch = async () => {
-      const result = await search(debouncedValue);
-      setSearchResult(result);
-
-      console.log(result);
+      try {
+        const result = await search(debouncedValue);
+        if (result && result.length > 0) {
+          setSearchResult(result);
+          setNotFound('');
+        } else {
+          setSearchResult([]);
+          setNotFound('Sorry, no results matched your search.');
+        }
+      } catch (error) {
+        setSearchResult([]);
+        setNotFound('Error fetching search results. Please try again.');
+      }
     };
 
     fetchSearch();
@@ -94,13 +105,13 @@ function Search({ open, toggleSearchDrawer }) {
           <Grid container spacing={1}>
             {searchResult.length > 0 ? (
               searchResult.map((product) => (
-                <Grid item xs={4} key={product._id}>
+                <Grid item xs={4} key={product._id} className="product-item">
                   <Result product={product} />
                 </Grid>
               ))
             ) : (
-              <Typography variant="nav" color="rgb(154, 154, 154)">
-                Sorry, no results matched your search for.
+              <Typography variant="nav" color="rgb(154, 154, 154)" ml={1}>
+                {notFound}
               </Typography>
             )}
           </Grid>

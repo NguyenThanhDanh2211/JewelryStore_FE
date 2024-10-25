@@ -11,7 +11,7 @@ import {
   Stack,
 } from '@mui/material';
 import Product from './Product';
-import { CartContext } from '~/contexts/CartContext'; // Import the CartContext
+import { CartContext } from '~/contexts/CartContext';
 
 const CartContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
@@ -102,16 +102,26 @@ function Cart() {
           <Grid container justifyContent="space-between" sx={{ mb: 1, pr: 2 }}>
             <Typography variant="body3">Subtotal</Typography>
             <Typography variant="body3">
-              $ {(cart.totalPrice - 0).toFixed(2)}
+              {/* $ {(cart.totalPrice - 0).toFixed(2)} */}${' '}
+              {(cart.totalPrice ? cart.totalPrice : 0).toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
             </Typography>
           </Grid>
 
           <Divider sx={{ my: 2, mr: 2 }} />
 
           <Grid container justifyContent="space-between" sx={{ mb: 2, pr: 2 }}>
-            <Typography variant="body3">Total</Typography>
-            <Typography variant="body3">
-              $ {(cart.totalPrice - 0).toFixed(2)}
+            <Typography variant="body3" color="#db9662">
+              Total
+            </Typography>
+            <Typography variant="body3" color="#db9662">
+              {/* $ {(cart.totalPrice - 0).toFixed(2)} */}${' '}
+              {(cart.totalPrice ? cart.totalPrice : 0).toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
             </Typography>
           </Grid>
           <Divider sx={{ mb: 2, mr: 2 }} />

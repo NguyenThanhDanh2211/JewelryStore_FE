@@ -2,7 +2,7 @@ import { Grid } from '@mui/material';
 
 function Image({ images }) {
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} className="product-img">
       <Grid item xs={6}>
         {images[0] && (
           <img

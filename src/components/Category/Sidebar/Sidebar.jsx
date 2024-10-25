@@ -67,8 +67,7 @@ function Sidebar({
   };
 
   const priceRanges = [
-    { label: 'Less than $50', value: JSON.stringify([0, 50]) },
-    { label: '$51 - $100', value: JSON.stringify([51, 100]) },
+    { label: 'Less than $100', value: JSON.stringify([0, 100]) },
     { label: '$101 - $300', value: JSON.stringify([101, 300]) },
     { label: '$301 - $500', value: JSON.stringify([301, 500]) },
     { label: 'Over $500', value: JSON.stringify([500, Infinity]) },

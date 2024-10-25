@@ -163,8 +163,14 @@ function ProductDetail() {
               <Image images={product.image} name={product.name} />
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="h3">{product.name}</Typography>
-              <Typography variant="body1" sx={{ my: '15px' }}>
+              <Typography variant="h3" className="product-name">
+                {product.name}
+              </Typography>
+              <Typography
+                variant="body1"
+                className="product-price"
+                sx={{ my: '15px' }}
+              >
                 $ {product.price.toFixed(2)}
               </Typography>
               <Box
@@ -175,7 +181,9 @@ function ProductDetail() {
                   textAlign: 'justify',
                 }}
               >
-                <Typography variant="text">{product.description}</Typography>
+                <Typography variant="text" className="product-des">
+                  {product.description}
+                </Typography>
                 {product.detail && <ProductDetails details={product.detail} />}
               </Box>
               <Grid
@@ -204,6 +212,7 @@ function ProductDetail() {
                 </Grid>
                 <Grid item xs={4}>
                   <Button
+                    id="add-product-btn"
                     variant="single"
                     fullWidth
                     onClick={() => handleAddToCart(product)}
@@ -319,6 +328,7 @@ function ProductDetail() {
 
       {product && (
         <Box
+          className="reviews-section"
           display="flex"
           flexDirection="column"
           width="100%"

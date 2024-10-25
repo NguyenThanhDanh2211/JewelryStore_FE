@@ -104,7 +104,14 @@ function Shop() {
         >
           <Grid container spacing={3}>
             {products.map((product) => (
-              <Grid item xs={12} sm={6} md={3} key={product._id}>
+              <Grid
+                className="product-item-card"
+                item
+                xs={12}
+                sm={6}
+                md={3}
+                key={product._id}
+              >
                 <ProductCardComponent
                   product={product}
                   handleAddToCart={handleAddToCart}

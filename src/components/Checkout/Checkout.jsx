@@ -24,7 +24,6 @@ const CheckoutContainer = styled(Stack)(({ theme }) => ({
   flexDirection: 'column',
   height: '100%',
   width: '100%',
-  // maxWidth: '1200px',
   padding: theme.spacing(1),
   paddingTop: theme.spacing(8),
   margin: 'auto',
@@ -183,7 +182,11 @@ function Checkout() {
               {activeStep === steps.length ? (
                 <Stack spacing={2} useFlexGap>
                   <Typography variant="h1">📦</Typography>
-                  <Typography variant="text1" fontSize={25}>
+                  <Typography
+                    variant="text1"
+                    fontSize={25}
+                    id="text-order-success"
+                  >
                     Thank you for your order!
                   </Typography>
                   <Typography variant="text" fontSize={20}>
@@ -243,6 +246,7 @@ function Checkout() {
                     )}
 
                     <Button
+                      id="next-btn"
                       variant="single"
                       endIcon={<ChevronRightRounded />}
                       onClick={

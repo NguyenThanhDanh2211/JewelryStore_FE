@@ -137,7 +137,14 @@ function Comment({ productId }) {
             {comments.length > 0 ? (
               <Grid container spacing={2}>
                 {comments.map((comment) => (
-                  <Grid item xs={12} sm={6} md={4} key={comment._id}>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    key={comment._id}
+                    className="review-item"
+                  >
                     <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
                       {comment.userId.name} -{' '}
                       {new Date(comment.createAt).toLocaleDateString()}
@@ -169,6 +176,8 @@ function Comment({ productId }) {
                       <span
                         key={index}
                         onClick={() => handleStarClick(index + 1)}
+                        className="rating-star"
+                        data-value={index + 1}
                       >
                         {index < rating ? (
                           <StarIcon
@@ -193,6 +202,7 @@ function Comment({ productId }) {
                       Your Review*
                     </Typography>
                     <TextField
+                      id="review-input"
                       multiline
                       rows={4}
                       fullWidth
@@ -203,7 +213,11 @@ function Comment({ productId }) {
                   </Grid>
                 </Grid>
 
-                <Button variant="single" onClick={handlePostComment}>
+                <Button
+                  id="submit-review-button"
+                  variant="single"
+                  onClick={handlePostComment}
+                >
                   Post Review
                 </Button>
               </>

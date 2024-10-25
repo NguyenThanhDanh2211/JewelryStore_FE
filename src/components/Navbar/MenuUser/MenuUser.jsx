@@ -59,7 +59,7 @@ function MenuUser({ anchorEl, handleCloseMenu }) {
       {/* Divider to separate menu sections */}
       <Divider />
 
-      <MenuItem onClick={handleLogout}>
+      <MenuItem onClick={handleLogout} className="logout-icon">
         <Typography variant="text1" sx={{ color: 'red' }}>
           Log out
         </Typography>

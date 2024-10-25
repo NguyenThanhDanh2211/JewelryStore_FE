@@ -16,7 +16,13 @@ import {
 function OrderDetailsDialog({ open, onClose, order, onCancel }) {
   return (
     <>
-      <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+      <Dialog
+        open={open}
+        onClose={onClose}
+        maxWidth="md"
+        fullWidth
+        className="order-detail"
+      >
         <DialogTitle>
           <Typography>Order Details</Typography>
         </DialogTitle>
@@ -92,6 +98,7 @@ function OrderDetailsDialog({ open, onClose, order, onCancel }) {
         <DialogActions>
           {order && order.status === 'pending' && (
             <Button
+              className="cancel-order"
               onClick={() => onCancel(order._id, order.status)}
               variant="single"
               sx={{
@@ -104,7 +111,7 @@ function OrderDetailsDialog({ open, onClose, order, onCancel }) {
               Cancel Order
             </Button>
           )}
-          <Button onClick={onClose} variant="single">
+          <Button className="close-dialog" onClick={onClose} variant="single">
             Close
           </Button>
         </DialogActions>

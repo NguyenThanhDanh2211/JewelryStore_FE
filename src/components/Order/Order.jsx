@@ -23,7 +23,6 @@ const UserOrdersContainer = styled(Stack)(({ theme }) => ({
 const UserOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [open, setOpen] = useState(false);
   const [tabIndex, setTabIndex] = useState(0);
@@ -39,7 +38,6 @@ const UserOrders = () => {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching orders:', error);
-        // setError('Failed to load orders');
         setLoading(false);
       }
     };
@@ -115,11 +113,12 @@ const UserOrders = () => {
                 color: tabIndex === 0 ? '#db9662' : 'rgb(154, 154, 154)',
               }}
             >
-              Pending/Processing/Shipping
+              Pending/Shipping
             </Typography>
           }
         />
         <Tab
+          className="cancelled-orders-tab"
           disableRipple
           label={
             <Typography
@@ -151,7 +150,7 @@ const UserOrders = () => {
         <OrderTable
           orders={filteredOrders('pending').concat(
             filteredOrders('processing'),
-            filteredOrders('shipping')
+            filteredOrders('shipped')
           )}
           onClick={handleOpenOrderDetails}
         />
