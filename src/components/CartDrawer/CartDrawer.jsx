@@ -52,7 +52,7 @@ function CartDrawer({ open, toggleDrawer }) {
               <ListProduct
                 key={`${item.productId}-${index}`}
                 product={item}
-                updateCartItems={updateCartItems} // Pass the update function to ListProduct
+                updateCartItems={updateCartItems}
               />
             ))
           ) : (
@@ -87,7 +87,7 @@ function CartDrawer({ open, toggleDrawer }) {
                 sx={{ my: 2 }}
                 color="rgb(154, 154, 154)"
               >
-                {/* $ {(cart.totalPrice - 0).toFixed(2)} */}${' '}
+                ${' '}
                 {(cart.totalPrice ? cart.totalPrice : 0).toLocaleString(
                   'en-US',
                   { minimumFractionDigits: 2, maximumFractionDigits: 2 }

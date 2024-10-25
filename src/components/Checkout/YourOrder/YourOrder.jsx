@@ -137,7 +137,7 @@ function YourOrder({ setCouponDetail, setTotalPrice }) {
                   sx={{ display: 'flex', justifyContent: 'flex-end' }}
                 >
                   <Typography variant="text">
-                    {/* $ {item.itemTotalPrice.toFixed(2)} */}${' '}
+                    ${' '}
                     {(cart.totalPrice ? cart.totalPrice : 0).toLocaleString(
                       'en-US',
                       { minimumFractionDigits: 2, maximumFractionDigits: 2 }
@@ -163,7 +163,7 @@ function YourOrder({ setCouponDetail, setTotalPrice }) {
             sx={{ display: 'flex', justifyContent: 'flex-end' }}
           >
             <Typography variant="body3">
-              {/* $ {(copiedCart.totalPrice - 0).toFixed(2)} */}${' '}
+              ${' '}
               {(copiedCart.totalPrice
                 ? copiedCart.totalPrice
                 : 0
@@ -213,7 +213,7 @@ function YourOrder({ setCouponDetail, setTotalPrice }) {
             sx={{ display: 'flex', justifyContent: 'flex-end' }}
           >
             <Typography variant="body3" color="#db9662">
-              {/* $ {(copiedCart.totalPrice - discount).toFixed(2)} */}${' '}
+              ${' '}
               {(copiedCart.totalPrice
                 ? copiedCart.totalPrice
                 : 0

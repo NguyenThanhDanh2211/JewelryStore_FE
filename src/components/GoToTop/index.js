@@ -8,7 +8,6 @@ const ScrollToTopButton = styled(IconButton)(({ theme }) => ({
   bottom: theme.spacing(2),
   right: theme.spacing(2),
   backgroundColor: '#db9662',
-  //   backgroundColor: '#b8764d',
   color: '#fff',
   borderRadius: '50%',
   zIndex: 1000,

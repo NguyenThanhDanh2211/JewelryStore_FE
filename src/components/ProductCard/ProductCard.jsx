@@ -43,8 +43,8 @@ function ProductCardComponent({ product, handleAddToCart }) {
         <CartIconContainer
           className="cart-icon"
           onClick={(e) => {
-            e.preventDefault(); // Prevents navigation when clicking on the icon
-            handleAddToCart(product); // Add to cart and show alert
+            e.preventDefault();
+            handleAddToCart(product);
           }}
         >
           <IconButton>

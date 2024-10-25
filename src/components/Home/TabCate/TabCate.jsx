@@ -7,7 +7,7 @@ import earrings from '~/assets/images/earrings.webp';
 import necklace from '~/assets/images/Necklaces.webp';
 
 function TabCate() {
-  const [value, setValue] = useState(0); // Use index-based values
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

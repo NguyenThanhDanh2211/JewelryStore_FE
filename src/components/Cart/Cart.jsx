@@ -26,12 +26,10 @@ function Cart() {
   const [showCouponInput, setShowCouponInput] = useState(false);
   const [couponCode, setCouponCode] = useState('');
 
-  // Handle when coupon input is clicked
   const handleCouponClick = () => {
     setShowCouponInput(true);
   };
 
-  // Handle when coupon is applied
   const handleCouponApply = () => {
     console.log('Coupon Applied:', couponCode);
     // Apply coupon logic here if needed
@@ -102,7 +100,7 @@ function Cart() {
           <Grid container justifyContent="space-between" sx={{ mb: 1, pr: 2 }}>
             <Typography variant="body3">Subtotal</Typography>
             <Typography variant="body3">
-              {/* $ {(cart.totalPrice - 0).toFixed(2)} */}${' '}
+              ${' '}
               {(cart.totalPrice ? cart.totalPrice : 0).toLocaleString('en-US', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
@@ -117,7 +115,7 @@ function Cart() {
               Total
             </Typography>
             <Typography variant="body3" color="#db9662">
-              {/* $ {(cart.totalPrice - 0).toFixed(2)} */}${' '}
+              ${' '}
               {(cart.totalPrice ? cart.totalPrice : 0).toLocaleString('en-US', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,

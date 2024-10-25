@@ -52,7 +52,6 @@ function Footer() {
 
           <Box sx={{ display: 'flex', flexDirection: 'row', m: 2 }}>
             <Grid container spacing={10} justifyContent="center">
-              {/* Mỗi item cần có thuộc tính item để phân bố đúng */}
               <Grid item xs={2}>
                 <Typography variant="body2">FAQ</Typography>
               </Grid>

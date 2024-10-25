@@ -29,7 +29,6 @@ function Product({ product, updateCartItems }) {
     useContext(CartContext);
 
   const handleUpdateQuantity = async (newQuantity) => {
-    // const token = localStorage.getItem('authToken');
     if (newQuantity < 0) return;
 
     setQuantity(newQuantity);
@@ -110,7 +109,7 @@ function Product({ product, updateCartItems }) {
           </ButtonGroup>
         </Grid>
         <Grid item xs={1.5} className="total-price">
-          {/* $ {itemTotalPrice.toFixed(2)} */}${' '}
+          ${' '}
           {(itemTotalPrice ? itemTotalPrice : 0).toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
