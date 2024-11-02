@@ -40,7 +40,11 @@ function OrderDetailsDialog({ open, onClose, order, onCancel }) {
                 Total Items: {order.totalQuantity}
               </Typography>
               <Typography variant="body2">
-                Total Price: ${order.finalPrice.toFixed(2)}
+                Total Price: ${' '}
+                {order.finalPrice.toLocaleString('en-US', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
               </Typography>
               <Typography variant="body2">Status: {order.status}</Typography>
               <Typography variant="body2">
@@ -85,7 +89,11 @@ function OrderDetailsDialog({ open, onClose, order, onCancel }) {
                       </TableCell>
                       <TableCell>
                         <Typography variant="body2">
-                          ${item.price.toFixed(2)}
+                          ${' '}
+                          {item.price.toLocaleString('en-US', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
                         </Typography>
                       </TableCell>
                     </TableRow>

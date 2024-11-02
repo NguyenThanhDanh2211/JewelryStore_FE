@@ -197,6 +197,7 @@ function Checkout() {
 
                   <Link href="/order">
                     <Button
+                      id="go-order"
                       variant="single"
                       sx={{
                         alignSelf: 'start',

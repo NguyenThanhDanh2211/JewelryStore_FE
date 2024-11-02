@@ -56,7 +56,11 @@ function OrderTable({ orders, onClick }) {
             </TableCell>
             <TableCell>
               <Typography variant="text1" ml={3}>
-                ${order.finalPrice.toFixed(2)}
+                ${' '}
+                {order.finalPrice.toLocaleString('en-US', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
               </Typography>
             </TableCell>
             <TableCell>
