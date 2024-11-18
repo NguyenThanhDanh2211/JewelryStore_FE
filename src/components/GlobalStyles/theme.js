@@ -12,64 +12,16 @@ const theme = createTheme({
 
   typography: {
     text: {
-      fontFamily: 'Poppins, sans-serif', // Font mặc định cho nội dung
+      fontFamily: 'Jost, sans-serif',
       fontWeight: 200,
       fontSize: 16,
       color: '#555555',
     },
-    text1: {
-      fontFamily: 'Poppins, sans-serif', // Font mặc định cho nội dung
-      fontWeight: 500,
-      fontSize: 16,
-      color: '#555555',
-    },
-
-    h1: {
-      fontFamily: 'Italiana, sans-serif',
-      fontWeight: 300,
-      fontSize: 80,
-      color: 'rgb(29, 21, 10)',
-    },
-    h2: {
-      fontFamily: 'Italiana, sans-serif',
-      fontWeight: 300,
-      fontSize: 25,
-      color: 'rgb(29, 21, 10)',
-    },
-    h3: {
-      fontFamily: 'Italiana, sans-serif',
-      fontWeight: 300,
-      fontSize: 50,
-      color: 'rgb(29, 21, 10)',
-    },
-    h4: {
-      fontFamily: 'Italiana, sans-serif',
-      fontWeight: 300,
-      fontSize: 60,
-      color: 'rgb(29, 21, 10)',
-    },
-    body1: {
-      fontFamily: 'Poppins, sans-serif',
-      fontWeight: 600,
-      fontSize: 30,
-      color: 'rgb(154, 154, 154)',
-    },
-    body2: {
-      fontFamily: 'Poppins, sans-serif',
-      fontSize: 15,
-      color: 'rgb(154, 154, 154)',
-    },
-    body3: {
-      fontFamily: 'Poppins, sans-serif',
-      fontSize: 20,
-      color: 'rgb(154, 154, 154)',
-    },
 
     nav: {
-      fontFamily: 'Poppins, sans-serif',
+      fontFamily: 'Jost, sans-serif',
       fontWeight: 600,
-      fontSize: 20,
-      // color: 'rgb(154, 154, 154)',
+      fontSize: 14,
     },
   },
 
@@ -91,7 +43,7 @@ const theme = createTheme({
                 variant: 'single',
               },
               style: {
-                fontFamily: 'Poppins, sans-serif',
+                fontFamily: 'Jost, sans-serif',
                 fontSize: 15,
                 color: '#555555',
                 borderRadius: '0px',
@@ -163,7 +115,8 @@ const theme = createTheme({
         body: {
           margin: 0,
           padding: 0,
-          backgroundColor: '#f5f5f5',
+          // backgroundColor: '#f5f5f5',
+          backgroundColor: '#ffffff',
           fontSize: '16px',
         },
       },

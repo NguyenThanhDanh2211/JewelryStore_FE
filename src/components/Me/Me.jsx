@@ -27,7 +27,7 @@ const MuiCard = styled(Card)(({ theme }) => ({
   width: '50%',
   padding: theme.spacing(4),
   margin: 'auto',
-  backgroundColor: '#f5f5f5',
+  // backgroundColor: '#f5f5f5',
 }));
 
 function Me() {

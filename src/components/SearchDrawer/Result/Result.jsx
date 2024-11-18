@@ -27,7 +27,7 @@ function Result({ product }) {
           />
         </Grid>
         <Grid item xs={10} display="flex" flexDirection="column">
-          <Typography variant="h2">{product.name}</Typography>
+          <Typography variant="nav">{product.name}</Typography>
           <Typography variant="text1">$ {product.price.toFixed(2)}</Typography>
         </Grid>
       </Grid>

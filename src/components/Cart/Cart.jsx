@@ -47,6 +47,7 @@ function Cart() {
 
   return (
     <CartContainer>
+      <Divider />
       <Grid container spacing={2} item xs={12} md={12} p={5} pt={12} px={7}>
         <Grid item xs={8} container>
           <Grid item container spacing={1} xs={12} sx={{ fontWeight: 'bold' }}>

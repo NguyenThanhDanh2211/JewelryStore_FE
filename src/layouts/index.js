@@ -10,7 +10,6 @@ const LayoutContainer = styled(Stack)(({ theme }) => ({
   flexDirection: 'column',
   height: 'auto',
   width: '100%',
-  maxWidth: '90%',
   justifyContent: 'center',
   alignItems: 'center',
   margin: '0 auto',

@@ -23,7 +23,7 @@ const CheckoutContainer = styled(Stack)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   height: '100%',
-  width: '100%',
+  width: '95%',
   padding: theme.spacing(1),
   paddingTop: theme.spacing(8),
   margin: 'auto',

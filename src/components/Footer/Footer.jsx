@@ -25,7 +25,7 @@ const FooterContainer = styled(Stack)(({ theme }) => ({
 const MuiCard = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  width: '100%',
+  width: '97%',
   padding: theme.spacing(2),
   margin: 'auto',
   backgroundColor: '#f5f5f5',

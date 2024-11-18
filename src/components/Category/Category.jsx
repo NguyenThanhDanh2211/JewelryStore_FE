@@ -23,7 +23,7 @@ import { AuthContext } from '~/contexts/AuthContext';
 const CategoryContainer = styled(Stack)(({ theme }) => ({
   display: 'flex',
   height: '100%',
-  width: '100%',
+  // width: '95%',
   margin: '0 auto',
   padding: theme.spacing(3),
 }));

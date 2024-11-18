@@ -18,13 +18,17 @@ const MuiCard = styled(Card)(({ theme }) => ({
   flexDirection: 'column',
   padding: theme.spacing(2),
   margin: 'auto',
-  backgroundColor: '#f5f5f5',
+  // backgroundColor: '#f5f5f5',
 }));
 
 function Home() {
   return (
     <>
-      <HomeContainer direction="column" justifyContent="space-between">
+      <HomeContainer
+        direction="column"
+        justifyContent="space-between"
+        alignItems="center"
+      >
         <MuiCard variant="outlined" sx={{ border: 'none' }}>
           <Banner />
 
@@ -46,7 +50,9 @@ function Home() {
             <TabCate />
           </Box>
 
-          <BestSell />
+          <Stack alignItems="center" justifyContent="center">
+            <BestSell />
+          </Stack>
 
           <Stack alignItems="center" justifyContent="center" m={8} mt={15}>
             <Box

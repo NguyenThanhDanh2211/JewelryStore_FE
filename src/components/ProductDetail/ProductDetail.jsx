@@ -272,7 +272,7 @@ function ProductDetail() {
                     top: '-15px',
                     left: '50%',
                     transform: 'translateX(-50%)',
-                    backgroundColor: '#f5f5f5',
+                    // backgroundColor: '#f5f5f5',
                     paddingX: 1,
                   }}
                 >

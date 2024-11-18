@@ -58,7 +58,7 @@ function BestSell() {
       <Grid
         container
         sx={{
-          backgroundColor: '#f5f5f5',
+          // backgroundColor: '#f5f5f5',
           padding: '20px 0',
           margin: 'auto',
         }}

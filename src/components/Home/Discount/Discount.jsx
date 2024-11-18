@@ -9,7 +9,7 @@ function Discount() {
       spacing={8}
       alignItems="center"
       sx={{
-        backgroundColor: '#f5f5f5',
+        // backgroundColor: '#f5f5f5',
         padding: '40px 0',
         margin: 'auto',
       }}

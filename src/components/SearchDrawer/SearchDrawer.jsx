@@ -28,7 +28,7 @@ const SearchInput = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function Search({ open, toggleSearchDrawer }) {
+function SearchDrawer({ open, toggleSearchDrawer }) {
   const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [notFound, setNotFound] = useState('');
@@ -121,4 +121,4 @@ function Search({ open, toggleSearchDrawer }) {
   );
 }
 
-export default Search;
+export default SearchDrawer;
