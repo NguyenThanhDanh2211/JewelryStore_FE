@@ -17,11 +17,45 @@ const theme = createTheme({
       fontSize: 16,
       color: '#555555',
     },
-
     nav: {
       fontFamily: 'Jost, sans-serif',
       fontWeight: 600,
       fontSize: 14,
+    },
+    h1: {
+      fontFamily: 'Jost, sans-serif',
+      fontWeight: 700,
+      fontSize: 36,
+      lineHeight: 1.2,
+      color: '#333333',
+    },
+    h2: {
+      fontFamily: 'Jost, sans-serif',
+      fontWeight: 600,
+      fontSize: 28,
+      lineHeight: 1.3,
+      color: '#444444',
+    },
+    h3: {
+      fontFamily: 'Jost, sans-serif',
+      fontWeight: 500,
+      fontSize: 22,
+      lineHeight: 1.4,
+      color: '#555555',
+    },
+    body1: {
+      fontFamily: 'Jost, sans-serif',
+      fontWeight: 400,
+      fontSize: 16,
+      lineHeight: 1.6,
+      color: '#666666',
+    },
+    body2: {
+      fontFamily: 'Jost, sans-serif',
+      fontWeight: 400,
+      fontSize: 14,
+      lineHeight: 1.6,
+      color: '#777777',
     },
   },
 

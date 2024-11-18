@@ -10,8 +10,6 @@ import {
   Avatar,
   Badge,
   Divider,
-  InputAdornment,
-  InputBase,
 } from '@mui/material';
 
 import logo from '~/assets/images/logo-regular.png';
