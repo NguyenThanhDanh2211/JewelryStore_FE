@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import {
   Card,
-  CssBaseline,
   Stack,
   TextField,
   Typography,
@@ -25,6 +24,8 @@ const RegisterContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
   width: '100%',
   paddingTop: '25px',
+  paddingBottom: '25px',
+  backgroundColor: '#f5f5f5',
 }));
 
 const MuiCard = styled(Card)(({ theme }) => ({
@@ -150,129 +151,122 @@ function Register() {
   };
 
   return (
-    <>
-      <CssBaseline enableColorScheme />
-      <RegisterContainer direction="column" justifyContent="space-between">
-        {(successMessage || errorMessage) && (
-          <Box
-            sx={{
-              position: 'fixed',
-              right: 35,
-            }}
-          >
-            <Alert severity={successMessage ? 'success' : 'error'}>
-              {successMessage || errorMessage}
-            </Alert>
-            <LinearProgress
-              variant="determinate"
-              value={progress}
-              color={successMessage ? 'success' : 'error'}
-            />
-          </Box>
-        )}
+    <RegisterContainer direction="column" justifyContent="space-between">
+      {(successMessage || errorMessage) && (
+        <Box
+          sx={{
+            position: 'fixed',
+            right: 35,
+          }}
+        >
+          <Alert severity={successMessage ? 'success' : 'error'}>
+            {successMessage || errorMessage}
+          </Alert>
+          <LinearProgress
+            variant="determinate"
+            value={progress}
+            color={successMessage ? 'success' : 'error'}
+          />
+        </Box>
+      )}
 
-        <MuiCard>
-          <Typography variant="body1">Register</Typography>
+      <MuiCard>
+        <Typography variant="h1">Register</Typography>
 
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
-          >
-            <FormControl>
-              <FormLabel htmlFor="name">Full name</FormLabel>
-              <TextField
-                autoComplete="name"
-                name="name"
-                required
-                fullWidth
-                id="name"
-                placeholder="Nguyen Thanh Danh"
-                error={nameError}
-                helperText={nameErrorMessage}
-                color={nameError ? 'error' : 'primary'}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel htmlFor="email">Email</FormLabel>
-              <TextField
-                required
-                fullWidth
-                id="email"
-                placeholder="your@gmail.com"
-                name="email"
-                autoComplete="email"
-                error={emailError}
-                helperText={emailErrorMessage}
-                color={emailError ? 'error' : 'primary'}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel htmlFor="password">Password</FormLabel>
-              <TextField
-                required
-                fullWidth
-                type="password"
-                name="password"
-                placeholder="••••••"
-                id="password"
-                autoComplete="new-password"
-                error={passwordError}
-                helperText={passwordErrorMessage}
-                color={passwordError ? 'error' : 'primary'}
-              />
-            </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="allowExtraEmails" color="primary" />}
-              label="I want to receive updates via email."
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+        >
+          <FormControl>
+            <FormLabel htmlFor="name">Full name</FormLabel>
+            <TextField
+              autoComplete="name"
+              name="name"
+              required
+              fullWidth
+              id="name"
+              placeholder="Nguyen Thanh Danh"
+              error={nameError}
+              helperText={nameErrorMessage}
+              color={nameError ? 'error' : 'primary'}
             />
-            <Button
-              id="btn-register"
-              type="submit"
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="email">Email</FormLabel>
+            <TextField
+              required
               fullWidth
-              variant="single"
-              onClick={validateInputs}
-              disabled={loading}
-            >
-              Register
-            </Button>
-            <Typography variant="body2" sx={{ textAlign: 'center' }}>
-              Already have an account?{' '}
-              <span>
-                <Link
-                  href="/login"
-                  variant="body2"
-                  sx={{ alignSelf: 'center' }}
-                >
-                  Log in
-                </Link>
-              </span>
-            </Typography>
-          </Box>
-          <Divider>or</Divider>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <Button
-              type="submit"
+              id="email"
+              placeholder="your@gmail.com"
+              name="email"
+              autoComplete="email"
+              error={emailError}
+              helperText={emailErrorMessage}
+              color={emailError ? 'error' : 'primary'}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="password">Password</FormLabel>
+            <TextField
+              required
               fullWidth
-              variant="single"
-              onClick={() => alert('Register with Google')}
-              startIcon={<GoogleIcon />}
-            >
-              Register with Google
-            </Button>
-            <Button
-              type="submit"
-              fullWidth
-              variant="single"
-              onClick={() => alert('Register with Facebook')}
-              startIcon={<FacebookIcon />}
-            >
-              Register with Facebook
-            </Button>
-          </Box>
-        </MuiCard>
-      </RegisterContainer>
-    </>
+              type="password"
+              name="password"
+              placeholder="••••••"
+              id="password"
+              autoComplete="new-password"
+              error={passwordError}
+              helperText={passwordErrorMessage}
+              color={passwordError ? 'error' : 'primary'}
+            />
+          </FormControl>
+          <FormControlLabel
+            control={<Checkbox value="allowExtraEmails" color="primary" />}
+            label="I want to receive updates via email."
+          />
+          <Button
+            id="btn-register"
+            type="submit"
+            fullWidth
+            variant="single"
+            onClick={validateInputs}
+            disabled={loading}
+          >
+            Register
+          </Button>
+          <Typography variant="body2" sx={{ textAlign: 'center' }}>
+            Already have an account?{' '}
+            <span>
+              <Link href="/login" variant="body2" sx={{ alignSelf: 'center' }}>
+                Log in
+              </Link>
+            </span>
+          </Typography>
+        </Box>
+        <Divider>or</Divider>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <Button
+            type="submit"
+            fullWidth
+            variant="single"
+            onClick={() => alert('Register with Google')}
+            startIcon={<GoogleIcon />}
+          >
+            Register with Google
+          </Button>
+          <Button
+            type="submit"
+            fullWidth
+            variant="single"
+            onClick={() => alert('Register with Facebook')}
+            startIcon={<FacebookIcon />}
+          >
+            Register with Facebook
+          </Button>
+        </Box>
+      </MuiCard>
+    </RegisterContainer>
   );
 }
 
