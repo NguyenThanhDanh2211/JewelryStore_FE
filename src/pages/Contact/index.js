@@ -20,7 +20,7 @@ import contact from '~/assets/images/contact.jpg';
 
 const ContactContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
-  padding: theme.spacing(1),
+  width: '100%',
   backgroundColor: '#f5f5f5',
 }));
 
@@ -36,18 +36,35 @@ const MuiCard = styled(Card)(({ theme }) => ({
 function Contact() {
   return (
     <ContactContainer direction="column">
-      <MuiCard variant="outlined" sx={{ border: 'none' }}>
-        <Grid container spacing={5}>
-          <Grid item xs={6} sx={{ marginTop: '30px' }}>
-            <Box
-              component="img"
-              src={contact}
-              sx={{ width: '100%', height: '150px', objectFit: 'cover' }}
-            />
-            <Typography variant="h3" sx={{ my: '10px' }}>
-              Contact Information
-            </Typography>
-            <Typography variant="text">
+      <Box
+        sx={{
+          width: '100%',
+          height: '100px',
+          backgroundImage: `url(${contact})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'relative',
+          textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)',
+        }}
+      >
+        <Typography
+          variant="h1"
+          sx={{
+            fontWeight: 'bold',
+            color: '#fff',
+          }}
+        >
+          CONTACT
+        </Typography>
+      </Box>
+      <MuiCard variant="outlined" sx={{ border: 'none', maxWidth: '1450px' }}>
+        <Grid container spacing={8}>
+          <Grid item xs={6} mt={3} display="flex" flexDirection="column">
+            <Typography variant="h1">Contact Information</Typography>
+            <Typography variant="text" mt={2}>
               Feel free to reach out to us for any inquiries or support. We're
               here to assist you with all your needs.
             </Typography>
@@ -113,7 +130,7 @@ function Contact() {
             </Grid>
           </Grid>
           <Grid item xs={6} mt={3} display="flex" flexDirection="column">
-            <Typography variant="h3">Got Any Questions?</Typography>
+            <Typography variant="h1">Got Any Questions?</Typography>
             <Typography variant="text" my={2}>
               Use the form below to get in touch with us.
             </Typography>

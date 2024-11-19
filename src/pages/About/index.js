@@ -1,9 +1,11 @@
 import { Box, Card, Grid, Stack, styled, Typography } from '@mui/material';
 import { CartOutline, Package, Return, Truck } from '~/components/Icons';
 
+import about from '~/assets/images/about.jpg';
+
 const AboutContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
-  padding: 2,
+  width: '100%',
   justifyContent: 'center',
   alignItems: 'center',
 }));
@@ -13,17 +15,40 @@ const MuiCard = styled(Card)(({ theme }) => ({
   flexDirection: 'column',
   width: '100%',
   padding: theme.spacing(3),
-  paddingTop: theme.spacing(10),
   margin: 'auto',
   backgroundColor: '#f5f5f5',
   justifyContent: 'center',
   alignItems: 'center',
-  maxWidth: '1300px',
 }));
 
 function About() {
   return (
     <AboutContainer direction="column">
+      <Box
+        sx={{
+          width: '100%',
+          height: '100px',
+          backgroundImage: `url(${about})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'relative',
+          textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)',
+        }}
+      >
+        <Typography
+          variant="h1"
+          sx={{
+            fontWeight: 'bold',
+            color: '#fff',
+          }}
+        >
+          ABOUT US
+        </Typography>
+      </Box>
+
       <MuiCard variant="outlined" sx={{ border: 'none' }}>
         <Grid container item xs={12}>
           <Grid
@@ -93,11 +118,11 @@ function About() {
         </Grid>
 
         <Box
-          sx={{ maxWidth: '1300px', my: '50px' }}
+          sx={{ maxWidth: '1350px', my: '50px' }}
           display="flex"
           flexDirection="column"
         >
-          <Typography variant="h3">How We Started?</Typography>
+          <Typography variant="h1">How We Started?</Typography>
           <Typography
             variant="text"
             textAlign="justify"
@@ -111,7 +136,7 @@ function About() {
             and grow. From humble beginnings, we've continuously evolved, always
             striving to meet the ever-changing needs of our customers.
           </Typography>
-          <Typography variant="h3">What we stand for as a business?</Typography>
+          <Typography variant="h1">What we stand for as a business?</Typography>
           <Typography
             variant="text"
             textAlign="justify"
