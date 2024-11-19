@@ -55,7 +55,7 @@ function Header() {
 
       <HeaderContainer sx={{ backgroundColor: '#f6dac2' }}>
         <Typography variant="nav" textAlign="center" color="#000">
-          20% Off Everything With a Min. Spend, Sale Ends In: {timeLeft.days}{' '}
+          20% OFF EVERYTHING WITH A MIN. SPEND, SALE ENDS IN: {timeLeft.days}{' '}
           DAYS {timeLeft.hours} HRS {timeLeft.minutes} MIN
         </Typography>
       </HeaderContainer>
@@ -74,7 +74,11 @@ function Header() {
               color="#000"
               component="a"
               href="/about"
-              sx={{ textDecoration: 'none', '&:hover': { color: '#db9662' } }}
+              sx={{
+                textDecoration: 'none',
+                '&:hover': { color: '#db9662' },
+                fontWeight: '300',
+              }}
             >
               ABOUT US
             </Typography>
@@ -83,7 +87,11 @@ function Header() {
               color="#000"
               component="a"
               href="/blog"
-              sx={{ textDecoration: 'none', '&:hover': { color: '#db9662' } }}
+              sx={{
+                textDecoration: 'none',
+                '&:hover': { color: '#db9662' },
+                fontWeight: '300',
+              }}
             >
               BLOG
             </Typography>
@@ -92,7 +100,11 @@ function Header() {
               color="#000"
               component="a"
               href="/contact"
-              sx={{ textDecoration: 'none', '&:hover': { color: '#db9662' } }}
+              sx={{
+                textDecoration: 'none',
+                '&:hover': { color: '#db9662' },
+                fontWeight: '300',
+              }}
             >
               CONTACT
             </Typography>
@@ -103,6 +115,7 @@ function Header() {
             color="#000"
             sx={{
               textAlign: 'right',
+              fontWeight: '300',
             }}
           >
             Get Support From An Expert - (84 - 1800 - 1800)
