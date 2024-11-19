@@ -13,10 +13,11 @@ const theme = createTheme({
   typography: {
     text: {
       fontFamily: 'Jost, sans-serif',
-      fontWeight: 200,
-      fontSize: 16,
+      fontWeight: 400,
+      fontSize: 17,
       color: '#555555',
     },
+
     nav: {
       fontFamily: 'Jost, sans-serif',
       fontWeight: 600,

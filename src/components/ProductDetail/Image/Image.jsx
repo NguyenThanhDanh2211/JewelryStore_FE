@@ -1,19 +1,39 @@
-import { Grid } from '@mui/material';
+import { Grid, Box, styled, Typography } from '@mui/material';
 
-function Image({ images }) {
+const DiscountContainer = styled(Box)(({ theme }) => ({
+  position: 'absolute',
+  borderRadius: '8%',
+  color: '#DC586D',
+  border: '2px #DC586D solid',
+  top: '215px',
+  left: '80px',
+  zIndex: 2,
+  width: '70px',
+  display: 'flex',
+  justifyContent: 'center',
+}));
+
+function Image({ images, discount }) {
   return (
     <Grid container spacing={2} className="product-img">
       <Grid item xs={6}>
         {images[0] && (
-          <img
-            src={images[0]}
-            alt="Product 1"
-            style={{
-              width: '100%',
-              height: 'auto',
-              objectFit: 'cover',
-            }}
-          />
+          <>
+            <img
+              src={images[0]}
+              alt="Product 1"
+              style={{
+                width: '100%',
+                height: 'auto',
+                objectFit: 'cover',
+              }}
+            />
+            {discount && (
+              <DiscountContainer>
+                <Typography variant="nav">{discount}% OFF</Typography>
+              </DiscountContainer>
+            )}
+          </>
         )}
       </Grid>
       <Grid item xs={6}>

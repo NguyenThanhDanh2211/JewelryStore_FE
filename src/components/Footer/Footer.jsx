@@ -15,7 +15,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import logo from '~/assets/images/logo-regular.png';
 
 const FooterContainer = styled(Box)(({ theme }) => ({
-  backgroundColor: '#f5f5f5',
+  backgroundColor: '#f4f2ec',
   padding: theme.spacing(4, 2),
   borderTop: '1px solid #ddd',
 }));

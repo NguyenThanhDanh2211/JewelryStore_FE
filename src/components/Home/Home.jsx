@@ -65,7 +65,7 @@ function Home() {
           </Box>
         </Stack>
 
-        <Discount />
+        {/* <Discount /> */}
       </HomeContainer>
     </>
   );

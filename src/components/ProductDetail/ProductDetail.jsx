@@ -9,7 +9,6 @@ import {
   Snackbar,
   Alert,
   Typography,
-  Divider,
   Box,
   List,
   ListItem,
@@ -28,16 +27,19 @@ import { ApplePayIcon, MoMoIcon, PayPalIcon, VisaIcon } from '../Icons';
 import ProductCardComponent from '../ProductCard';
 import { AuthContext } from '~/contexts/AuthContext';
 import Comment from './Cmt';
+import StarRating from './Cmt/StarRating';
+
+import { getComments } from '~/services/cmtService';
 
 const ProductDetailContainer = styled(Stack)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   width: '100%',
-  padding: theme.spacing(2),
-  paddingTop: '30px',
+  padding: '10px 70px',
   gap: theme.spacing(2),
   margin: 'auto',
+  backgroundColor: '#f5f5f5',
 }));
 
 function ProductDetail() {
@@ -48,6 +50,8 @@ function ProductDetail() {
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [totalComments, setTotalComments] = useState(0);
+  const [averageRating, setAverageRating] = useState(0);
 
   const { addProductToCart } = useContext(CartContext);
   const { isAuthenticated } = useContext(AuthContext);
@@ -93,6 +97,38 @@ function ProductDetail() {
 
     fetchProduct();
   }, [category, slug]);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      if (!product || !product._id) return;
+
+      try {
+        const commentResponse = await getComments(product._id);
+
+        console.log(commentResponse);
+
+        if (commentResponse && Array.isArray(commentResponse)) {
+          setTotalComments(commentResponse.length);
+          const totalRating = commentResponse.reduce(
+            (sum, comment) => sum + comment.rating,
+            0
+          );
+          setAverageRating(
+            totalRating > 0 ? totalRating / commentResponse.length : 0
+          );
+        } else {
+          setTotalComments(0);
+          setAverageRating(0);
+        }
+      } catch (error) {
+        console.log('Error fetch Comment', error);
+        setTotalComments(0);
+        setAverageRating(0);
+      }
+    };
+
+    fetchComments();
+  }, [product]);
 
   useEffect(() => {
     const fetchRelated = async () => {
@@ -156,23 +192,48 @@ function ProductDetail() {
 
         {product ? (
           <Grid container item xs={12} spacing={4}>
-            <Grid item xs={12}>
-              <Divider />
-            </Grid>
             <Grid item xs={6} mt={1}>
-              <Image images={product.image} name={product.name} />
+              <Image images={product.image} discount={product.discount} />
             </Grid>
+
             <Grid item xs={6}>
-              <Typography variant="h3" className="product-name">
+              <Typography variant="h1" fontSize="50px" className="product-name">
                 {product.name}
               </Typography>
-              <Typography
-                variant="body1"
-                className="product-price"
-                sx={{ my: '15px' }}
-              >
-                $ {product.price.toFixed(2)}
+              <Typography variant="subtitle1" sx={{ color: 'gray', my: 1 }}>
+                {totalComments > 0 &&
+                  `${averageRating.toFixed(1)} ★ (${totalComments} reviews)`}
               </Typography>
+
+              {product.discount ? (
+                <Box display="flex" flexDirection="row">
+                  <Typography
+                    variant="nav"
+                    fontSize="25px"
+                    className="product-price"
+                    color="#db9662"
+                    sx={{ mr: '5px' }}
+                  >
+                    $ {product.finalPrice.toFixed(2)}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{ textDecoration: 'line-through', mt: '10px' }}
+                  >
+                    $ {product.price.toFixed(2)}
+                  </Typography>
+                </Box>
+              ) : (
+                <Typography
+                  variant="nav"
+                  fontSize="25px"
+                  className="product-price"
+                  color="#db9662"
+                >
+                  $ {product.price.toFixed(2)}
+                </Typography>
+              )}
+
               <Box
                 sx={{
                   display: 'flex',
@@ -199,14 +260,14 @@ function ProductDetail() {
                     aria-label="Basic button group"
                   >
                     <Button onClick={() => handleUpdateQuantity(quantity - 1)}>
-                      <Typography variant="body2">-</Typography>
+                      <Typography variant="text">-</Typography>
                     </Button>
                     <Button>
-                      <Typography variant="body2">{quantity}</Typography>
+                      <Typography variant="text">{quantity}</Typography>
                     </Button>
 
                     <Button onClick={() => handleUpdateQuantity(quantity + 1)}>
-                      <Typography variant="body2">+</Typography>
+                      <Typography variant="text">+</Typography>
                     </Button>
                   </ButtonGroup>
                 </Grid>
@@ -221,9 +282,7 @@ function ProductDetail() {
                   </Button>
                 </Grid>
               </Grid>
-              <Box sx={{ width: '100%', my: 3 }}>
-                <Divider />
-              </Box>
+
               <Typography variant="text" fontWeight="300">
                 Category:{' '}
                 <Link
@@ -259,20 +318,21 @@ function ProductDetail() {
                   border: '1px solid #ccc',
                   borderRadius: '8px',
                   position: 'relative',
-                  padding: '10px',
-                  marginY: 3,
+                  padding: '5px',
+                  marginY: 2,
                   height: '90px',
                 }}
               >
                 <Typography
                   variant="nav"
                   align="center"
+                  fontSize="20px"
                   sx={{
                     position: 'absolute',
-                    top: '-15px',
+                    top: '-18px',
                     left: '50%',
                     transform: 'translateX(-50%)',
-                    // backgroundColor: '#f5f5f5',
+                    backgroundColor: '#fff',
                     paddingX: 1,
                   }}
                 >
@@ -317,48 +377,58 @@ function ProductDetail() {
                 </Grid>
               </Box>
             </Grid>
-            <Grid item xs={12} mt={5}>
-              <Divider />
-            </Grid>
           </Grid>
         ) : (
           <p>Loading product details...</p>
         )}
       </ProductDetailContainer>
-
+      {/* <Divider /> */}
       {product && (
         <Box
           className="reviews-section"
           display="flex"
           flexDirection="column"
           width="100%"
+          backgroundColor="#f5f5f5"
           sx={{
-            margin: 'auto',
-            py: '40px',
+            pt: 10,
+            paddingX: ' 60px',
           }}
         >
-          <Box sx={{ width: '100%', ml: 3 }}>
-            <Typography variant="h3" sx={{ mb: 2 }}>
+          <Box sx={{ width: '100%', ml: 1.5, my: 1 }}>
+            <Typography variant="h2" fontSize="30px">
               We'd love to hear your thoughts!
             </Typography>
-            <Typography variant="body2">
-              Share your experience with "{product.name}" by leaving a review
-              below.
-            </Typography>
+
+            {totalComments > 0 && (
+              <Box
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                textAlign="center"
+              >
+                <Typography variant="text" fontSize="72px">
+                  {averageRating.toFixed(1)}
+                </Typography>
+                <Box ml={1}>
+                  <StarRating rating={averageRating.toFixed(1)} />
+                  <Typography>Average of {totalComments} reviews</Typography>
+                </Box>
+              </Box>
+            )}
           </Box>
-          <Comment productId={product._id} />
-          <Box px={4}>
-            <Divider />
-          </Box>
+          <Comment productId={product._id} name={product.name} />
         </Box>
       )}
+      {/* <Divider /> */}
 
       <Box
         display="flex"
         flexDirection="column"
-        sx={{ width: '100%', margin: 'auto', p: '30px' }}
+        sx={{ width: '100%', px: '70px', pb: 10, pt: 10 }}
+        backgroundColor="#f5f5f5"
       >
-        <Typography variant="h3" my={3}>
+        <Typography variant="h2" fontSize="30px" my={3}>
           Related Products
         </Typography>
 

@@ -17,7 +17,7 @@ import { getComments, postComment } from '~/services/cmtService';
 import StarRating from './StarRating';
 import { AuthContext } from '~/contexts/AuthContext';
 
-function Comment({ productId }) {
+function Comment({ productId, name }) {
   const [tabIndex, setTabIndex] = useState(0);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
@@ -78,7 +78,7 @@ function Comment({ productId }) {
   };
 
   return (
-    <Grid container spacing={2} sx={{ marginTop: '20px', mb: 8 }}>
+    <Grid container spacing={2} ml="-50px">
       {errorMessage && (
         <Snackbar
           open={alertOpen}
@@ -106,7 +106,7 @@ function Comment({ productId }) {
             disableRipple
             label={
               <Typography
-                variant="text1"
+                variant="text"
                 sx={{
                   color: tabIndex === 0 ? '#db9662' : 'rgb(154, 154, 154)',
                 }}
@@ -119,7 +119,7 @@ function Comment({ productId }) {
             disableRipple
             label={
               <Typography
-                variant="text1"
+                variant="text"
                 sx={{
                   color: tabIndex === 1 ? '#db9662' : 'rgb(154, 154, 154)',
                 }}
@@ -145,17 +145,17 @@ function Comment({ productId }) {
                     key={comment._id}
                     className="review-item"
                   >
-                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+                    <Typography variant="text" sx={{ fontWeight: 'bold' }}>
                       {comment.userId.name} -{' '}
                       {new Date(comment.createAt).toLocaleDateString()}
                     </Typography>
                     <StarRating rating={comment.rating} />
-                    <Typography variant="body2">{comment.content}</Typography>
+                    <Typography variant="text">{comment.content}</Typography>
                   </Grid>
                 ))}
               </Grid>
             ) : (
-              <Typography variant="text1">No reviews yet.</Typography>
+              <Typography variant="text">No reviews yet.</Typography>
             )}
           </Box>
         )}
@@ -164,7 +164,10 @@ function Comment({ productId }) {
           <Box>
             {isAuthenticated ? (
               <>
-                <Box display="flex" flexDirection="row">
+                <Typography variant="text2">
+                  Share your experience with "{name}" by leaving a review below.
+                </Typography>
+                <Box display="flex" flexDirection="row" mt={1}>
                   <Typography
                     variant="text2"
                     sx={{ marginRight: '8px', fontWeight: 'bold' }}
@@ -222,7 +225,7 @@ function Comment({ productId }) {
                 </Button>
               </>
             ) : (
-              <Typography variant="body2">
+              <Typography variant="text">
                 Please log in to post a review.
               </Typography>
             )}

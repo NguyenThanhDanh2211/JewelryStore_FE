@@ -30,12 +30,12 @@ const CartIconContainer = styled(Box)(({ theme }) => ({
 const DiscountContainer = styled(Box)(({ theme }) => ({
   position: 'absolute',
   borderRadius: '8%',
-  color: 'red',
-  border: '2px red solid',
+  color: '#DC586D',
+  border: '2px #DC586D solid',
   top: '15px',
   left: '15px',
   zIndex: 2,
-  width: '45px',
+  width: '70px',
   display: 'flex',
   justifyContent: 'center',
 }));
@@ -61,7 +61,7 @@ function ProductCardComponent({ product, handleAddToCart }) {
       <ProductCard sx={{ height: 355 }}>
         {discount && (
           <DiscountContainer>
-            <Typography variant="nav">{product.discount}%</Typography>
+            <Typography variant="nav">{product.discount}% OFF</Typography>
           </DiscountContainer>
         )}
 
@@ -81,7 +81,9 @@ function ProductCardComponent({ product, handleAddToCart }) {
             handleAddToCart(product);
           }}
         >
-          <Typography variant="h3">ADD TO CART</Typography>
+          <Typography variant="h3" color="#db9662">
+            ADD TO CART
+          </Typography>
         </CartIconContainer>
 
         <CardContent>
@@ -100,7 +102,7 @@ function ProductCardComponent({ product, handleAddToCart }) {
             <Box display="flex" flexDirection="row">
               <Typography
                 variant="nav"
-                color="#f4a87c"
+                color="#db9662"
                 sx={{ marginRight: '8px', fontSize: '18px' }}
               >
                 $ {product.finalPrice.toFixed(2)}
