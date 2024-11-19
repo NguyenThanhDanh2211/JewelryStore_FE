@@ -1,4 +1,4 @@
-import { Card, Stack, Box, styled, Typography } from '@mui/material';
+import { Stack, Box, styled, Typography } from '@mui/material';
 import Discount from './Discount';
 import TabCate from './TabCate';
 
@@ -9,16 +9,10 @@ import Header from '../Shop/Header';
 
 const HomeContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
-  padding: theme.spacing(1),
-}));
-
-const MuiCard = styled(Card)(({ theme }) => ({
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
-  padding: theme.spacing(2),
   margin: 'auto',
-  // backgroundColor: '#f5f5f5',
 }));
 
 function Home() {
@@ -29,51 +23,49 @@ function Home() {
         justifyContent="space-between"
         alignItems="center"
       >
-        <MuiCard variant="outlined" sx={{ border: 'none' }}>
-          <Banner />
+        <Banner />
 
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Typography variant="h3">Explore Our Categories</Typography>
+          <Typography variant="text" mt={1}>
+            Exceptional designs paired with masterful craftsmanship.
+          </Typography>
+          <Header />
+        </Box>
+
+        <Box my={10}>
+          <TabCate />
+        </Box>
+
+        <Stack alignItems="center" justifyContent="center">
+          <BestSell />
+        </Stack>
+
+        <Stack alignItems="center" justifyContent="center" m={8} mt={15}>
           <Box
+            component="img"
+            src={icon}
+            height="75px"
+            width="75px"
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
+              display: 'block',
             }}
-          >
-            <Typography variant="h3">Explore Our Categories</Typography>
-            <Typography variant="text" mt={1}>
-              Exceptional designs paired with masterful craftsmanship.
+          />
+          <Box maxWidth="750px" mx={8} my={4}>
+            <Typography variant="h3" textAlign="center">
+              We make high-quality, handcrafted jewelry for over a decade,
+              having the same passion & values!
             </Typography>
-            <Header />
           </Box>
+        </Stack>
 
-          <Box my={10}>
-            <TabCate />
-          </Box>
-
-          <Stack alignItems="center" justifyContent="center">
-            <BestSell />
-          </Stack>
-
-          <Stack alignItems="center" justifyContent="center" m={8} mt={15}>
-            <Box
-              component="img"
-              src={icon}
-              height="75px"
-              width="75px"
-              sx={{
-                display: 'block',
-              }}
-            />
-            <Box maxWidth="750px" mx={8} my={4}>
-              <Typography variant="h3" textAlign="center">
-                We make high-quality, handcrafted jewelry for over a decade,
-                having the same passion & values!
-              </Typography>
-            </Box>
-          </Stack>
-
-          <Discount />
-        </MuiCard>
+        <Discount />
       </HomeContainer>
     </>
   );

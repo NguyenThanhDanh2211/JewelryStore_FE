@@ -35,13 +35,12 @@ function Header() {
     return { days: 0, hours: 0, minutes: 0 };
   }
 
-  // Update the countdown every second
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
     }, 60000);
 
-    return () => clearInterval(timer); // Cleanup the timer on component unmount
+    return () => clearInterval(timer);
   }, []);
 
   return (

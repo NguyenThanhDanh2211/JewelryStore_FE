@@ -1,94 +1,213 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { useState, useEffect } from 'react';
-import bn1 from '~/assets/images/bn1.jpg';
-import bn2 from '~/assets/images/bn2.jpg';
-import bn3 from '~/assets/images/bn3.jpg';
-import bn4 from '~/assets/images/bn4.webp';
-import bn5 from '~/assets/images/bn5.png';
-import bn6 from '~/assets/images/bn6.png';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import './Banner.css';
 
-const images = [bn1, bn4, bn2, bn5, bn3, bn6];
-const captions = [
-  'Discover timeless elegance.',
-  'Crafted to perfection.',
-  'Your next masterpiece awaits.',
-  'The art of fine jewelry.',
-  'Unmatched beauty, unmatched quality.',
-  'Experience brilliance like never before.',
+import slide1 from '~/assets/images/slider-01-1.jpg';
+import slide2 from '~/assets/images/slider-02.jpg';
+import slide3 from '~/assets/images/slider-03.jpg';
+
+const slides = [
+  {
+    src: slide1,
+    alt: 'Slide 1',
+    title: 'Timeless Treasures',
+    content: 'Jewelry, like love, is precious and eternal',
+  },
+  {
+    src: slide2,
+    alt: 'Slide 2',
+    title: 'We Love You Larger',
+    content: 'Beautifully crafted jewelry to cherish every day',
+  },
+  {
+    src: slide3,
+    alt: 'Slide 3',
+    title: 'Bold, Brilliant, Beautiful',
+    content: 'Jewelry is a lot like love; it’s a good idea but expensive',
+  },
 ];
 
 function Banner() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [showCaption, setShowCaption] = useState(true);
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+  function calculateTimeLeft() {
+    const endDate = new Date('2024-12-31T23:59:59');
+    const now = new Date();
+    const difference = endDate - now;
+
+    if (difference > 0) {
+      return {
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / (1000 * 60)) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
+      };
+    }
+
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
 
   useEffect(() => {
-    const imageInterval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 8000);
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
 
-    const captionTimeout = setTimeout(() => {
-      setShowCaption(true);
-    }, 2000);
-
-    const hideCaptionTimeout = setTimeout(() => {
-      setShowCaption(false);
-    }, 6000);
-
-    return () => {
-      clearInterval(imageInterval);
-      clearTimeout(captionTimeout);
-      clearTimeout(hideCaptionTimeout);
-    };
-  }, [currentIndex]);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <Box
       sx={{
-        // width: '100%',
-        height: '600px',
+        width: '100%',
         position: 'relative',
-        overflow: 'hidden',
-        mb: '70px',
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: '#f5f5f5',
       }}
     >
-      {images.map((img, index) => (
-        <Box
-          key={index}
-          component="img"
-          src={img}
-          alt={`banner-${index}`}
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '600px',
-            objectFit: 'cover',
-            opacity: index === currentIndex ? 1 : 0,
-            transition: 'opacity 2s ease',
-            transform: index === currentIndex ? 'scale(1.1)' : 'scale(1)',
-            transitionProperty: 'opacity, transform',
-            transitionDuration: '8s, 8s',
-          }}
-        />
-      ))}
-      {showCaption && (
-        <Box
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            color: 'white',
-            opacity: showCaption ? 1 : 0,
-            transition: 'opacity 1s ease, top 1s ease',
-          }}
-        >
-          <Typography variant="h1" align="center" color="#fff">
-            {captions[currentIndex]}
+      {/* Swiper for Banner Images */}
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay]}
+        navigation
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 5000 }}
+        loop
+        style={{ width: '100%', height: '600px' }}
+      >
+        {slides.map((slide) => (
+          <SwiperSlide key={slide.src}>
+            <Box
+              sx={{
+                position: 'relative',
+                width: '100%',
+                height: '600px',
+              }}
+            >
+              <Box
+                component="img"
+                src={slide.src}
+                alt={slide.alt}
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
+              />
+
+              <Typography
+                sx={{
+                  position: 'absolute',
+                  top: '40%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  color: 'white',
+                  fontWeight: 'bold',
+                  fontSize: '4rem',
+                  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)',
+                  textAlign: 'center',
+                }}
+              >
+                {slide.title}
+              </Typography>
+
+              <Typography
+                sx={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  color: 'white',
+                  fontSize: '1.5rem',
+                  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)',
+                  textAlign: 'center',
+                  mt: 2,
+                }}
+              >
+                {slide.content}
+              </Typography>
+            </Box>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      {/* Countdown Section */}
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          textAlign: 'center',
+          alignItems: 'center',
+          mt: 2,
+          mb: 2,
+        }}
+      >
+        <Grid item xs={12} md={4}>
+          <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+            Winter Sale
           </Typography>
-        </Box>
-      )}
+          <Typography variant="body2" sx={{ color: '#555' }}>
+            20% Off Everything for a limited time only
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: 2,
+              fontSize: '1.5rem',
+              fontWeight: 'bold',
+              color: '#333',
+            }}
+          >
+            <Box>
+              <Typography variant="h6">{timeLeft.days}</Typography>
+              <Typography variant="body2" sx={{ color: '#555' }}>
+                Days
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="h6">{timeLeft.hours}</Typography>
+              <Typography variant="body2" sx={{ color: '#555' }}>
+                Hours
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="h6">{timeLeft.minutes}</Typography>
+              <Typography variant="body2" sx={{ color: '#555' }}>
+                Minutes
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="h6">{timeLeft.seconds}</Typography>
+              <Typography variant="body2" sx={{ color: '#555' }}>
+                Seconds
+              </Typography>
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Typography
+            component="a"
+            href="/shop"
+            variant="nav"
+            sx={{
+              textDecoration: 'none',
+              color: '#db9662',
+              fontWeight: 'bold',
+              textTransform: 'uppercase',
+              fontSize: '1rem',
+            }}
+          >
+            SHOP COLLECTION
+          </Typography>
+        </Grid>
+      </Grid>
     </Box>
   );
 }

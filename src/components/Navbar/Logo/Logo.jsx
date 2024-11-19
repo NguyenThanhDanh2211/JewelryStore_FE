@@ -9,7 +9,6 @@ import {
   IconButton,
   Avatar,
   Badge,
-  Divider,
 } from '@mui/material';
 
 import logo from '~/assets/images/logo-regular.png';
@@ -70,101 +69,98 @@ function Logo() {
   };
 
   return (
-    <>
-      <LogoContainer
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        sx={{ height: '70px', position: 'relative' }}
-      >
-        {/* Logo */}
-        <Grid item>
-          <Link href="/">
-            <Box
-              ml={1}
-              component="img"
-              alt="Jewelry Store"
-              src={logo}
-              sx={{
-                height: '40px',
-              }}
-            />
-          </Link>
-        </Grid>
-
-        {/* LinkCo ở trung tâm */}
-        <Grid
-          item
-          sx={{
-            position: 'absolute',
-            left: '50%',
-            transform: 'translateX(-50%)',
-          }}
-        >
-          <LinkCo />
-        </Grid>
-
-        {/* Icon */}
-        <Grid
-          item
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            gap: 2,
-          }}
-        >
-          <IconButton
-            id="search-icon"
-            color="inherit"
-            onClick={toggleSearchDrawer(true)}
-          >
-            <SearchIcon />
-          </IconButton>
-          <SearchDrawer
-            open={drawerSearchOpen}
-            toggleSearchDrawer={toggleSearchDrawer}
+    <LogoContainer
+      direction="row"
+      justifyContent="space-between"
+      alignItems="center"
+      sx={{ height: '70px', position: 'relative' }}
+    >
+      {/* Logo */}
+      <Grid item>
+        <Link href="/">
+          <Box
+            ml={1}
+            component="img"
+            alt="Jewelry Store"
+            src={logo}
+            sx={{
+              height: '40px',
+            }}
           />
+        </Link>
+      </Grid>
 
-          <IconButton color="inherit" onClick={handleCartIconClick}>
-            <Badge
-              badgeContent={cart.totalQuantity}
-              sx={{
-                '& .MuiBadge-badge': {
-                  backgroundColor: '#db9662',
-                  color: 'white',
-                },
-              }}
+      {/* LinkCo ở trung tâm */}
+      <Grid
+        item
+        sx={{
+          position: 'absolute',
+          left: '50%',
+          transform: 'translateX(-50%)',
+        }}
+      >
+        <LinkCo />
+      </Grid>
+
+      {/* Icon */}
+      <Grid
+        item
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+          gap: 2,
+        }}
+      >
+        <IconButton
+          id="search-icon"
+          color="inherit"
+          onClick={toggleSearchDrawer(true)}
+        >
+          <SearchIcon />
+        </IconButton>
+        <SearchDrawer
+          open={drawerSearchOpen}
+          toggleSearchDrawer={toggleSearchDrawer}
+        />
+
+        <IconButton color="inherit" onClick={handleCartIconClick}>
+          <Badge
+            badgeContent={cart.totalQuantity}
+            sx={{
+              '& .MuiBadge-badge': {
+                backgroundColor: '#db9662',
+                color: 'white',
+              },
+            }}
+          >
+            <CartIcon color="#2a2d31" />
+          </Badge>
+        </IconButton>
+        <CartDrawer open={drawerOpen} toggleDrawer={toggleDrawer} />
+
+        {isAuthenticated ? (
+          <>
+            <IconButton
+              className="user-icon"
+              color="inherit"
+              onClick={handleOpenMenu}
             >
-              <CartIcon color="#2a2d31" />
-            </Badge>
-          </IconButton>
-          <CartDrawer open={drawerOpen} toggleDrawer={toggleDrawer} />
-
-          {isAuthenticated ? (
-            <>
-              <IconButton
-                className="user-icon"
-                color="inherit"
-                onClick={handleOpenMenu}
-              >
-                <Avatar sx={{ width: '1.6rem', height: '1.6rem' }}>
-                  {user.name.charAt(0).toUpperCase()}
-                </Avatar>
-              </IconButton>
-              <MenuUser anchorEl={anchorEl} handleCloseMenu={handleCloseMenu} />
-            </>
-          ) : (
-            <Link href="/login" color="inherit">
-              <IconButton id="auth" color="inherit">
-                <UserIcon />
-              </IconButton>
-            </Link>
-          )}
-        </Grid>
-      </LogoContainer>
-      <Divider />
-    </>
+              <Avatar sx={{ width: '1.6rem', height: '1.6rem' }}>
+                {user.name.charAt(0).toUpperCase()}
+              </Avatar>
+            </IconButton>
+            <MenuUser anchorEl={anchorEl} handleCloseMenu={handleCloseMenu} />
+          </>
+        ) : (
+          <Link href="/login" color="inherit">
+            <IconButton id="auth" color="inherit">
+              <UserIcon />
+            </IconButton>
+          </Link>
+        )}
+      </Grid>
+    </LogoContainer>
   );
 }
 
