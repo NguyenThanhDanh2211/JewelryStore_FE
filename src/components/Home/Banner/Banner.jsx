@@ -146,7 +146,7 @@ function Banner() {
           mb: 2,
         }}
       >
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={3}>
           <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
             Winter Sale
           </Typography>
@@ -154,44 +154,41 @@ function Banner() {
             20% Off Everything for a limited time only
           </Typography>
         </Grid>
-        <Grid item xs={12} md={4}>
+
+        <Grid item xs={12} md={6}>
           <Box
             sx={{
               display: 'flex',
               justifyContent: 'center',
-              gap: 2,
-              fontSize: '1.5rem',
+              alignItems: 'center',
+              gap: 3,
               fontWeight: 'bold',
               color: '#333',
+              fontSize: '1.5rem',
             }}
           >
-            <Box>
-              <Typography variant="h6">{timeLeft.days}</Typography>
-              <Typography variant="body2" sx={{ color: '#555' }}>
-                Days
-              </Typography>
-            </Box>
-            <Box>
-              <Typography variant="h6">{timeLeft.hours}</Typography>
-              <Typography variant="body2" sx={{ color: '#555' }}>
-                Hours
-              </Typography>
-            </Box>
-            <Box>
-              <Typography variant="h6">{timeLeft.minutes}</Typography>
-              <Typography variant="body2" sx={{ color: '#555' }}>
-                Minutes
-              </Typography>
-            </Box>
-            <Box>
-              <Typography variant="h6">{timeLeft.seconds}</Typography>
-              <Typography variant="body2" sx={{ color: '#555' }}>
-                Seconds
-              </Typography>
-            </Box>
+            {timeLeft.days}
+            <Typography sx={{ fontSize: '0.75rem' }}>Days</Typography>
+
+            {timeLeft.hours}
+            <Typography sx={{ fontSize: '0.75rem' }}>Hours</Typography>
+
+            {timeLeft.minutes}
+            <Typography sx={{ fontSize: '0.75rem' }}>Minutes</Typography>
+
+            {timeLeft.seconds}
+            <Typography sx={{ fontSize: '0.75rem' }}>Seconds</Typography>
           </Box>
+          <Typography
+            fontSize="13px"
+            textAlign="center"
+            sx={{ marginTop: '4px', color: '#666' }}
+          >
+            Time remaining until the end of the campaign
+          </Typography>
         </Grid>
-        <Grid item xs={12} md={4}>
+
+        <Grid item xs={12} md={3}>
           <Typography
             component="a"
             href="/shop"

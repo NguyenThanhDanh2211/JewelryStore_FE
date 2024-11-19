@@ -32,7 +32,7 @@ const theme = createTheme({
     h2: {
       fontFamily: 'Jost, sans-serif',
       fontWeight: 600,
-      fontSize: 28,
+      fontSize: 24,
       lineHeight: 1.3,
       color: '#444444',
     },
