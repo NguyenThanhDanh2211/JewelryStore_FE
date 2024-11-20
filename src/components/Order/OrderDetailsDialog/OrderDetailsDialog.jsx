@@ -24,36 +24,35 @@ function OrderDetailsDialog({ open, onClose, order, onCancel }) {
         className="order-detail"
       >
         <DialogTitle>
-          <Typography>Order Details</Typography>
+          <Typography variant="h2">Order Details</Typography>
         </DialogTitle>
         <DialogContent>
           {order && (
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              <Typography variant="body3">Order ID: {order._id}</Typography>
-              <Typography variant="body2">
+              <Typography variant="nav" fontSize="15px">
+                Order ID: {order._id}
+              </Typography>
+              <Typography variant="text">
                 Customer: {order.customer.name} - Phone: {order.customer.phone}
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="text">
                 Address: {order.customer.address}
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="text">
                 Total Items: {order.totalQuantity}
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="text">
                 Total Price: ${' '}
                 {order.finalPrice.toLocaleString('en-US', {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
                 })}
               </Typography>
-              <Typography variant="body2">Status: {order.status}</Typography>
-              <Typography variant="body2">
+              <Typography variant="text">Status: {order.status}</Typography>
+              <Typography variant="text">
                 Date: {new Date(order.orderDate).toLocaleDateString()}
               </Typography>
 
-              <Typography variant="body3" sx={{ marginTop: 2 }}>
-                Items:
-              </Typography>
               <Table>
                 <TableHead>
                   <TableRow>
@@ -78,17 +77,17 @@ function OrderDetailsDialog({ open, onClose, order, onCancel }) {
                   {order.items.map((item) => (
                     <TableRow key={item.productId}>
                       <TableCell>
-                        <Typography variant="body2">
+                        <Typography variant="text">
                           {item.productName}
                         </Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography ml={4} variant="body2">
+                        <Typography ml={4} variant="text">
                           {item.quantity}
                         </Typography>
                       </TableCell>
                       <TableCell>
-                        <Typography variant="body2">
+                        <Typography variant="text">
                           ${' '}
                           {item.price.toLocaleString('en-US', {
                             minimumFractionDigits: 2,

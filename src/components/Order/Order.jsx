@@ -6,7 +6,6 @@ import {
   Tab,
   styled,
   Stack,
-  Divider,
 } from '@mui/material';
 import { cancelOrder, getAllOrder } from '~/services/orderService';
 import OrderDetailsDialog from './OrderDetailsDialog';
@@ -17,7 +16,7 @@ const UserOrdersContainer = styled(Stack)(({ theme }) => ({
   flexDirection: 'column',
   width: '100%',
   minHeight: '500px',
-  padding: theme.spacing(2),
+  padding: '20px 70px',
 }));
 
 const UserOrders = () => {
@@ -88,8 +87,7 @@ const UserOrders = () => {
 
   return (
     <UserOrdersContainer>
-      <Divider sx={{ display: 'flex', mb: '20px' }} />
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h1" gutterBottom>
         My Orders
       </Typography>
 
@@ -108,7 +106,7 @@ const UserOrders = () => {
           disableRipple
           label={
             <Typography
-              variant="text1"
+              variant="text"
               sx={{
                 color: tabIndex === 0 ? '#db9662' : 'rgb(154, 154, 154)',
               }}
@@ -122,7 +120,7 @@ const UserOrders = () => {
           disableRipple
           label={
             <Typography
-              variant="text1"
+              variant="text"
               sx={{
                 color: tabIndex === 1 ? 'red' : 'rgb(154, 154, 154)',
               }}
@@ -135,7 +133,7 @@ const UserOrders = () => {
           disableRipple
           label={
             <Typography
-              variant="text1"
+              variant="text"
               sx={{
                 color: tabIndex === 2 ? 'green' : 'rgb(154, 154, 154)',
               }}

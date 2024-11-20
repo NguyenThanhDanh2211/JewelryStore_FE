@@ -10,7 +10,7 @@ import {
 function OrderTable({ orders, onClick }) {
   if (orders.length === 0) {
     return (
-      <Typography variant="body3" mt={2} ml={2}>
+      <Typography variant="text" mt={2} ml={2}>
         No orders in this category.
       </Typography>
     );
@@ -21,19 +21,19 @@ function OrderTable({ orders, onClick }) {
       <TableHead>
         <TableRow>
           <TableCell>
-            <Typography variant="nav">Order ID</Typography>
+            <Typography variant="h3">Order ID</Typography>
           </TableCell>
           <TableCell>
-            <Typography variant="nav">Total Items</Typography>
+            <Typography variant="h3">Total Items</Typography>
           </TableCell>
           <TableCell>
-            <Typography variant="nav">Total Price</Typography>
+            <Typography variant="h3">Total Price</Typography>
           </TableCell>
           <TableCell>
-            <Typography variant="nav">Status</Typography>
+            <Typography variant="h3">Status</Typography>
           </TableCell>
           <TableCell>
-            <Typography variant="nav">Date</Typography>
+            <Typography variant="h3">Date</Typography>
           </TableCell>
         </TableRow>
       </TableHead>
@@ -47,15 +47,15 @@ function OrderTable({ orders, onClick }) {
             style={{ cursor: 'pointer' }}
           >
             <TableCell>
-              <Typography variant="text1">{order._id}</Typography>
+              <Typography variant="text">{order._id}</Typography>
             </TableCell>
             <TableCell>
-              <Typography variant="text1" ml={6}>
+              <Typography variant="text" ml={5}>
                 {order.totalQuantity}
               </Typography>
             </TableCell>
             <TableCell>
-              <Typography variant="text1" ml={3}>
+              <Typography variant="text" ml={1}>
                 ${' '}
                 {order.finalPrice.toLocaleString('en-US', {
                   minimumFractionDigits: 2,
@@ -64,10 +64,10 @@ function OrderTable({ orders, onClick }) {
               </Typography>
             </TableCell>
             <TableCell>
-              <Typography variant="text1">{order.status}</Typography>
+              <Typography variant="text">{order.status}</Typography>
             </TableCell>
             <TableCell>
-              <Typography variant="text1">
+              <Typography variant="text">
                 {new Date(order.orderDate).toLocaleDateString()}
               </Typography>
             </TableCell>
