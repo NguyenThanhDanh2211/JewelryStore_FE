@@ -144,8 +144,9 @@ function Banner() {
           mt: 0.5,
         }}
       >
-        {icons.map((icon) => (
+        {icons.map((icon, index) => (
           <Grid
+            key={index}
             item
             xs={3}
             md={3}

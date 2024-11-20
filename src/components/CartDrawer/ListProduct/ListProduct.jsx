@@ -81,7 +81,7 @@ function ListProduct({ product, updateCartItems }) {
                 href={`/shop/${category.toLowerCase()}/${slug}`}
                 sx={{ textDecoration: 'none', color: 'inherit' }}
               >
-                <Typography variant="h2">{productName}</Typography>
+                <Typography variant="h3">{productName}</Typography>
               </Link>
             </Grid>
             <Grid item>
@@ -104,18 +104,18 @@ function ListProduct({ product, updateCartItems }) {
                   onClick={() => handleUpdateQuantity(quantity - 1)}
                   disabled={quantity <= 0}
                 >
-                  <Typography variant="body2">-</Typography>
+                  <Typography variant="text">-</Typography>
                 </Button>
                 <Button>
-                  <Typography variant="body2">{quantity}</Typography>
+                  <Typography variant="text">{quantity}</Typography>
                 </Button>
                 <Button onClick={() => handleUpdateQuantity(quantity + 1)}>
-                  <Typography variant="body2">+</Typography>
+                  <Typography variant="text">+</Typography>
                 </Button>
               </ButtonGroup>
             </Grid>
             <Grid item>
-              <Typography variant="body2">
+              <Typography variant="text">
                 ${' '}
                 {(itemTotalPrice ? itemTotalPrice : 0).toLocaleString('en-US', {
                   minimumFractionDigits: 2,

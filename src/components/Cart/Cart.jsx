@@ -12,11 +12,12 @@ import {
 } from '@mui/material';
 import Product from './Product';
 import { CartContext } from '~/contexts/CartContext';
+import { EmptyCart } from '../Icons';
 
 const CartContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
   width: '100%',
-  padding: theme.spacing(1),
+  padding: '20px 70px 70px',
   display: 'flex',
   flexDirection: 'column',
 }));
@@ -47,40 +48,53 @@ function Cart() {
 
   return (
     <CartContainer>
-      <Divider />
-      <Grid container spacing={2} item xs={12} md={12} p={5} pt={12} px={7}>
+      <Grid container spacing={3} item xs={12} md={12}>
         <Grid item xs={8} container>
-          <Grid item container spacing={1} xs={12} sx={{ fontWeight: 'bold' }}>
+          <Grid item container spacing={1} xs={12}>
             <Grid item xs={5.25}>
-              <Typography variant="nav">Product</Typography>
+              <Typography variant="h3">Product</Typography>
             </Grid>
             <Grid item xs={1.5}>
-              <Typography variant="nav">Price</Typography>
+              <Typography variant="h3">Price</Typography>
             </Grid>
             <Grid item xs={2.25}>
-              <Typography variant="nav">Quantity</Typography>
+              <Typography variant="h3">Quantity</Typography>
             </Grid>
             <Grid item xs={1.5}>
-              <Typography variant="nav">Subtotal</Typography>
+              <Typography variant="h3">Subtotal</Typography>
             </Grid>
             <Grid item xs={1}></Grid>
           </Grid>
 
-          <Grid item xs={12} mb={1}>
-            <Divider />
+          <Grid item xs={12}>
+            <Divider sx={{ mt: 1, mr: 5 }} />
           </Grid>
 
-          {cart.items.length > 0 ? (
-            cart.items.map((item, index) => (
-              <Product
-                key={`${item.productId}-${index}`}
-                product={item}
-                updateCartItems={updateCartItems}
-              />
-            ))
-          ) : (
-            <Typography p={5}>No item in the cart.</Typography>
-          )}
+          <Grid item xs={12}>
+            <Box sx={{ minHeight: '200px' }}>
+              {cart.items.length > 0 ? (
+                cart.items.map((item, index) => (
+                  <Product
+                    key={`${item.productId}-${index}`}
+                    product={item}
+                    updateCartItems={updateCartItems}
+                  />
+                ))
+              ) : (
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="center"
+                  alignItems="center"
+                  textAlign="center"
+                  mt={5}
+                >
+                  <EmptyCart width="220px" height="110px" />
+                  <Typography mt={2}>No item in the cart.</Typography>
+                </Box>
+              )}
+            </Box>
+          </Grid>
         </Grid>
 
         <Grid
@@ -99,8 +113,10 @@ function Cart() {
           <Divider sx={{ mb: 1, mr: 2 }} />
 
           <Grid container justifyContent="space-between" sx={{ mb: 1, pr: 2 }}>
-            <Typography variant="body3">Subtotal</Typography>
-            <Typography variant="body3">
+            <Typography variant="nav" fontSize="20px">
+              Subtotal
+            </Typography>
+            <Typography variant="nav" fontSize="20px">
               ${' '}
               {(cart.totalPrice ? cart.totalPrice : 0).toLocaleString('en-US', {
                 minimumFractionDigits: 2,
@@ -112,10 +128,10 @@ function Cart() {
           <Divider sx={{ my: 2, mr: 2 }} />
 
           <Grid container justifyContent="space-between" sx={{ mb: 2, pr: 2 }}>
-            <Typography variant="body3" color="#db9662">
+            <Typography variant="nav" fontSize="20px" color="#db9662">
               Total
             </Typography>
-            <Typography variant="body3" color="#db9662">
+            <Typography variant="nav" fontSize="20px" color="#db9662">
               ${' '}
               {(cart.totalPrice ? cart.totalPrice : 0).toLocaleString('en-US', {
                 minimumFractionDigits: 2,

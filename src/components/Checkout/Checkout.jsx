@@ -25,7 +25,8 @@ const CheckoutContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
   width: '95%',
   padding: theme.spacing(1),
-  paddingTop: theme.spacing(8),
+  paddingTop: theme.spacing(4),
+  paddingBottom: theme.spacing(4),
   margin: 'auto',
 }));
 
@@ -154,17 +155,19 @@ function Checkout() {
                 justifyContent: 'flex-end',
                 alignItems: 'center',
                 width: '100%',
-                marginTop: '10px',
+                marginTop: '15px',
               }}
             >
               <Stepper
                 id="desktop-stepper"
                 activeStep={activeStep}
-                sx={{ width: '100%', height: 40 }}
+                sx={{ width: '100%' }}
               >
                 {steps.map((label) => (
                   <Step key={label}>
-                    <StepLabel>{label}</StepLabel>
+                    <StepLabel>
+                      <Typography variant="h3">{label}</Typography>
+                    </StepLabel>
                   </Step>
                 ))}
               </Stepper>
@@ -181,9 +184,11 @@ function Checkout() {
             >
               {activeStep === steps.length ? (
                 <Stack spacing={2} useFlexGap>
-                  <Typography variant="h1">📦</Typography>
+                  <Typography variant="h1" fontSize="75px">
+                    📦
+                  </Typography>
                   <Typography
-                    variant="text1"
+                    variant="text"
                     fontSize={25}
                     id="text-order-success"
                   >

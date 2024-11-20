@@ -214,7 +214,7 @@ function Category() {
             onClose={handleCloseAlert}
             severity={isAuthenticated ? 'success' : 'error'}
           >
-            {alertMessage}
+            <Typography variant="text">{alertMessage}</Typography>
           </Alert>
         </Snackbar>
       </CategoryContainer>

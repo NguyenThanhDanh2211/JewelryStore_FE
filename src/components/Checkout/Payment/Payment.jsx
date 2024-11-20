@@ -81,7 +81,7 @@ function PaymentForm({
 
   return (
     <Stack spacing={3} useFlexGap>
-      <Typography variant="h3">Payment details</Typography>
+      <Typography variant="h2">Payment details</Typography>
       <FormControl component="fieldset" fullWidth>
         <RadioGroup
           aria-label="Payment options"
@@ -120,7 +120,7 @@ function PaymentForm({
                   })}
                 />
 
-                <Typography variant="nav" color="rgb(154, 154, 154)">
+                <Typography variant="h3" color="rgb(154, 154, 154)">
                   Cash on delivery
                 </Typography>
               </CardContent>
@@ -139,7 +139,7 @@ function PaymentForm({
               >
                 <MoMoIcon height="2rem" width="2rem" />
 
-                <Typography variant="nav" color="rgb(154, 154, 154)">
+                <Typography variant="h3" color="rgb(154, 154, 154)">
                   MoMo
                 </Typography>
               </CardContent>
@@ -188,7 +188,7 @@ function PaymentForm({
       {paymentMethod === 'cash' && (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Alert severity="warning" icon={<WarningRoundedIcon />}>
-            <Typography variant="text1">
+            <Typography variant="text">
               Your order will be processed and shipped with Cash on Delivery
               service.
             </Typography>

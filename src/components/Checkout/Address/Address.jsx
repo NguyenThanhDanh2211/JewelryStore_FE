@@ -43,7 +43,7 @@ function Address({ addressData, setAddressData, errors }) {
 
   return (
     <AddressContainer>
-      <Typography variant="h3">Customer Information</Typography>
+      <Typography variant="h2">Customer Information</Typography>
       <Grid container spacing={2}>
         <FormGrid item xs={12}>
           <FormLabel htmlFor="name" required>

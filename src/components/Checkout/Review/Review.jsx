@@ -3,10 +3,10 @@ import { Typography, Box } from '@mui/material';
 function Review({ addressData, paymentMethod }) {
   return (
     <>
-      <Typography variant="h3">Review your order</Typography>
+      <Typography variant="h2">Review your order</Typography>
 
       <Box display="flex" flexDirection="column">
-        <Typography variant="text1" mt={3} gutterBottom>
+        <Typography variant="nav" mt={3} fontSize="18px" gutterBottom>
           Shipment details
         </Typography>
         <Typography variant="text" gutterBottom>
@@ -19,7 +19,7 @@ function Review({ addressData, paymentMethod }) {
           {addressData.address}
         </Typography>
 
-        <Typography variant="text1" mt={3} gutterBottom>
+        <Typography variant="nav" fontSize="18px" mt={3} gutterBottom>
           Payment Method
         </Typography>
         <Typography variant="text" gutterBottom mb={3}>

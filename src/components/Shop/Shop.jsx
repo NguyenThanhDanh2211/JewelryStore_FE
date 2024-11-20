@@ -7,6 +7,7 @@ import {
   Alert,
   Pagination,
   styled,
+  Typography,
 } from '@mui/material';
 import { getFilteredProducts } from '~/services/productService';
 import { CartContext } from '~/contexts/CartContext';
@@ -89,7 +90,7 @@ function Shop() {
           onClose={handleCloseAlert}
           severity={isAuthenticated ? 'success' : 'error'}
         >
-          {alertMessage}
+          <Typography variant="text">{alertMessage}</Typography>
         </Alert>
       </Snackbar>
 

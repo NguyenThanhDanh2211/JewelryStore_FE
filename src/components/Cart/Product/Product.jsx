@@ -81,11 +81,11 @@ function Product({ product, updateCartItems }) {
             to={`/shop/${category.toLowerCase()}/${slug}`}
             sx={{ textDecoration: 'none', color: 'inherit' }}
           >
-            <Typography variant="h2">{productName}</Typography>
+            <Typography variant="h3">{productName}</Typography>
           </Link>
         </Grid>
         <Grid item xs={1.5}>
-          $ {productPrice.toFixed(2)}
+          <Typography variant="text">$ {productPrice.toFixed(2)}</Typography>
         </Grid>
         <Grid item xs={2.5}>
           <ButtonGroup>
@@ -93,10 +93,10 @@ function Product({ product, updateCartItems }) {
               className="decrease-qty"
               onClick={() => handleUpdateQuantity(quantity - 1)}
             >
-              <Typography variant="body2">-</Typography>
+              <Typography variant="text">-</Typography>
             </Button>
             <Button>
-              <Typography variant="body2" className="product-quantity">
+              <Typography variant="text" className="product-quantity">
                 {quantity}
               </Typography>
             </Button>
@@ -104,16 +104,18 @@ function Product({ product, updateCartItems }) {
               className="increase-qty"
               onClick={() => handleUpdateQuantity(quantity + 1)}
             >
-              <Typography variant="body2">+</Typography>
+              <Typography variant="text">+</Typography>
             </Button>
           </ButtonGroup>
         </Grid>
         <Grid item xs={1.5} className="total-price">
-          ${' '}
-          {(itemTotalPrice ? itemTotalPrice : 0).toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          })}
+          <Typography variant="text">
+            ${' '}
+            {(itemTotalPrice ? itemTotalPrice : 0).toLocaleString('en-US', {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
+          </Typography>
         </Grid>
         <Grid item xs={1} className="remove-product">
           <IconButton onClick={handleRemove}>
@@ -121,7 +123,7 @@ function Product({ product, updateCartItems }) {
           </IconButton>
         </Grid>
       </Grid>
-      <Grid item xs={12} py={1}>
+      <Grid item xs={12} py={1} mr={5}>
         <Divider></Divider>
       </Grid>
     </>

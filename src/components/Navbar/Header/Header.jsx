@@ -146,7 +146,7 @@ function Header() {
               variant="nav"
               color="#000"
               component="a"
-              href="/blog"
+              href="#"
               sx={{
                 textDecoration: 'none',
                 '&:hover': { color: '#db9662' },

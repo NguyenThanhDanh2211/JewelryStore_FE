@@ -28,7 +28,6 @@ function YourOrder({ setCouponDetail, setTotalPrice }) {
 
       const finalPrice =
         (parseFloat(cart.totalPrice) - parseFloat(discount)) * 1000;
-
       setTotalPrice(Number(finalPrice));
     }
   }, [cart, discount, setTotalPrice]);
@@ -67,7 +66,6 @@ function YourOrder({ setCouponDetail, setTotalPrice }) {
         const discountAmount = foundDiscount.percent * 0.01 * cart.totalPrice;
         setDiscount(discountAmount);
         setErrorMessage('');
-
         setCouponDetail(couponCode);
       } else {
         setErrorMessage('Invalid coupon code');
@@ -87,7 +85,7 @@ function YourOrder({ setCouponDetail, setTotalPrice }) {
 
   return (
     <>
-      <Typography variant="h3" gutterBottom>
+      <Typography variant="h1" gutterBottom>
         Your order
       </Typography>
       <Box
@@ -101,11 +99,11 @@ function YourOrder({ setCouponDetail, setTotalPrice }) {
       >
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <Typography variant="nav">Product</Typography>
+            <Typography variant="h3">Product</Typography>
           </Grid>
           <Grid item xs={6}>
             <Box display="flex" justifyContent="flex-end">
-              <Typography variant="nav">Subtotal</Typography>
+              <Typography variant="h3">Subtotal</Typography>
             </Box>
           </Grid>
         </Grid>
@@ -138,9 +136,12 @@ function YourOrder({ setCouponDetail, setTotalPrice }) {
                 >
                   <Typography variant="text">
                     ${' '}
-                    {(cart.totalPrice ? cart.totalPrice : 0).toLocaleString(
+                    {(item.productPrice * item.quantity).toLocaleString(
                       'en-US',
-                      { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+                      {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }
                     )}
                   </Typography>
                 </Grid>
@@ -154,7 +155,9 @@ function YourOrder({ setCouponDetail, setTotalPrice }) {
 
         <Grid container spacing={3}>
           <Grid item xs={6} my={1}>
-            <Typography variant="body3">Subtotal</Typography>
+            <Typography variant="nav" fontSize="20px">
+              Subtotal
+            </Typography>
           </Grid>
           <Grid
             item
@@ -162,12 +165,9 @@ function YourOrder({ setCouponDetail, setTotalPrice }) {
             my={1}
             sx={{ display: 'flex', justifyContent: 'flex-end' }}
           >
-            <Typography variant="body3">
+            <Typography variant="nav" fontSize="20px">
               ${' '}
-              {(copiedCart.totalPrice
-                ? copiedCart.totalPrice
-                : 0
-              ).toLocaleString('en-US', {
+              {(copiedCart.totalPrice || 0).toLocaleString('en-US', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}
@@ -202,7 +202,7 @@ function YourOrder({ setCouponDetail, setTotalPrice }) {
 
         <Grid container spacing={3}>
           <Grid item xs={6} my={1}>
-            <Typography variant="body3" color="#db9662">
+            <Typography variant="nav" fontSize="20px" color="#db9662">
               Total
             </Typography>
           </Grid>
@@ -212,12 +212,9 @@ function YourOrder({ setCouponDetail, setTotalPrice }) {
             xs={6}
             sx={{ display: 'flex', justifyContent: 'flex-end' }}
           >
-            <Typography variant="body3" color="#db9662">
+            <Typography variant="nav" fontSize="20px" color="#db9662">
               ${' '}
-              {(copiedCart.totalPrice
-                ? copiedCart.totalPrice
-                : 0
-              ).toLocaleString('en-US', {
+              {(copiedCart.totalPrice - discount).toLocaleString('en-US', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}

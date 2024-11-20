@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { CartContext } from '~/contexts/CartContext';
 import ListProduct from './ListProduct';
+import { EmptyCart } from '../Icons';
 
 function CartDrawer({ open, toggleDrawer }) {
   const { cart, updateProductInCart, fetchCart } = useContext(CartContext);
@@ -34,7 +35,7 @@ function CartDrawer({ open, toggleDrawer }) {
         height="100vh"
       >
         <Box sx={{ flexShrink: 0 }}>
-          <Typography variant="body1" sx={{ mb: 2 }}>
+          <Typography variant="h2" sx={{ mb: 2 }}>
             Shopping Cart
           </Typography>
           <Divider sx={{ mt: 2 }} />
@@ -56,9 +57,16 @@ function CartDrawer({ open, toggleDrawer }) {
               />
             ))
           ) : (
-            <Typography variant="nav" color="rgb(154, 154, 154)">
-              No items in the cart.
-            </Typography>
+            <Box
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              textAlign="center"
+            >
+              <EmptyCart width="220px" height="110px" />
+              <Typography mt={2}>No item in the cart.</Typography>
+            </Box>
           )}
         </Box>
 
@@ -74,7 +82,7 @@ function CartDrawer({ open, toggleDrawer }) {
           >
             <Grid item xs={6}>
               <Typography
-                variant="nav"
+                variant="h2"
                 sx={{ my: 2 }}
                 color="rgb(154, 154, 154)"
               >
@@ -83,7 +91,7 @@ function CartDrawer({ open, toggleDrawer }) {
             </Grid>
             <Grid item xs={6} container justifyContent="flex-end">
               <Typography
-                variant="nav"
+                variant="h2"
                 sx={{ my: 2 }}
                 color="rgb(154, 154, 154)"
               >
