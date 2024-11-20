@@ -1,5 +1,12 @@
 import React from 'react';
-import { Box, Card, CardContent, Typography, styled } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  Skeleton,
+  styled,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const ProductCard = styled(Card)(({ theme }) => ({
@@ -52,7 +59,31 @@ const ImageContainer = styled(Box)(({ theme }) => ({
   transition: 'background-image 0.3s ease',
 }));
 
-function ProductCardComponent({ product, handleAddToCart }) {
+function ProductCardComponent({ product, handleAddToCart, isLoading }) {
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          width: '100%',
+          height: '350px',
+          backgroundColor: '#fff',
+          borderRadius: '8px',
+          overflow: 'hidden',
+          padding: '16px',
+          boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+        }}
+      >
+        <Skeleton variant="rectangular" width="100%" height="200px" />
+        <Skeleton variant="text" sx={{ mt: 2, width: '80%' }} />
+        <Skeleton variant="text" sx={{ width: '60%' }} />
+        <Skeleton
+          variant="rectangular"
+          sx={{ mt: 2, width: '100%', height: '40px' }}
+        />
+      </Box>
+    );
+  }
+
   const { slug, category, discount } = product;
 
   return (

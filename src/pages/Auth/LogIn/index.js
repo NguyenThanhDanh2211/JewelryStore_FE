@@ -16,6 +16,7 @@ import {
   Divider,
   Alert,
   LinearProgress,
+  CircularProgress,
 } from '@mui/material';
 import { FacebookIcon, GoogleIcon } from '~/components/Icons';
 import ForgotPassword from '~/components/ForgotPassword';
@@ -147,7 +148,12 @@ function Login() {
         </Box>
       )}
       <MuiCard>
-        <Typography variant="h1">Log In</Typography>
+        <Typography variant="h1" fontWeight="bold" textAlign="center">
+          Welcome Back!
+        </Typography>
+        <Typography variant="body1" textAlign="center">
+          Log in to your account to continue
+        </Typography>
         <Box
           component="form"
           onSubmit={handleSubmit}
@@ -210,7 +216,7 @@ function Login() {
             fullWidth
             variant="single"
           >
-            Log in
+            {loading ? <CircularProgress size={24} /> : 'Log in'}
           </Button>
           <Typography variant="body2" sx={{ textAlign: 'center' }}>
             Don&apos;t have an account?{' '}

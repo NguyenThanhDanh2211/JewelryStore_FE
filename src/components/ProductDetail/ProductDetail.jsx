@@ -14,6 +14,7 @@ import {
   ListItem,
   ListItemIcon,
   Link,
+  Skeleton,
 } from '@mui/material';
 
 import {
@@ -379,28 +380,49 @@ function ProductDetail() {
             </Grid>
           </Grid>
         ) : (
-          <p>Loading product details...</p>
+          <Grid container item xs={12} spacing={4}>
+            <Grid item xs={6} mt={1.5}>
+              <Skeleton variant="rectangular" width="100%" height="350px" />
+            </Grid>
+            <Grid item xs={6}>
+              <Skeleton variant="text" width="60%" height="50px" />
+              <Skeleton
+                variant="text"
+                width="40%"
+                height="30px"
+                sx={{ my: 2 }}
+              />
+              <Skeleton variant="rectangular" width="80%" height="30px" />
+              <Skeleton
+                variant="rectangular"
+                width="100%"
+                height="150px"
+                sx={{ my: 2 }}
+              />
+              <Skeleton variant="rectangular" width="60%" height="40px" />
+            </Grid>
+          </Grid>
         )}
       </ProductDetailContainer>
-      {/* <Divider /> */}
-      {product && (
-        <Box
-          className="reviews-section"
-          display="flex"
-          flexDirection="column"
-          width="100%"
-          backgroundColor="#f5f5f5"
-          sx={{
-            pt: 10,
-            paddingX: ' 60px',
-          }}
-        >
-          <Box sx={{ width: '100%', ml: 1.5, my: 1 }}>
-            <Typography variant="h2" fontSize="30px">
-              We'd love to hear your thoughts!
-            </Typography>
 
-            {totalComments > 0 && (
+      <Box
+        className="reviews-section"
+        display="flex"
+        flexDirection="column"
+        width="100%"
+        backgroundColor="#f5f5f5"
+        sx={{
+          pt: 10,
+          paddingX: '60px',
+        }}
+      >
+        <Typography variant="h2" fontSize="30px" ml={2}>
+          We'd love to hear your thoughts!
+        </Typography>
+
+        {product ? (
+          <Box sx={{ width: '100%', ml: 1.5 }}>
+            {totalComments > 0 ? (
               <Box
                 display="flex"
                 flexDirection="row"
@@ -415,12 +437,39 @@ function ProductDetail() {
                   <Typography>Average of {totalComments} reviews</Typography>
                 </Box>
               </Box>
+            ) : (
+              <Typography>
+                No reviews yet. Be the first to leave a review!
+              </Typography>
             )}
+
+            <Comment productId={product._id} name={product.name} />
           </Box>
-          <Comment productId={product._id} name={product.name} />
-        </Box>
-      )}
-      {/* <Divider /> */}
+        ) : (
+          // Skeleton for loading state
+          <Box sx={{ width: '100%', ml: 1.5, my: 1 }}>
+            <Skeleton variant="text" width="30%" height={40} sx={{ mb: 2 }} />
+            <Box
+              display="flex"
+              flexDirection="row"
+              alignItems="center"
+              textAlign="center"
+            >
+              <Skeleton variant="circular" width={72} height={72} />
+              <Box ml={2}>
+                <Skeleton variant="text" width="100px" />
+                <Skeleton variant="text" width="150px" />
+              </Box>
+            </Box>
+            <Skeleton
+              variant="rectangular"
+              width="100%"
+              height={120}
+              sx={{ mt: 3 }}
+            />
+          </Box>
+        )}
+      </Box>
 
       <Box
         display="flex"
@@ -431,26 +480,32 @@ function ProductDetail() {
         <Typography variant="h2" fontSize="30px" my={3}>
           Related Products
         </Typography>
-
-        {product && relatedProducts.length > 0 && (
-          <Grid container spacing={2}>
-            {relatedProducts.slice(0, 4).map((item) => (
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={3}
-                key={item._id}
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              >
-                <ProductCardComponent
-                  product={item}
-                  handleAddToCart={handleAddToCartOne}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        )}
+        <Grid container spacing={2}>
+          {relatedProducts.length > 0
+            ? relatedProducts.slice(0, 4).map((item) => (
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={3}
+                  key={item._id}
+                  onClick={() =>
+                    window.scrollTo({ top: 0, behavior: 'smooth' })
+                  }
+                >
+                  <ProductCardComponent
+                    product={item}
+                    handleAddToCart={handleAddToCartOne}
+                    isLoading={false}
+                  />
+                </Grid>
+              ))
+            : Array.from({ length: 4 }).map((_, index) => (
+                <Grid item xs={12} sm={6} md={3} key={index}>
+                  <ProductCardComponent isLoading={true} />
+                </Grid>
+              ))}
+        </Grid>
       </Box>
     </>
   );

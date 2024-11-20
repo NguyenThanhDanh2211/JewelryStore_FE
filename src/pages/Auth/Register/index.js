@@ -16,6 +16,7 @@ import {
   Divider,
   Alert,
   LinearProgress,
+  CircularProgress,
 } from '@mui/material';
 import { GoogleIcon, FacebookIcon } from '~/components/Icons';
 import { register } from '~/services/userService';
@@ -171,7 +172,9 @@ function Register() {
       )}
 
       <MuiCard>
-        <Typography variant="h1">Register</Typography>
+        <Typography variant="h4" sx={{ textAlign: 'center', fontWeight: 600 }}>
+          Create an Account
+        </Typography>
 
         <Box
           component="form"
@@ -233,7 +236,7 @@ function Register() {
             onClick={validateInputs}
             disabled={loading}
           >
-            Register
+            {loading ? <CircularProgress size={24} /> : 'Register'}
           </Button>
           <Typography variant="body2" sx={{ textAlign: 'center' }}>
             Already have an account?{' '}
