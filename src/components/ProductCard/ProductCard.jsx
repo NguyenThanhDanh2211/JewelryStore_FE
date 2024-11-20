@@ -148,7 +148,7 @@ function ProductCardComponent({ product, handleAddToCart, isLoading }) {
               </Typography>
             </Box>
           ) : (
-            <Typography variant="nav" fontSize="18px">
+            <Typography variant="nav" fontSize="18px" color="#db9662">
               $ {product.price.toFixed(2)}
             </Typography>
           )}

@@ -80,7 +80,7 @@ function SearchDrawer({ open, toggleSearchDrawer }) {
           width="100%"
           mb={2}
         >
-          <Typography variant="text1">WHAT ARE YOU LOOKING FOR?</Typography>
+          <Typography variant="h2">WHAT ARE YOU LOOKING FOR?</Typography>
           <IconButton onClick={toggleSearchDrawer(false)}>
             <CloseIcon />
           </IconButton>
@@ -110,7 +110,7 @@ function SearchDrawer({ open, toggleSearchDrawer }) {
                 </Grid>
               ))
             ) : (
-              <Typography variant="nav" color="rgb(154, 154, 154)" ml={1}>
+              <Typography variant="text" color="rgb(154, 154, 154)" ml={1}>
                 {notFound}
               </Typography>
             )}

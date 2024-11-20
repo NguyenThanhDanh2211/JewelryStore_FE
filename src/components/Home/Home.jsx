@@ -1,10 +1,9 @@
 import { Stack, Box, styled, Typography } from '@mui/material';
-import Discount from './Discount';
-import TabCate from './TabCate';
 
 import icon from '~/assets/images/icon.png';
 import BestSell from './BestSell';
 import Banner from './Banner';
+import NewCollection from './NewCollection';
 import Header from '../Shop/Header';
 
 const HomeContainer = styled(Stack)(({ theme }) => ({
@@ -39,10 +38,6 @@ function Home() {
           <Header />
         </Box>
 
-        <Box my={10}>
-          <TabCate />
-        </Box>
-
         <Stack alignItems="center" justifyContent="center">
           <BestSell />
         </Stack>
@@ -65,7 +60,7 @@ function Home() {
           </Box>
         </Stack>
 
-        {/* <Discount /> */}
+        <NewCollection />
       </HomeContainer>
     </>
   );

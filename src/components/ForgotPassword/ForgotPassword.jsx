@@ -22,7 +22,7 @@ function ForgotPassword({ open, handleClose }) {
       }}
     >
       <DialogTitle>
-        <Typography variant="body1">Reset password</Typography>
+        <Typography variant="h2">Reset password</Typography>
       </DialogTitle>
       <DialogContent
         sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}

@@ -10,7 +10,6 @@ import {
   Alert,
   LinearProgress,
   Card,
-  Divider,
 } from '@mui/material';
 import { me, update } from '~/services/userService';
 
@@ -18,6 +17,7 @@ const MeContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
   width: '100%',
   padding: theme.spacing(1),
+  backgroundColor: '#f5f5f5',
 }));
 
 const MuiCard = styled(Card)(({ theme }) => ({
@@ -27,7 +27,7 @@ const MuiCard = styled(Card)(({ theme }) => ({
   width: '50%',
   padding: theme.spacing(4),
   margin: 'auto',
-  // backgroundColor: '#f5f5f5',
+  backgroundColor: '#f5f5f5',
 }));
 
 function Me() {
@@ -107,7 +107,9 @@ function Me() {
       {(successMessage || errorMessage) && (
         <Box sx={{ position: 'fixed', right: 35 }}>
           <Alert security={successMessage ? 'success' : 'error'}>
-            {successMessage || errorMessage}
+            <Typography variant="text">
+              {successMessage || errorMessage}
+            </Typography>
           </Alert>
           <LinearProgress
             variant="determinate"
@@ -116,7 +118,6 @@ function Me() {
           />
         </Box>
       )}
-      <Divider />
 
       <MuiCard
         component="form"
@@ -124,11 +125,11 @@ function Me() {
         variant="outlined"
         sx={{ border: 'none', pt: '50px' }}
       >
-        <Typography variant="h3">Welcome, {userName}</Typography>
+        <Typography variant="h1">Welcome, {userName}</Typography>
         <Box>
           <Grid container spacing={2}>
             <Grid item xs={6}>
-              <Typography variant="text1">Your Name</Typography>
+              <Typography variant="text">Your Name</Typography>
               <OutlinedInput
                 required
                 margin="dense"
@@ -142,7 +143,7 @@ function Me() {
               />
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="text1">Your E-mail</Typography>
+              <Typography variant="text">Your E-mail</Typography>
               <OutlinedInput
                 required
                 margin="dense"
@@ -157,7 +158,7 @@ function Me() {
             </Grid>
           </Grid>
           <Box display="flex" flexDirection="column">
-            <Typography variant="text1" mt={2}>
+            <Typography variant="text" mt={2}>
               Phone Number
             </Typography>
             <OutlinedInput
@@ -172,7 +173,7 @@ function Me() {
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
 
-            <Typography variant="text1" mt={2}>
+            <Typography variant="text" mt={2}>
               Address
             </Typography>
             <OutlinedInput

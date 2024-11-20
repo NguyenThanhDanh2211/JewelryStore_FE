@@ -6,9 +6,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './Banner.css';
 
-import slide1 from '~/assets/images/slider-01-1.jpg';
-import slide2 from '~/assets/images/slider-02.jpg';
-import slide3 from '~/assets/images/slider-03.jpg';
+import slide1 from '~/assets/images/slider-05.jpg';
+import slide2 from '~/assets/images/story1.png';
+import slide3 from '~/assets/images/slider-02.jpg';
 import {
   FlexiblePayment,
   FreeShipping,

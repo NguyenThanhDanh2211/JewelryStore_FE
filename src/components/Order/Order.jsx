@@ -17,6 +17,7 @@ const UserOrdersContainer = styled(Stack)(({ theme }) => ({
   width: '100%',
   minHeight: '500px',
   padding: '20px 70px',
+  backgroundColor: '#f5f5f5',
 }));
 
 const UserOrders = () => {

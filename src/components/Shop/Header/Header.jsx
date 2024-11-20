@@ -87,7 +87,7 @@ function Header() {
                   />
                   <Typography
                     className="cateLabel"
-                    variant="body2"
+                    variant="text"
                     sx={{
                       transition: 'color 0.3s',
                     }}
