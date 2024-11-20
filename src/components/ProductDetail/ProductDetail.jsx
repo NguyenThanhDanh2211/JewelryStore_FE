@@ -187,7 +187,7 @@ function ProductDetail() {
             onClose={handleCloseAlert}
             severity={isAuthenticated ? 'success' : 'error'}
           >
-            {alertMessage}
+            <Typography variant="text">{alertMessage}</Typography>
           </Alert>
         </Snackbar>
 
@@ -284,8 +284,8 @@ function ProductDetail() {
                 </Grid>
               </Grid>
 
-              <Typography variant="text" fontWeight="300">
-                Category:{' '}
+              <Typography variant="text" fontWeight="300" display="flex" my={4}>
+                Category:&nbsp;
                 <Link
                   href={`/shop/${category.toLowerCase()}`}
                   style={{
@@ -294,7 +294,7 @@ function ProductDetail() {
                   }}
                 >
                   {product.category}
-                  {', '}
+                  ,&nbsp;
                 </Link>
                 {product.collect && (
                   <Link
@@ -307,7 +307,7 @@ function ProductDetail() {
                     }}
                   >
                     {product.collect}
-                    {', '}
+                    ,&nbsp;
                   </Link>
                 )}
                 {product.productId}.
@@ -333,7 +333,7 @@ function ProductDetail() {
                     top: '-18px',
                     left: '50%',
                     transform: 'translateX(-50%)',
-                    backgroundColor: '#fff',
+                    backgroundColor: '#f5f5f5',
                     paddingX: 1,
                   }}
                 >

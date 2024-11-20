@@ -133,6 +133,7 @@ function HeaderCollection({ collectionType }) {
       sx={{
         position: 'relative',
         height: '350px',
+        width: '100%',
         backgroundImage: `url(${data.image})`,
         backgroundSize: 'cover',
         display: 'flex',
@@ -140,10 +141,14 @@ function HeaderCollection({ collectionType }) {
         justifyContent: 'center',
       }}
     >
-      <Grid item container xs={5} ml={3}>
-        <Typography variant="h3">{data.title}</Typography>
+      <Grid item container xs={5} ml={10}>
+        <Typography variant="h1" fontSize="40px">
+          {data.title}
+        </Typography>
         <Box sx={{ textAlign: 'justify' }}>
-          <Typography variant="text">{data.description}</Typography>
+          <Typography variant="text" fontSize="20px">
+            {data.description}
+          </Typography>
         </Box>
       </Grid>
     </Box>

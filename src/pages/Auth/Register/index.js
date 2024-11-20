@@ -161,7 +161,9 @@ function Register() {
           }}
         >
           <Alert severity={successMessage ? 'success' : 'error'}>
-            {successMessage || errorMessage}
+            <Typography variant="text">
+              {successMessage || errorMessage}
+            </Typography>
           </Alert>
           <LinearProgress
             variant="determinate"

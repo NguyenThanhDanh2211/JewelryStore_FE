@@ -74,9 +74,9 @@ function Sidebar({
   ];
 
   return (
-    <Box sx={{ width: '100%', maxWidth: 250, px: 2 }}>
+    <Box sx={{ width: '100%', px: 2 }}>
       {/* Materials Section */}
-      <Typography variant="nav">Materials</Typography>
+      <Typography variant="h2">Materials</Typography>
       <RadioGroup value={selectedMaterial} onChange={handleMaterialChange}>
         {['Diamond', 'Golden', 'Silver'].map((material) => (
           <FormControlLabel
@@ -97,7 +97,7 @@ function Sidebar({
       </RadioGroup>
 
       {/* Filter By Price Section */}
-      <Typography variant="nav">Filter By Price</Typography>
+      <Typography variant="h2">Filter By Price</Typography>
       <RadioGroup value={selectedPriceRange} onChange={handlePriceRangeChange}>
         {priceRanges.map((price) => (
           <FormControlLabel
@@ -118,7 +118,7 @@ function Sidebar({
       </RadioGroup>
 
       {/* Sort By Section */}
-      <Typography variant="nav">Sort By</Typography>
+      <Typography variant="h2">Sort By</Typography>
       <RadioGroup value={selectedSort} onChange={handleSortChange}>
         {['Price: Low to High', 'Price: High to Low', 'Newest Arrivals'].map(
           (sortOption) => (

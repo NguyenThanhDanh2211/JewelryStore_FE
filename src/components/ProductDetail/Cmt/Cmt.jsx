@@ -87,7 +87,7 @@ function Comment({ productId, name }) {
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         >
           <Alert onClose={handleCloseAlert} severity="error">
-            {errorMessage}
+            <Typography variant="text">{errorMessage}</Typography>
           </Alert>
         </Snackbar>
       )}

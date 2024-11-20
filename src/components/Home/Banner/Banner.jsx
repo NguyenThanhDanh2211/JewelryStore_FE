@@ -1,5 +1,4 @@
 import { Box, Grid, Typography } from '@mui/material';
-import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -10,6 +9,12 @@ import './Banner.css';
 import slide1 from '~/assets/images/slider-01-1.jpg';
 import slide2 from '~/assets/images/slider-02.jpg';
 import slide3 from '~/assets/images/slider-03.jpg';
+import {
+  FlexiblePayment,
+  FreeShipping,
+  Money,
+  OnlineSupport,
+} from '~/components/Icons';
 
 const slides = [
   {
@@ -32,34 +37,30 @@ const slides = [
   },
 ];
 
+const icons = [
+  {
+    icon: <FreeShipping />,
+    nav: 'Free Shipping',
+    body: 'Free shipping for orders over $130',
+  },
+  {
+    icon: <Money />,
+    nav: 'Money Guarantee',
+    body: 'Within 30 days for an exchange',
+  },
+  {
+    icon: <OnlineSupport />,
+    nav: 'Online Support',
+    body: '24 hours a day, 7 days a week',
+  },
+  {
+    icon: <FlexiblePayment />,
+    nav: 'Flexible Payment',
+    body: 'Pay with multiple Credit Cards',
+  },
+];
+
 function Banner() {
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-
-  function calculateTimeLeft() {
-    const endDate = new Date('2024-12-31T23:59:59');
-    const now = new Date();
-    const difference = endDate - now;
-
-    if (difference > 0) {
-      return {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / (1000 * 60)) % 60),
-        seconds: Math.floor((difference / 1000) % 60),
-      };
-    }
-
-    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-  }
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <Box
       sx={{
@@ -135,75 +136,35 @@ function Banner() {
         ))}
       </Swiper>
 
-      {/* Countdown Section */}
       <Grid
         container
         spacing={2}
         sx={{
-          textAlign: 'center',
-          alignItems: 'center',
-          mt: 2,
           mb: 2,
+          mt: 0.5,
         }}
       >
-        <Grid item xs={12} md={3}>
-          <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
-            Winter Sale
-          </Typography>
-          <Typography variant="body2" sx={{ color: '#555' }}>
-            20% Off Everything for a limited time only
-          </Typography>
-        </Grid>
-
-        <Grid item xs={12} md={6}>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: 3,
-              fontWeight: 'bold',
-              color: '#333',
-              fontSize: '1.5rem',
-            }}
+        {icons.map((icon) => (
+          <Grid
+            item
+            xs={3}
+            md={3}
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            justifyContent="center"
           >
-            {timeLeft.days}
-            <Typography sx={{ fontSize: '0.75rem' }}>Days</Typography>
-
-            {timeLeft.hours}
-            <Typography sx={{ fontSize: '0.75rem' }}>Hours</Typography>
-
-            {timeLeft.minutes}
-            <Typography sx={{ fontSize: '0.75rem' }}>Minutes</Typography>
-
-            {timeLeft.seconds}
-            <Typography sx={{ fontSize: '0.75rem' }}>Seconds</Typography>
-          </Box>
-          <Typography
-            fontSize="13px"
-            textAlign="center"
-            sx={{ marginTop: '4px', color: '#666' }}
-          >
-            Time remaining until the end of the campaign
-          </Typography>
-        </Grid>
-
-        <Grid item xs={12} md={3}>
-          <Typography
-            component="a"
-            href="/shop"
-            variant="nav"
-            sx={{
-              textDecoration: 'none',
-              color: '#db9662',
-              fontWeight: 'bold',
-              textTransform: 'uppercase',
-              fontSize: '1rem',
-            }}
-          >
-            SHOP COLLECTION
-          </Typography>
-        </Grid>
+            {icon.icon}
+            <Box sx={{ ml: 1 }}>
+              <Typography variant="nav" fontSize="15px">
+                {icon.nav}
+              </Typography>
+              <Typography variant="body2" fontSize="13px" color="textSecondary">
+                {icon.body}
+              </Typography>
+            </Box>
+          </Grid>
+        ))}
       </Grid>
     </Box>
   );

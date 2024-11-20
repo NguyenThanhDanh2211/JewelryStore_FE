@@ -12,12 +12,12 @@ function Breadcrumb() {
 
   const breadcrumbs = [
     <Link href="/" key="1" style={{ textDecoration: 'none' }}>
-      <Typography variant="text1" fontSize={15}>
+      <Typography variant="nav" color="#666666" fontSize={20}>
         Home
       </Typography>
     </Link>,
     <Link href="/shop" key="2" style={{ textDecoration: 'none' }}>
-      <Typography variant="text1" fontSize={15}>
+      <Typography variant="nav" color="#666666" fontSize={20}>
         Shop
       </Typography>
     </Link>,
@@ -31,7 +31,7 @@ function Breadcrumb() {
         key="3"
         style={{ textDecoration: 'none' }}
       >
-        <Typography variant="text1" fontSize={15}>
+        <Typography variant="nav" color="#666666" fontSize={20}>
           {category.charAt(0).toUpperCase() + category.slice(1)}
         </Typography>
       </Link>
@@ -41,7 +41,7 @@ function Breadcrumb() {
   if (collection) {
     breadcrumbs.push(
       <Typography key="4">
-        <Typography variant="text1" fontSize={15}>
+        <Typography variant="nav" color="#666666" fontSize={20}>
           {collection.charAt(0).toUpperCase() + collection.slice(1)}
         </Typography>
       </Typography>
@@ -49,9 +49,9 @@ function Breadcrumb() {
   }
 
   return (
-    <Stack spacing={2} mt={2}>
+    <Stack spacing={2} mt={2} ml={2}>
       <Breadcrumbs
-        separator={<NavigateNext fontSize="small" sx={{ marginTop: '10px' }} />}
+        separator={<NavigateNext fontSize="medium" />}
         aria-label="breadcrumb"
       >
         {breadcrumbs}

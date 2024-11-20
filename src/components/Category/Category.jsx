@@ -5,7 +5,6 @@ import {
   Stack,
   Typography,
   Pagination,
-  Divider,
   Alert,
   Snackbar,
 } from '@mui/material';
@@ -23,9 +22,10 @@ import { AuthContext } from '~/contexts/AuthContext';
 const CategoryContainer = styled(Stack)(({ theme }) => ({
   display: 'flex',
   height: '100%',
-  // width: '95%',
   margin: '0 auto',
-  padding: theme.spacing(3),
+  padding: '0 70px 70px',
+  width: '100%',
+  backgroundColor: '#f5f5f5',
 }));
 
 function Category() {
@@ -119,106 +119,106 @@ function Category() {
   };
 
   return (
-    <CategoryContainer>
-      {!selectedCollection && location.pathname !== '/shop/men-jewelry' && (
-        <>
-          <Divider />
-
-          <Box sx={{ display: 'flex', justifyContent: 'center', my: '30px' }}>
-            <Typography variant="h3">
-              {category === 'rings'
-                ? 'Discover Our Stunning Rings Collection'
-                : category === 'earrings'
-                ? 'Discover Our Exquisite Earrings Collection'
-                : category === 'necklaces'
-                ? 'Discover Our Timeless Necklaces Collection'
-                : category === 'bracelets'
-                ? 'Discover Our Elegant Bracelets Collection'
-                : ''}
-            </Typography>
-          </Box>
-
-          <CollectionList
-            category={category}
-            onSelectCollection={setSelectedCollection}
-          />
-        </>
-      )}
-
+    <>
       {selectedCollection || location.pathname === '/shop/men-jewelry' ? (
         <HeaderCollection
           collectionType={selectedCollection || 'Men-jewelry'}
         />
       ) : null}
+      <CategoryContainer>
+        {!selectedCollection && location.pathname !== '/shop/men-jewelry' && (
+          <>
+            <Box sx={{ display: 'flex', justifyContent: 'center', my: '30px' }}>
+              <Typography variant="h1">
+                {category === 'rings'
+                  ? 'Discover Our Stunning Rings Collection'
+                  : category === 'earrings'
+                  ? 'Discover Our Exquisite Earrings Collection'
+                  : category === 'necklaces'
+                  ? 'Discover Our Timeless Necklaces Collection'
+                  : category === 'bracelets'
+                  ? 'Discover Our Elegant Bracelets Collection'
+                  : ''}
+              </Typography>
+            </Box>
 
-      <Breadcrumb />
+            <CollectionList
+              category={category}
+              onSelectCollection={setSelectedCollection}
+            />
+          </>
+        )}
 
-      {/* Hiển thị các sản phẩm */}
-      <Grid container spacing={2} mt={2}>
-        <Grid item xs={3}>
-          <Sidebar
-            onTagSelect={handleTagSelect}
-            onPriceRangeSelect={handlePriceRangeSelect}
-            onSortSelect={handleSortSelect}
-            setFilters={setFilters}
-          />
-        </Grid>
-        <Grid item xs={9}>
-          <Grid container spacing={2}>
-            {products.length > 0 ? (
-              products.map((product) => (
-                <Grid item xs={12} sm={6} md={4} key={product._id}>
-                  <ProductCardComponent
-                    product={product}
-                    handleAddToCart={handleAddToCart}
-                  />
-                </Grid>
-              ))
-            ) : (
-              <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                width="100%"
-              >
-                <Typography variant="text">
-                  We're out of products in this category, but more are coming
-                  soon!
-                </Typography>
+        <Breadcrumb />
+
+        {/* Hiển thị các sản phẩm */}
+        <Grid container spacing={2} mt={2}>
+          <Grid item xs={3}>
+            <Sidebar
+              onTagSelect={handleTagSelect}
+              onPriceRangeSelect={handlePriceRangeSelect}
+              onSortSelect={handleSortSelect}
+              setFilters={setFilters}
+            />
+          </Grid>
+          <Grid item xs={9}>
+            <Grid container spacing={2}>
+              {products.length > 0 ? (
+                products.map((product) => (
+                  <Grid item xs={12} sm={6} md={4} key={product._id}>
+                    <ProductCardComponent
+                      product={product}
+                      handleAddToCart={handleAddToCart}
+                    />
+                  </Grid>
+                ))
+              ) : (
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  width="100%"
+                  mt={5}
+                >
+                  <Typography variant="text">
+                    We're out of products in this category, but more are coming
+                    soon!
+                  </Typography>
+                </Box>
+              )}
+            </Grid>
+
+            {products.length > 0 && (
+              <Box display="flex" justifyContent="center" mt={3}>
+                <Pagination
+                  count={totalPages}
+                  page={currentPage}
+                  onChange={handlePageChange}
+                  shape="rounded"
+                  siblingCount={1}
+                  boundaryCount={1}
+                />
               </Box>
             )}
           </Grid>
-
-          {products.length > 0 && (
-            <Box display="flex" justifyContent="center" mt={3}>
-              <Pagination
-                count={totalPages}
-                page={currentPage}
-                onChange={handlePageChange}
-                shape="rounded"
-                siblingCount={1}
-                boundaryCount={1}
-              />
-            </Box>
-          )}
         </Grid>
-      </Grid>
 
-      {/* Alert Snackbar */}
-      <Snackbar
-        open={alertOpen}
-        autoHideDuration={3000}
-        onClose={handleCloseAlert}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      >
-        <Alert
+        {/* Alert Snackbar */}
+        <Snackbar
+          open={alertOpen}
+          autoHideDuration={3000}
           onClose={handleCloseAlert}
-          severity={isAuthenticated ? 'success' : 'error'}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         >
-          {alertMessage}
-        </Alert>
-      </Snackbar>
-    </CategoryContainer>
+          <Alert
+            onClose={handleCloseAlert}
+            severity={isAuthenticated ? 'success' : 'error'}
+          >
+            {alertMessage}
+          </Alert>
+        </Snackbar>
+      </CategoryContainer>
+    </>
   );
 }
 

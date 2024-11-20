@@ -20,10 +20,10 @@ const ShopContainer = styled(Stack)(({ theme }) => ({
   flexDirection: 'column',
   alignSelf: 'center',
   width: '100%',
-  padding: theme.spacing(4),
-  paddingTop: theme.spacing(4),
+  padding: '50px 70px 70px',
   gap: theme.spacing(2),
   margin: 'auto',
+  backgroundColor: '#f5f5f5',
 }));
 
 function Shop() {

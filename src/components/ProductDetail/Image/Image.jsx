@@ -5,8 +5,8 @@ const DiscountContainer = styled(Box)(({ theme }) => ({
   borderRadius: '8%',
   color: '#DC586D',
   border: '2px #DC586D solid',
-  top: '215px',
-  left: '80px',
+  top: '25px',
+  left: '25px',
   zIndex: 2,
   width: '70px',
   display: 'flex',
@@ -16,7 +16,7 @@ const DiscountContainer = styled(Box)(({ theme }) => ({
 function Image({ images, discount }) {
   return (
     <Grid container spacing={2} className="product-img">
-      <Grid item xs={6}>
+      <Grid item xs={6} style={{ position: 'relative' }}>
         {images[0] && (
           <>
             <img

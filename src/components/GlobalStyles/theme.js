@@ -104,7 +104,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           color: '#555555',
-          fontSize: '15px',
+          fontSize: '16px',
         },
       },
     },
@@ -122,8 +122,9 @@ const theme = createTheme({
     MuiInputBase: {
       styleOverrides: {
         root: {
-          fontSize: '14px',
+          fontSize: '16px',
           minHeight: '30px',
+          fontWeight: '500',
         },
         input: {
           padding: '8px 10px',
@@ -138,6 +139,7 @@ const theme = createTheme({
         label: {
           color: '#555555',
           fontSize: '15px',
+          fontWeight: '500',
         },
         control: {
           color: '#1976d2',

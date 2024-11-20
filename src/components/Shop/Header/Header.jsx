@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 
 const categories = [
@@ -34,12 +34,9 @@ function Header() {
   return (
     <>
       {location.pathname === '/shop' && (
-        <>
-          <Divider />
-          <Typography variant="h2" textAlign="center" fontSize={40}>
-            Discover Our Categories Below, Where You Can Find All Our Products!
-          </Typography>
-        </>
+        <Typography variant="h2" textAlign="center" fontSize={40}>
+          Discover Our Categories Below, Where You Can Find All Our Products!
+        </Typography>
       )}
       <Grid container display="flex" justifyContent="center" spacing={2} mt={2}>
         {categories.map((cate) => (
@@ -57,7 +54,6 @@ function Header() {
                     ? `shop/${cate.path}`
                     : `${cate.path}`
                 }
-                // to={cate.path}
                 style={{
                   textDecoration: 'none',
                   color: 'inherit',
