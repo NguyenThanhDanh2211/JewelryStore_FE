@@ -155,7 +155,9 @@ function Comment({ productId, name }) {
                 ))}
               </Grid>
             ) : (
-              <Typography variant="text">No reviews yet.</Typography>
+              <Typography variant="text">
+                No reviews yet. Be the first to leave a review!
+              </Typography>
             )}
           </Box>
         )}

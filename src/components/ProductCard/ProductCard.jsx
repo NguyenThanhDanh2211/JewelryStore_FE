@@ -1,20 +1,14 @@
 import React from 'react';
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  Skeleton,
-  styled,
-} from '@mui/material';
+import { Box, Card, Typography, Skeleton, styled } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const ProductCard = styled(Card)(({ theme }) => ({
   position: 'relative',
   overflow: 'hidden',
   display: 'flex',
+  height: '360px',
+  width: '260px',
   flexDirection: 'column',
-  minHeight: 480,
   '&:hover .cart-icon': {
     opacity: 1,
   },
@@ -24,9 +18,8 @@ const ProductCard = styled(Card)(({ theme }) => ({
 
 const CartIconContainer = styled(Box)(({ theme }) => ({
   position: 'absolute',
-  // border: '1px #ccc solid',
   backgroundColor: 'rgba(255, 255, 255, 0.7)',
-  bottom: '132px',
+  bottom: '105px',
   width: '100%',
   padding: '8px 0',
   display: 'flex',
@@ -50,7 +43,7 @@ const DiscountContainer = styled(Box)(({ theme }) => ({
 }));
 
 const ImageContainer = styled(Box)(({ theme }) => ({
-  height: '350px',
+  height: '100%',
   width: '100%',
   position: 'relative',
   overflow: 'hidden',
@@ -91,7 +84,7 @@ function ProductCardComponent({ product, handleAddToCart, isLoading }) {
       to={`/shop/${category.toLowerCase()}/${slug}`}
       style={{ textDecoration: 'none' }}
     >
-      <ProductCard sx={{ height: 355 }}>
+      <ProductCard>
         {discount && (
           <DiscountContainer>
             <Typography variant="nav">{product.discount}% OFF</Typography>
@@ -119,15 +112,21 @@ function ProductCardComponent({ product, handleAddToCart, isLoading }) {
           </Typography>
         </CartIconContainer>
 
-        <CardContent>
+        <Box
+          height="150px"
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          ml={2}
+        >
           <Typography
             variant="nav"
-            sx={{ marginBottom: '8px' }}
+            sx={{ marginBottom: '5px' }}
             color="#aeb5bd"
           >
             {product.category}
           </Typography>
-          <Typography gutterBottom variant="h2" sx={{ marginBottom: '8px' }}>
+          <Typography gutterBottom variant="h3" sx={{ marginBottom: '5px' }}>
             {product.name}
           </Typography>
 
@@ -152,7 +151,7 @@ function ProductCardComponent({ product, handleAddToCart, isLoading }) {
               $ {product.price.toFixed(2)}
             </Typography>
           )}
-        </CardContent>
+        </Box>
       </ProductCard>
     </Link>
   );

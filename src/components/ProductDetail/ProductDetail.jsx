@@ -137,7 +137,7 @@ function ProductDetail() {
         if (product && product.category) {
           const response = await getFilteredProducts({
             page: 1,
-            limit: 5,
+            limit: 6,
             category: product.category,
           });
 
@@ -416,13 +416,13 @@ function ProductDetail() {
           paddingX: '60px',
         }}
       >
-        <Typography variant="h2" fontSize="30px" ml={2}>
+        <Typography variant="h2" fontSize="30px" ml={2} mb={2}>
           We'd love to hear your thoughts!
         </Typography>
 
         {product ? (
           <Box sx={{ width: '100%', ml: 1.5 }}>
-            {totalComments > 0 ? (
+            {totalComments > 0 && (
               <Box
                 display="flex"
                 flexDirection="row"
@@ -437,10 +437,6 @@ function ProductDetail() {
                   <Typography>Average of {totalComments} reviews</Typography>
                 </Box>
               </Box>
-            ) : (
-              <Typography>
-                No reviews yet. Be the first to leave a review!
-              </Typography>
             )}
 
             <Comment productId={product._id} name={product.name} />
@@ -482,12 +478,12 @@ function ProductDetail() {
         </Typography>
         <Grid container spacing={2}>
           {relatedProducts.length > 0
-            ? relatedProducts.slice(0, 4).map((item) => (
+            ? relatedProducts.slice(0, 5).map((item) => (
                 <Grid
                   item
                   xs={12}
                   sm={6}
-                  md={3}
+                  md={2.4}
                   key={item._id}
                   onClick={() =>
                     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -500,8 +496,8 @@ function ProductDetail() {
                   />
                 </Grid>
               ))
-            : Array.from({ length: 4 }).map((_, index) => (
-                <Grid item xs={12} sm={6} md={3} key={index}>
+            : Array.from({ length: 5 }).map((_, index) => (
+                <Grid item xs={12} sm={6} md={2.4} key={index}>
                   <ProductCardComponent isLoading={true} />
                 </Grid>
               ))}

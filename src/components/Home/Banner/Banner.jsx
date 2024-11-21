@@ -68,7 +68,7 @@ function Banner() {
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#e6e6e6',
       }}
     >
       {/* Swiper for Banner Images */}

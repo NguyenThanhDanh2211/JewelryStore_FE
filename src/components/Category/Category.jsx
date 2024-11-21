@@ -23,7 +23,7 @@ const CategoryContainer = styled(Stack)(({ theme }) => ({
   display: 'flex',
   height: '100%',
   margin: '0 auto',
-  padding: '0 70px 70px',
+  padding: '0 50px 50px',
   width: '100%',
   backgroundColor: '#f5f5f5',
 }));
@@ -58,7 +58,7 @@ function Category() {
       try {
         const filterParams = {
           page: currentPage,
-          limit: 9,
+          limit: 8,
           ...(category === 'men-jewelry' ? { men: true } : { category }),
           collect: selectedCollection,
           tag: filters.tag,
@@ -152,7 +152,7 @@ function Category() {
         <Breadcrumb />
 
         {/* Hiển thị các sản phẩm */}
-        <Grid container spacing={2} mt={2}>
+        <Grid container spacing={2} mt={3}>
           <Grid item xs={3}>
             <Sidebar
               onTagSelect={handleTagSelect}
@@ -165,7 +165,7 @@ function Category() {
             <Grid container spacing={2}>
               {products.length > 0 ? (
                 products.map((product) => (
-                  <Grid item xs={12} sm={6} md={4} key={product._id}>
+                  <Grid item xs={12} sm={6} md={3} key={product._id}>
                     <ProductCardComponent
                       product={product}
                       handleAddToCart={handleAddToCart}

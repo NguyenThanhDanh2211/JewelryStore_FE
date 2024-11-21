@@ -42,7 +42,7 @@ function Shop() {
       try {
         const filters = {
           page: currentPage,
-          limit: 16,
+          limit: 15,
           category: null,
         };
 
@@ -103,14 +103,14 @@ function Shop() {
           display="flex"
           flexDirection="column"
         >
-          <Grid container spacing={3}>
+          <Grid container spacing={2}>
             {products.map((product) => (
               <Grid
                 className="product-item-card"
                 item
                 xs={12}
                 sm={6}
-                md={3}
+                md={2.4}
                 key={product._id}
               >
                 <ProductCardComponent

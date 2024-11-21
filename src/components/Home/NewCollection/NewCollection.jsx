@@ -10,7 +10,7 @@ const CollectionContainer = styled(Stack)(({ theme }) => ({
   justifyContent: 'center',
   display: 'flex',
   flexDirection: 'row',
-  padding: '0 70px',
+  backgroundColor: '#f5f5f5',
 }));
 
 const images = [
@@ -19,28 +19,28 @@ const images = [
     href: '/shop/men-jewelry',
     content: 'Bold designs for modern men.',
     label: "MEN'S JEWELRY",
-    size: 636,
+    size: 516,
   },
   {
     src: img2,
     href: '/shop/necklaces?collection=Layering',
     content: 'Perfect for layered looks.',
     label: 'LAYERING NECKLACES',
-    size: 310,
+    size: 250,
   },
   {
     src: img3,
     href: '/shop/rings?collection=Wedding',
     content: 'Rings for your big day.',
     label: ' WEDDING RINGS',
-    size: 310,
+    size: 250,
   },
   {
     src: img4,
     href: '/shop/earrings?collection=Drop%20and%20Dangle',
     content: 'Elegant drop earrings.',
     label: ' DROP AND DANGLE EARINGS',
-    size: 310,
+    size: 250,
   },
 ];
 
@@ -59,7 +59,7 @@ function ImageBox({ src, href, content, label, size, isWide }) {
         flexDirection: 'column',
         position: 'relative',
         height: `${size}px`,
-        width: isWide ? `${size * 2 + 16}px` : `${size}px`,
+        width: isWide ? '100%' : `${size * 1.35}px`,
         m: 1,
         textDecoration: 'none',
         justifyContent: 'flex-start',
