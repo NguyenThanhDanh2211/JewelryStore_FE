@@ -22,6 +22,17 @@ export const getAllProduct = async () => {
   }
 };
 
+export const getProductDiscounted = async () => {
+  try {
+    const response = await httpRequest.get('product/discounted');
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
 // export const getProductByCategory = async (category, collection = null) => {
 //   try {
 //     let url = `product/get/${category}`;

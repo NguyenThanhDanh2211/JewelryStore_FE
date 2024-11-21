@@ -4,7 +4,14 @@ import video from '~/assets/videos/video-1.mp4';
 
 function Video() {
   return (
-    <Box sx={{ width: '100%', position: 'relative', overflow: 'hidden' }}>
+    <Box
+      sx={{
+        width: '100%',
+        position: 'relative',
+        overflow: 'hidden',
+        backgroundColor: '#f5f5f5',
+      }}
+    >
       {/* Video */}
       <video
         autoPlay

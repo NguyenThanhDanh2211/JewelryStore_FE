@@ -153,7 +153,7 @@ function Category() {
 
         {/* Hiển thị các sản phẩm */}
         <Grid container spacing={2} mt={3}>
-          <Grid item xs={3}>
+          <Grid item xs={2.5}>
             <Sidebar
               onTagSelect={handleTagSelect}
               onPriceRangeSelect={handlePriceRangeSelect}
@@ -161,7 +161,7 @@ function Category() {
               setFilters={setFilters}
             />
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={9.5}>
             <Grid container spacing={2}>
               {products.length > 0 ? (
                 products.map((product) => (

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   Grid,
   Typography,
@@ -20,7 +20,6 @@ import 'swiper/css/pagination';
 import ProductCardComponent from '~/components/ProductCard/ProductCard';
 import { CartContext } from '~/contexts/CartContext';
 import { AuthContext } from '~/contexts/AuthContext';
-import { getFilteredProducts } from '~/services/productService';
 
 const BestSellerContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
@@ -35,31 +34,12 @@ const BestSellerContainer = styled(Stack)(({ theme }) => ({
   paddingBottom: '10px',
 }));
 
-function BestSell() {
-  const [products, setProducts] = useState([]);
+function BestSell({ products }) {
   const { addProductToCart } = useContext(CartContext);
   const { isAuthenticated } = useContext(AuthContext);
 
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await getFilteredProducts({ page: 1, limit: 8 });
-
-        const products = Array.isArray(response)
-          ? response
-          : response.products || [];
-
-        setProducts(products);
-      } catch (error) {
-        console.log('Error fetching products', error);
-      }
-    };
-
-    fetchProduct();
-  }, []);
 
   const handleAddToCart = (product) => {
     if (!isAuthenticated) {
@@ -140,17 +120,18 @@ function BestSell() {
             spaceBetween={20}
             autoplay={{ delay: 5000, disableOnInteraction: false }}
             modules={[Navigation, Pagination, Autoplay]}
-            // navigation
             loop
             style={{ width: '100%', height: '400px' }}
           >
             {products.map((product) => (
               <SwiperSlide key={product._id}>
-                <ProductCardComponent
-                  product={product}
-                  handleAddToCart={handleAddToCart}
-                  isLoading={false}
-                />
+                <Box px={0}>
+                  <ProductCardComponent
+                    product={product}
+                    handleAddToCart={handleAddToCart}
+                    isLoading={false}
+                  />
+                </Box>
               </SwiperSlide>
             ))}
           </Swiper>

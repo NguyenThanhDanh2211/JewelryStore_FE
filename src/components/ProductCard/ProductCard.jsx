@@ -7,13 +7,12 @@ const ProductCard = styled(Card)(({ theme }) => ({
   overflow: 'hidden',
   display: 'flex',
   height: '360px',
-  width: '260px',
+  width: '100%',
+  minWidth: '260px',
   flexDirection: 'column',
   '&:hover .cart-icon': {
     opacity: 1,
   },
-  boxShadow:
-    'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
 }));
 
 const CartIconContainer = styled(Box)(({ theme }) => ({
@@ -57,8 +56,9 @@ function ProductCardComponent({ product, handleAddToCart, isLoading }) {
     return (
       <Box
         sx={{
+          height: '360px',
           width: '100%',
-          height: '350px',
+          minWidth: '260px',
           backgroundColor: '#fff',
           borderRadius: '8px',
           overflow: 'hidden',
