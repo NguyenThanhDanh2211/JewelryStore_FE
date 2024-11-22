@@ -6,59 +6,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './Banner.css';
 
-import slide1 from '~/assets/images/slider-05.jpg';
-import slide2 from '~/assets/images/story1.png';
-import slide3 from '~/assets/images/slider-02.jpg';
-import {
-  FlexiblePayment,
-  FreeShipping,
-  Money,
-  OnlineSupport,
-} from '~/components/Icons';
-
-const slides = [
-  {
-    src: slide1,
-    alt: 'Slide 1',
-    title: 'Timeless Treasures',
-    content: 'Jewelry, like love, is precious and eternal',
-  },
-  {
-    src: slide2,
-    alt: 'Slide 2',
-    title: 'We Love You Larger',
-    content: 'Beautifully crafted jewelry to cherish every day',
-  },
-  {
-    src: slide3,
-    alt: 'Slide 3',
-    title: 'Bold, Brilliant, Beautiful',
-    content: 'Jewelry is a lot like love; it’s a good idea but expensive',
-  },
-];
-
-const icons = [
-  {
-    icon: <FreeShipping />,
-    nav: 'Free Shipping',
-    body: 'Free shipping for orders over $130',
-  },
-  {
-    icon: <Money />,
-    nav: 'Money Guarantee',
-    body: 'Within 30 days for an exchange',
-  },
-  {
-    icon: <OnlineSupport />,
-    nav: 'Online Support',
-    body: '24 hours a day, 7 days a week',
-  },
-  {
-    icon: <FlexiblePayment />,
-    nav: 'Flexible Payment',
-    body: 'Pay with multiple Credit Cards',
-  },
-];
+import data from '~/data/homeData';
+const { slides, icons } = data;
 
 function Banner() {
   return (

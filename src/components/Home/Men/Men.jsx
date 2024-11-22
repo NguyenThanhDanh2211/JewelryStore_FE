@@ -1,8 +1,19 @@
-import { Box, Grid, Stack, styled, Typography } from '@mui/material';
+import {
+  Alert,
+  Box,
+  Grid,
+  Snackbar,
+  Stack,
+  styled,
+  Typography,
+} from '@mui/material';
+import { useContext, useState } from 'react';
 
 import img1 from '~/assets/images/men1.jpeg';
 import img2 from '~/assets/images/men2.webp';
 import ProductCardComponent from '~/components/ProductCard';
+import { AuthContext } from '~/contexts/AuthContext';
+import { CartContext } from '~/contexts/CartContext';
 
 const MenContainer = styled(Stack)(({ theme }) => ({
   width: '100%',
@@ -14,6 +25,26 @@ const MenContainer = styled(Stack)(({ theme }) => ({
 }));
 
 function Men({ products }) {
+  const { addProductToCart } = useContext(CartContext);
+  const { isAuthenticated } = useContext(AuthContext);
+
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+
+  const handleAddToCart = (product) => {
+    if (!isAuthenticated) {
+      setAlertMessage('Please login before adding products to the cart.');
+    } else {
+      addProductToCart(product, 1);
+      setAlertMessage(`${product.name} has been added to the cart!`);
+    }
+    setAlertOpen(true);
+  };
+
+  const handleCloseAlert = () => {
+    setAlertOpen(false);
+  };
+
   // Chia sản phẩm thành 2 nhóm
   const half = Math.ceil(products.length / 2);
   const firstHalf = products.slice(0, half);
@@ -25,7 +56,11 @@ function Men({ products }) {
       productList.map((product, index) => (
         <Grid item xs={12} sm={6} md={6} key={product._id || index}>
           <Box ml={2}>
-            <ProductCardComponent product={product} isLoading={false} />
+            <ProductCardComponent
+              product={product}
+              handleAddToCart={handleAddToCart}
+              isLoading={false}
+            />
           </Box>
         </Grid>
       ))
@@ -49,7 +84,13 @@ function Men({ products }) {
           <Typography variant="h3">
             The intricate designs which you will not find anywhere else
           </Typography>
-          <Typography variant="text">
+          <Typography
+            variant="text"
+            sx={{
+              textAlign: 'justify',
+              color: '#8a9199',
+            }}
+          >
             Explore unique and timeless pieces crafted with exceptional
             artistry.
           </Typography>
@@ -77,12 +118,32 @@ function Men({ products }) {
           <Typography variant="h3">
             High class craftsmanship which you have always deserved
           </Typography>
-          <Typography variant="text">
+          <Typography
+            variant="text"
+            sx={{
+              textAlign: 'justify',
+              color: '#8a9199',
+            }}
+          >
             Discover exquisite jewelry designed with exceptional attention to
             detail, perfect for those who appreciate the finest things in life.
           </Typography>
         </Grid>
       </Grid>
+
+      <Snackbar
+        open={alertOpen}
+        autoHideDuration={3000}
+        onClose={handleCloseAlert}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert
+          onClose={handleCloseAlert}
+          severity={isAuthenticated ? 'success' : 'error'}
+        >
+          <Typography variant="text">{alertMessage}</Typography>
+        </Alert>
+      </Snackbar>
     </MenContainer>
   );
 }

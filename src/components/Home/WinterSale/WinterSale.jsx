@@ -55,10 +55,23 @@ function WinterSale({ products }) {
   };
   return (
     <WinterSaleContainer>
-      <Typography variant="h2" fontSize="26px">
-        Cozy up to amazing deals in our Winter Sale!
+      <Typography
+        variant="h2"
+        fontSize="26px"
+        sx={{
+          color: '#db9662',
+          letterSpacing: '1px',
+        }}
+      >
+        COZY UP TO AMAZING DEALS IN OUR WINTER SALE!
       </Typography>
-      <Typography variant="text">
+      <Typography
+        variant="text"
+        sx={{
+          textAlign: 'justify',
+          color: '#8a9199',
+        }}
+      >
         Adorn Yourself in Glamour: Find Your Perfect Piece Today
       </Typography>
 

@@ -1,8 +1,8 @@
 import { Stack, Box, styled, Typography } from '@mui/material';
-import img1 from '~/assets/images/story.jpg';
-import img2 from '~/assets/images/banner-10.jpg';
-import img3 from '~/assets/images/banner-13.jpg';
-import img4 from '~/assets/images/banner-12.jpg';
+
+import data from '~/data/homeData';
+
+const { images } = data;
 
 const CollectionContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
@@ -13,39 +13,8 @@ const CollectionContainer = styled(Stack)(({ theme }) => ({
   backgroundColor: '#f5f5f5',
 }));
 
-const images = [
-  {
-    src: img1,
-    href: '/shop/men-jewelry',
-    content: 'Bold designs for modern men.',
-    label: "MEN'S JEWELRY",
-    size: 516,
-  },
-  {
-    src: img2,
-    href: '/shop/necklaces?collection=Layering',
-    content: 'Perfect for layered looks.',
-    label: 'LAYERING NECKLACES',
-    size: 250,
-  },
-  {
-    src: img3,
-    href: '/shop/rings?collection=Wedding',
-    content: 'Rings for your big day.',
-    label: ' WEDDING RINGS',
-    size: 250,
-  },
-  {
-    src: img4,
-    href: '/shop/earrings?collection=Drop%20and%20Dangle',
-    content: 'Elegant drop earrings.',
-    label: ' DROP AND DANGLE EARINGS',
-    size: 250,
-  },
-];
-
 function ImageBox({ src, href, content, label, size, isWide }) {
-  const isWhiteText = src === img1;
+  const isWhiteText = src === images[0].src;
 
   return (
     <Box

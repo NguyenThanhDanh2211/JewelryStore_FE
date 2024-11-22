@@ -1,54 +1,8 @@
 import { Box, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import StubEarrings from '~/assets/images/StudEarrings.webp';
-import Wedding from '~/assets/images/Wedding.webp';
-import Drop from '~/assets/images/DropDangleEarrings2.webp';
-import Hoop from '~/assets/images/HoopEarrings2.webp';
-import Men from '~/assets/images/Men.webp';
-import Cocktail from '~/assets/images/CocktailRings2.webp';
-import WedRing from '~/assets/images/WeddingBands2.webp';
-import Eternity from '~/assets/images/EternityRings2.webp';
-import Chain from '~/assets/images/ChainNecklaces.webp';
-import Bold from '~/assets/images/StatementNecklaces.webp';
-import Layer from '~/assets/images/LayeringNecklaces.webp';
-import EveryDi from '~/assets/images/EverydayDiaNecklaces.webp';
-import Stacking from '~/assets/images/ChainBracelets.webp';
-import Bangle from '~/assets/images/BangleBracelets.webp';
-import Tennis from '~/assets/images/TennisBracelets.webp';
-import Cuff from '~/assets/images/CuffBracelets.webp';
 
-const categoryCollections = {
-  earrings: [
-    { label: 'Stub', src: StubEarrings },
-    { label: 'Hoop', src: Hoop },
-    { label: 'Drop and Dangle', src: Drop },
-    { label: 'Wedding Earrings', src: Wedding },
-  ],
-  rings: [
-    { label: 'Eternity', src: Eternity },
-    { label: 'Cocktail', src: Cocktail },
-    { label: 'Wedding', src: WedRing },
-    { label: "Men's", src: Men },
-  ],
-  necklaces: [
-    { label: 'Chain', src: Chain },
-    { label: 'Bold', src: Bold },
-    {
-      label: 'Layering',
-      src: Layer,
-    },
-    {
-      label: 'Every Diamond',
-      src: EveryDi,
-    },
-  ],
-  bracelets: [
-    { label: 'Bangle', src: Bangle },
-    { label: 'Tennis', src: Tennis },
-    { label: 'Cuff', src: Cuff },
-    { label: 'Stacking', src: Stacking },
-  ],
-};
+import data from '~/data/categoryData';
+const { categoryCollections } = data;
 
 function CollectionList({ category, onSelectCollection }) {
   const navigate = useNavigate();

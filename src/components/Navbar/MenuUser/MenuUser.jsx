@@ -40,7 +40,7 @@ function MenuUser({ anchorEl, handleCloseMenu }) {
             textDecoration: 'none',
           }}
         >
-          <Typography variant="text1">My Account</Typography>
+          <Typography variant="text">My Account</Typography>
         </Link>
       </MenuItem>
 
@@ -52,7 +52,7 @@ function MenuUser({ anchorEl, handleCloseMenu }) {
             textDecoration: 'none',
           }}
         >
-          <Typography variant="text1">My Orders</Typography>
+          <Typography variant="text">My Orders</Typography>
         </Link>
       </MenuItem>
 
@@ -60,7 +60,7 @@ function MenuUser({ anchorEl, handleCloseMenu }) {
       <Divider />
 
       <MenuItem onClick={handleLogout} className="logout-icon">
-        <Typography variant="text1" sx={{ color: 'red' }}>
+        <Typography variant="text" sx={{ color: 'red' }}>
           Log out
         </Typography>
       </MenuItem>
