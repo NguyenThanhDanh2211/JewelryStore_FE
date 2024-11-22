@@ -85,7 +85,7 @@ function ProductCardComponent({ product, handleAddToCart, isLoading }) {
       style={{ textDecoration: 'none' }}
     >
       <ProductCard>
-        {discount && (
+        {discount > 0 && (
           <DiscountContainer>
             <Typography variant="nav">{product.discount}% OFF</Typography>
           </DiscountContainer>
