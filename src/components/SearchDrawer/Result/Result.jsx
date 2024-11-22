@@ -27,8 +27,37 @@ function Result({ product }) {
           />
         </Grid>
         <Grid item xs={10} display="flex" flexDirection="column">
-          <Typography variant="nav">{product.name}</Typography>
-          <Typography variant="text1">$ {product.price.toFixed(2)}</Typography>
+          <Box display="flex" flexDirection="row" alignItems="center">
+            <Typography variant="nav" fontSize="18px">
+              {product.name}
+            </Typography>
+            {product.discount && (
+              <Typography variant="nav" fontSize="16px" color="red" ml={2}>
+                {product.discount}% OFF
+              </Typography>
+            )}
+          </Box>
+          <Box display="flex" flexDirection="row" alignItems="center">
+            <Typography
+              variant="nav"
+              color="#db9662"
+              fontSize="16px"
+              sx={{ marginRight: '8px' }}
+            >
+              ${' '}
+              {product.discount
+                ? product.finalPrice.toFixed(2)
+                : product.price.toFixed(2)}
+            </Typography>
+            {product.discount && (
+              <Typography
+                variant="body2"
+                sx={{ textDecoration: 'line-through', mt: '3px' }}
+              >
+                $ {product.price.toFixed(2)}
+              </Typography>
+            )}
+          </Box>
         </Grid>
       </Grid>
     </Link>

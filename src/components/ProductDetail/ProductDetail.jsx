@@ -106,8 +106,6 @@ function ProductDetail() {
       try {
         const commentResponse = await getComments(product._id);
 
-        console.log(commentResponse);
-
         if (commentResponse && Array.isArray(commentResponse)) {
           setTotalComments(commentResponse.length);
           const totalRating = commentResponse.reduce(
