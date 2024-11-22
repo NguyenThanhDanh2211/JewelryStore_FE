@@ -52,7 +52,7 @@ function Home() {
         });
 
         const newResponse = await getFilteredProducts({
-          page: 10,
+          sort: 'Newest Arrivals',
           limit: 10,
         });
 

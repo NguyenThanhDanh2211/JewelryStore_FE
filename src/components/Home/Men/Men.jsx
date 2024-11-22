@@ -22,6 +22,7 @@ const MenContainer = styled(Stack)(({ theme }) => ({
   flexDirection: 'column',
   backgroundColor: '#f5f5f5',
   padding: '40px 55px',
+  paddingTop: '30px',
 }));
 
 function Men({ products }) {
@@ -45,12 +46,10 @@ function Men({ products }) {
     setAlertOpen(false);
   };
 
-  // Chia sản phẩm thành 2 nhóm
   const half = Math.ceil(products.length / 2);
   const firstHalf = products.slice(0, half);
   const secondHalf = products.slice(half);
 
-  // Render từng nhóm sản phẩm
   const renderProducts = (productList) => {
     return productList.length > 0 ? (
       productList.map((product, index) => (
@@ -80,7 +79,7 @@ function Men({ products }) {
   return (
     <MenContainer>
       <Grid container alignItems="center">
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={3}>
           <Typography variant="h3">
             The intricate designs which you will not find anywhere else
           </Typography>
@@ -95,26 +94,33 @@ function Men({ products }) {
             artistry.
           </Typography>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={3}>
           <Box component="img" src={img1} width="450px" ml={2} />
         </Grid>
-        <Grid xs={1}></Grid>
-        <Grid item xs={5} display="flex">
+        <Grid item xs={12} sm={1}></Grid>
+        <Grid item xs={12} sm={5} display="flex">
           {renderProducts(firstHalf)}
         </Grid>
       </Grid>
 
       <Grid container alignItems="center">
-        <Grid item ml={-2} xs={5} display="flex" justifyContent="flex-start">
+        <Grid
+          item
+          xs={12}
+          sm={5}
+          ml={-2}
+          display="flex"
+          justifyContent="flex-start"
+        >
           {renderProducts(secondHalf)}
         </Grid>
 
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={3}>
           <Box component="img" src={img2} width="450px" ml={2} />
         </Grid>
-        <Grid xs={1}></Grid>
+        <Grid item xs={12} sm={1}></Grid>
 
-        <Grid item xs={3} ml={2}>
+        <Grid item xs={12} sm={3} ml={2}>
           <Typography variant="h3">
             High class craftsmanship which you have always deserved
           </Typography>
