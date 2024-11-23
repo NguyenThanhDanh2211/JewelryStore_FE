@@ -6,10 +6,12 @@ import {
   Tab,
   styled,
   Stack,
+  Box,
 } from '@mui/material';
 import { cancelOrder, getAllOrder } from '~/services/orderService';
 import OrderDetailsDialog from './OrderDetailsDialog';
 import OrderTable from './OrderTable';
+import { NoOrder } from '../Icons';
 
 const UserOrdersContainer = styled(Stack)(({ theme }) => ({
   display: 'flex',
@@ -34,7 +36,7 @@ const UserOrders = () => {
         const token = localStorage.getItem('authToken');
         const response = await getAllOrder(token);
 
-        setOrders(response.orders);
+        setOrders(response.orders || []); // Đảm bảo luôn là mảng
         setLoading(false);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -79,11 +81,36 @@ const UserOrders = () => {
   };
 
   const filteredOrders = (status) => {
+    if (!Array.isArray(orders) || orders.length === 0) {
+      return [];
+    }
     return orders.filter((order) => order.status === status);
   };
 
   if (loading) {
     return <CircularProgress />;
+  }
+
+  if (!orders || orders.length === 0) {
+    return (
+      <>
+        <UserOrdersContainer>
+          <Typography variant="h1" gutterBottom>
+            My Orders
+          </Typography>
+          <Box
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            textAlign="center"
+          >
+            <NoOrder />
+            <Typography variant="text">You have no orders yet.</Typography>
+          </Box>
+        </UserOrdersContainer>
+      </>
+    );
   }
 
   return (

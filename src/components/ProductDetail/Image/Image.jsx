@@ -28,7 +28,7 @@ function Image({ images, discount }) {
                 objectFit: 'cover',
               }}
             />
-            {discount && (
+            {discount > 0 && (
               <DiscountContainer>
                 <Typography variant="nav">{discount}% OFF</Typography>
               </DiscountContainer>

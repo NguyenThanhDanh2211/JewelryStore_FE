@@ -1,5 +1,12 @@
-import React from 'react';
-import { Box, Card, Typography, Skeleton, styled } from '@mui/material';
+import React, { useState } from 'react';
+import {
+  Box,
+  Card,
+  Typography,
+  Skeleton,
+  styled,
+  CircularProgress,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const ProductCard = styled(Card)(({ theme }) => ({
@@ -52,6 +59,17 @@ const ImageContainer = styled(Box)(({ theme }) => ({
 }));
 
 function ProductCardComponent({ product, handleAddToCart, isLoading }) {
+  const [loading, setLoading] = useState(false);
+
+  const handleAddToCartWithLoading = (product) => {
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      handleAddToCart(product);
+    }, 2000);
+  };
+
   if (isLoading) {
     return (
       <Box
@@ -104,12 +122,16 @@ function ProductCardComponent({ product, handleAddToCart, isLoading }) {
           className="cart-icon"
           onClick={(e) => {
             e.preventDefault();
-            handleAddToCart(product);
+            handleAddToCartWithLoading(product);
           }}
         >
-          <Typography variant="h3" color="#db9662">
-            ADD TO CART
-          </Typography>
+          {loading ? (
+            <CircularProgress size={24} sx={{ color: '#db9662' }} />
+          ) : (
+            <Typography variant="h3" color="#db9662">
+              ADD TO CART
+            </Typography>
+          )}
         </CartIconContainer>
 
         <Box

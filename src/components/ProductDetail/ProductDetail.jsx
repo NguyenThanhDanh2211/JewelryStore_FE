@@ -6,6 +6,7 @@ import {
   ButtonGroup,
   Grid,
   Stack,
+  CircularProgress,
   Snackbar,
   Alert,
   Typography,
@@ -53,6 +54,7 @@ function ProductDetail() {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [totalComments, setTotalComments] = useState(0);
   const [averageRating, setAverageRating] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const { addProductToCart } = useContext(CartContext);
   const { isAuthenticated } = useContext(AuthContext);
@@ -66,10 +68,15 @@ function ProductDetail() {
     if (!isAuthenticated) {
       setAlertMessage('Please login before adding products to the cart.');
     } else {
+      setLoading(true);
       addProductToCart(product, quantity);
-      setAlertMessage(`${product.name} has been added to the cart!`);
+
+      setTimeout(() => {
+        setAlertMessage(`${product.name} has been added to the cart!`);
+        setAlertOpen(true);
+        setLoading(false);
+      }, 2000);
     }
-    setAlertOpen(true);
   };
 
   const handleAddToCartOne = (product) => {
@@ -204,7 +211,7 @@ function ProductDetail() {
                   `${averageRating.toFixed(1)} ★ (${totalComments} reviews)`}
               </Typography>
 
-              {product.discount ? (
+              {product.discount > 0 ? (
                 <Box display="flex" flexDirection="row">
                   <Typography
                     variant="nav"
@@ -277,7 +284,11 @@ function ProductDetail() {
                     fullWidth
                     onClick={() => handleAddToCart(product)}
                   >
-                    ADD TO CART
+                    {loading ? (
+                      <CircularProgress size={24} sx={{ color: '#db9662' }} />
+                    ) : (
+                      'ADD TO CART'
+                    )}
                   </Button>
                 </Grid>
               </Grid>
@@ -477,16 +488,7 @@ function ProductDetail() {
         <Grid container spacing={2}>
           {relatedProducts.length > 0
             ? relatedProducts.slice(0, 5).map((item) => (
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  md={2.4}
-                  key={item._id}
-                  onClick={() =>
-                    window.scrollTo({ top: 0, behavior: 'smooth' })
-                  }
-                >
+                <Grid item xs={12} sm={6} md={2.4} key={item._id}>
                   <ProductCardComponent
                     product={item}
                     handleAddToCart={handleAddToCartOne}
