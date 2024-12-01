@@ -143,6 +143,16 @@ function WinterSale({ products }) {
             severity={isAuthenticated ? 'success' : 'error'}
           >
             <Typography variant="text">{alertMessage}</Typography>
+            {isAuthenticated && (
+              <Typography
+                display="flex"
+                flexDirection="column"
+                component="a"
+                href="/cart"
+              >
+                VIEW CART
+              </Typography>
+            )}
           </Alert>
         </Snackbar>
       </Box>

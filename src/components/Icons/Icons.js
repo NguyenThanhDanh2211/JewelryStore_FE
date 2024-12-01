@@ -240,7 +240,7 @@ export function EmptyCart({ width, height }) {
         stroke="none"
         stroke-width="1"
         fill="none"
-        fill-rule="evenodd"
+        fillRule="evenodd"
       >
         <g
           id="Gift-cards---Empty-cart---D"

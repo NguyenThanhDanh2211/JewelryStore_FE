@@ -99,6 +99,16 @@ function SwiperProduct({ products, slidesPerView }) {
           severity={isAuthenticated ? 'success' : 'error'}
         >
           <Typography variant="text">{alertMessage}</Typography>
+          {isAuthenticated && (
+            <Typography
+              display="flex"
+              flexDirection="column"
+              component="a"
+              href="/cart"
+            >
+              VIEW CART
+            </Typography>
+          )}
         </Alert>
       </Snackbar>
     </SwiperProductContainer>

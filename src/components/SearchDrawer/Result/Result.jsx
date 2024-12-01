@@ -31,7 +31,7 @@ function Result({ product }) {
             <Typography variant="nav" fontSize="18px">
               {product.name}
             </Typography>
-            {product.discount && (
+            {product.discount > 0 && (
               <Typography variant="nav" fontSize="16px" color="red" ml={2}>
                 {product.discount}% OFF
               </Typography>
@@ -49,7 +49,7 @@ function Result({ product }) {
                 ? product.finalPrice.toFixed(2)
                 : product.price.toFixed(2)}
             </Typography>
-            {product.discount && (
+            {product.discount > 0 && (
               <Typography
                 variant="body2"
                 sx={{ textDecoration: 'line-through', mt: '3px' }}

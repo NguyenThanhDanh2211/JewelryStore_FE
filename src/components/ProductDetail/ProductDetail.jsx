@@ -18,20 +18,17 @@ import {
   Skeleton,
 } from '@mui/material';
 
-import {
-  getFilteredProducts,
-  getProductBySlug,
-} from '~/services/productService';
+import { getProductBySlug } from '~/services/productService';
 import { styled } from '@mui/material/styles';
 import Image from './Image';
 import { CartContext } from '~/contexts/CartContext';
 import { ApplePayIcon, MoMoIcon, PayPalIcon, VisaIcon } from '../Icons';
-import ProductCardComponent from '../ProductCard';
 import { AuthContext } from '~/contexts/AuthContext';
 import Comment from './Cmt';
 import StarRating from './Cmt/StarRating';
 
 import { getComments } from '~/services/cmtService';
+import Related from './Related';
 
 const ProductDetailContainer = styled(Stack)(({ theme }) => ({
   display: 'flex',
@@ -51,7 +48,6 @@ function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
-  const [relatedProducts, setRelatedProducts] = useState([]);
   const [totalComments, setTotalComments] = useState(0);
   const [averageRating, setAverageRating] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -137,31 +133,6 @@ function ProductDetail() {
   }, [product]);
 
   useEffect(() => {
-    const fetchRelated = async () => {
-      try {
-        if (product && product.category) {
-          const response = await getFilteredProducts({
-            page: 1,
-            limit: 6,
-            category: product.category,
-          });
-
-          const products = Array.isArray(response)
-            ? response
-            : response.products || [];
-
-          const related = products.filter((item) => item.slug !== product.slug);
-
-          setRelatedProducts(related);
-        }
-      } catch (error) {
-        console.log('Error fetching products', error);
-      }
-    };
-    fetchRelated();
-  }, [product]);
-
-  useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
 
@@ -193,6 +164,16 @@ function ProductDetail() {
             severity={isAuthenticated ? 'success' : 'error'}
           >
             <Typography variant="text">{alertMessage}</Typography>
+            {isAuthenticated && (
+              <Typography
+                display="flex"
+                flexDirection="column"
+                component="a"
+                href="/cart"
+              >
+                VIEW CART
+              </Typography>
+            )}
           </Alert>
         </Snackbar>
 
@@ -485,23 +466,12 @@ function ProductDetail() {
         <Typography variant="h2" fontSize="30px" my={3}>
           Related Products
         </Typography>
-        <Grid container spacing={2}>
-          {relatedProducts.length > 0
-            ? relatedProducts.slice(0, 5).map((item) => (
-                <Grid item xs={12} sm={6} md={2.4} key={item._id}>
-                  <ProductCardComponent
-                    product={item}
-                    handleAddToCart={handleAddToCartOne}
-                    isLoading={false}
-                  />
-                </Grid>
-              ))
-            : Array.from({ length: 5 }).map((_, index) => (
-                <Grid item xs={12} sm={6} md={2.4} key={index}>
-                  <ProductCardComponent isLoading={true} />
-                </Grid>
-              ))}
-        </Grid>
+        {product && product.productId && (
+          <Related
+            productId={product.productId}
+            handleAddToCartOne={handleAddToCartOne}
+          />
+        )}
       </Box>
     </>
   );

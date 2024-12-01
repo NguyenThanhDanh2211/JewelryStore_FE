@@ -19,6 +19,7 @@ function YourOrder({ setCouponDetail, setTotalPrice }) {
   const [discount, setDiscount] = useState(0);
   const [discounts, setDiscounts] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [shippingFee, setShippingFee] = useState(0);
 
   const [copiedCart, setCopiedCart] = useState(cart);
 
@@ -26,8 +27,11 @@ function YourOrder({ setCouponDetail, setTotalPrice }) {
     if (cart.items.length > 0) {
       setCopiedCart(cart);
 
+      const fee = cart.totalPrice > 1000 ? 0 : 10;
+      setShippingFee(fee);
+
       const finalPrice =
-        (parseFloat(cart.totalPrice) - parseFloat(discount)) * 1000;
+        (parseFloat(cart.totalPrice) - parseFloat(discount) + fee) * 1000;
       setTotalPrice(Number(finalPrice));
     }
   }, [cart, discount, setTotalPrice]);
@@ -174,6 +178,27 @@ function YourOrder({ setCouponDetail, setTotalPrice }) {
             </Typography>
           </Grid>
         </Grid>
+
+        {/* Phí Ship */}
+        <Grid container spacing={3}>
+          <Grid item xs={6} my={1}>
+            <Typography variant="text">Shipping Fee</Typography>
+          </Grid>
+          <Grid
+            item
+            xs={6}
+            my={1}
+            sx={{ display: 'flex', justifyContent: 'flex-end' }}
+          >
+            <Typography variant="text">
+              + ${' '}
+              {shippingFee.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
+            </Typography>
+          </Grid>
+        </Grid>
         <Divider />
 
         {/* Display coupon code and discount after applying */}
@@ -192,7 +217,7 @@ function YourOrder({ setCouponDetail, setTotalPrice }) {
                 sx={{ display: 'flex', justifyContent: 'flex-end' }}
               >
                 <Typography variant="text1">
-                  - ${discount.toFixed(2)}
+                  - $ {discount.toFixed(2)}
                 </Typography>
               </Grid>
             </Grid>
@@ -214,10 +239,13 @@ function YourOrder({ setCouponDetail, setTotalPrice }) {
           >
             <Typography variant="nav" fontSize="20px" color="#db9662">
               ${' '}
-              {(copiedCart.totalPrice - discount).toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
+              {(copiedCart.totalPrice - discount + shippingFee).toLocaleString(
+                'en-US',
+                {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }
+              )}
             </Typography>
           </Grid>
         </Grid>

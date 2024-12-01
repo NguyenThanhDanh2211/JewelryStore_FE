@@ -1,11 +1,10 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import {
   Box,
   Divider,
   Grid,
   Typography,
   Button,
-  TextField,
   Link,
   styled,
   Stack,
@@ -13,6 +12,7 @@ import {
 import Product from './Product';
 import { CartContext } from '~/contexts/CartContext';
 import { EmptyCart } from '../Icons';
+import FreeShip from './FreeShip';
 
 const CartContainer = styled(Stack)(({ theme }) => ({
   height: '100%',
@@ -24,17 +24,8 @@ const CartContainer = styled(Stack)(({ theme }) => ({
 
 function Cart() {
   const { cart, updateProductInCart, fetchCart } = useContext(CartContext);
-  const [showCouponInput, setShowCouponInput] = useState(false);
-  const [couponCode, setCouponCode] = useState('');
 
-  const handleCouponClick = () => {
-    setShowCouponInput(true);
-  };
-
-  const handleCouponApply = () => {
-    console.log('Coupon Applied:', couponCode);
-    // Apply coupon logic here if needed
-  };
+  const shippingFee = cart.totalPrice && cart.totalPrice < 1000 ? 10 : 0;
 
   const updateCartItems = (productId, newQuantity) => {
     if (newQuantity === 0) return null;
@@ -50,6 +41,10 @@ function Cart() {
     <CartContainer>
       <Grid container spacing={3} item xs={12} md={12}>
         <Grid item xs={8} container>
+          <Box sx={{ width: '100%', mb: 2 }}>
+            <FreeShip totalPrice={cart.totalPrice || 0} />
+          </Box>
+
           <Grid item container spacing={1} xs={12}>
             <Grid item xs={5.25}>
               <Typography variant="h3">Product</Typography>
@@ -125,6 +120,17 @@ function Cart() {
             </Typography>
           </Grid>
 
+          <Grid container justifyContent="space-between" sx={{ mb: 1, pr: 2 }}>
+            <Typography variant="text">Shipping Fee</Typography>
+            <Typography variant="text">
+              + ${' '}
+              {shippingFee.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
+            </Typography>
+          </Grid>
+
           <Divider sx={{ my: 2, mr: 2 }} />
 
           <Grid container justifyContent="space-between" sx={{ mb: 2, pr: 2 }}>
@@ -133,50 +139,15 @@ function Cart() {
             </Typography>
             <Typography variant="nav" fontSize="20px" color="#db9662">
               ${' '}
-              {(cart.totalPrice ? cart.totalPrice : 0).toLocaleString('en-US', {
+              {(
+                (cart.totalPrice ? cart.totalPrice : 0) + shippingFee
+              ).toLocaleString('en-US', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}
             </Typography>
           </Grid>
           <Divider sx={{ mb: 2, mr: 2 }} />
-
-          {!showCouponInput ? (
-            <Typography
-              variant="text1"
-              onClick={handleCouponClick}
-              sx={{ cursor: 'pointer', color: 'primary.main', mb: 2, pr: 2 }}
-            >
-              Have a coupon?
-            </Typography>
-          ) : (
-            <Grid container spacing={1} sx={{ mb: 2, pr: 2 }}>
-              <Grid item xs={8}>
-                <TextField
-                  sx={{
-                    '& .MuiInputBase-root': {
-                      minHeight: '40px',
-                    },
-                  }}
-                  fullWidth
-                  size="small"
-                  label="Coupon Code"
-                  value={couponCode}
-                  onChange={(e) => setCouponCode(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <Button
-                  variant="single"
-                  fullWidth
-                  size="small"
-                  onClick={handleCouponApply}
-                >
-                  Apply
-                </Button>
-              </Grid>
-            </Grid>
-          )}
 
           <Box sx={{ mt: 2, pr: 2 }}>
             <Link href="/checkout">

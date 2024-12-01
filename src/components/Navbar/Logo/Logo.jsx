@@ -126,7 +126,11 @@ function Logo() {
             toggleSearchDrawer={toggleSearchDrawer}
           />
 
-          <IconButton color="inherit" onClick={handleCartIconClick}>
+          <IconButton
+            color="inherit"
+            id="cart-icon"
+            onClick={handleCartIconClick}
+          >
             <Badge
               badgeContent={cart.totalQuantity}
               sx={{

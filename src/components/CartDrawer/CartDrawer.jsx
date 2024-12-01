@@ -110,7 +110,7 @@ function CartDrawer({ open, toggleDrawer }) {
             </Button>
           </Link>
           <Link href="/checkout">
-            <Button variant="single" fullWidth sx={{ mb: 1 }}>
+            <Button variant="single" fullWidth sx={{ mb: 1 }} id="checkout-btn">
               CHECKOUT
             </Button>
           </Link>
