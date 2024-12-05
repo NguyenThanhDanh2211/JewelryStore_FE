@@ -71,7 +71,7 @@ function PaymentForm({
             newWindow.close();
             onPaymentSuccess();
           }
-        }, 8000);
+        }, 7000);
       }
     } catch (error) {
       console.error('Payment failed:', error);

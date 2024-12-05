@@ -33,6 +33,16 @@ const CartIconContainer = styled(Box)(({ theme }) => ({
   opacity: 0,
   transition: 'opacity 0.3s ease, background-color 0.3s ease',
   zIndex: 1,
+
+  // Hiện khi hover vào ProductCard
+  [`${ProductCard}:hover &`]: {
+    opacity: 1,
+  },
+
+  // Luôn hiển thị nếu loading
+  '&.loading': {
+    opacity: 1,
+  },
 }));
 
 const DiscountContainer = styled(Box)(({ theme }) => ({
@@ -119,10 +129,10 @@ function ProductCardComponent({ product, handleAddToCart, isLoading }) {
         />
 
         <CartIconContainer
-          className="cart-icon"
+          className={`cart-icon ${loading ? 'loading' : ''}`}
           onClick={(e) => {
             e.preventDefault();
-            handleAddToCartWithLoading(product);
+            if (!loading) handleAddToCartWithLoading(product);
           }}
         >
           {loading ? (

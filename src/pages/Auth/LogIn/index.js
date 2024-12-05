@@ -132,6 +132,7 @@ function Login() {
     <LogInContainer direction="column" justifyContent="space-between">
       {(successMessage || errorMessage) && (
         <Box
+          className="message"
           sx={{
             position: 'fixed',
             right: 35,
